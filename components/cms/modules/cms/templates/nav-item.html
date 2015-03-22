@@ -1,0 +1,6 @@
+<% if (button) { %>
+	<a href="#<%= route %>"><span class="glyphicon glyphicon-<%= button %>"></span></a>
+<% } else { %>
+    <a class="create" style="display:none;" href="#<%= route %>/new"><span class="glyphicon glyphicon-plus"></span></a>
+    <a class="navButton <%= classNames %>" href="#<%= route %>"> <%= label %> </a>
+<% } %>

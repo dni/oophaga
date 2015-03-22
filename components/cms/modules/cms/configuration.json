@@ -1,0 +1,15 @@
+{
+  "moduleName": "CmsModule",
+  "settings": {
+    "domain" : {
+      "value": "localhost",
+      "type": "text"
+    },
+    "backupDatabase" : {
+      "type": "button"
+    },
+    "restoreDatabase" : {
+      "type": "button"
+    }
+  }
+}

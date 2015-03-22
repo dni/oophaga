@@ -1,0 +1,57 @@
+{
+  "moduleName": "SimpleModule",
+  "modelName": "Simple",
+  "collectionName": "Simples",
+  "url": "/simples/",
+  "urlRoot": "simples",
+  "dbTable": "simples",
+  "navigation": true,
+  "fields": ["title", "password", "range", "checkbox", "textarea", "colorpicker", "datepicker", "wysiwyg", "selectsetting", "selectmodel", "button"],
+  "columns": ["title"],
+  "model": {
+    "title" : {
+      "type": "text"
+    },
+    "password" : {
+      "type": "password"
+    },
+    "range" : {
+      "type": "range",
+      "min": 0,
+      "max": 10,
+      "steps": 0.5
+    },
+    "checkbox" : {
+      "type": "checkbox"
+    },
+    "textarea" : {
+      "type": "textarea"
+    },
+    "colorpicker" : {
+      "type": "color"
+    },
+    "datepicker" : {
+      "type": "date"
+    },
+    "wysiwyg" : {
+      "type": "wysiwyg"
+    },
+    "selectmodel" : {
+      "type": "select",
+      "collection": "Examples"
+    },
+    "selectsetting" : {
+      "type": "select",
+      "setting": "options"
+    },
+    "button": {
+      "type": "button"
+    }
+  },
+  "settings": {
+    "options" : {
+      "type": "text",
+      "value": "option1, option2, option3"
+    }
+  }
+}

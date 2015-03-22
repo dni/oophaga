@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Oophaga! a simple Javascript CMS</title>
+    <meta name="description" content="" />
+    <meta name="author" content="dni" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--		<meta name="viewport" content="width=device-width; initial-scale=1.0" /> -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  </head>
+
+  <body>
+    <div id="app">
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Oophaga CMS</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+            <ul class="nav navbar-nav">
+              <li> <a href="javascript:history.back();"><span class="glyphicon glyphicon-chevron-left"></span></a> </li>
+              <li>
+                <a href="#uploadFile"/><span class="glyphicon glyphicon-cloud-upload"></span>
+                  <form class="form-inline form-plugin" action="/uploadFile" method="POST" id="uploadFile" enctype="multipart/form-data">
+                    <div class="fileinput-button">
+                        <input id="upload" type="file" name="files[]" multiple="multiple">
+                    </div>
+                  </form>
+                </a>
+              </li>
+              <li> <a href="#clearCache"/><span class="glyphicon glyphicon-refresh"></span></a> </li>
+              <li> <a href="#logout"/><span class="glyphicon glyphicon-off"></span></a> </li>
+            </ul>
+          <div id="navigation" class="collapse navbar-collapse navbar-ex1-collapse"></div>
+         </div>
+       </nav>
+      <div id="details"></div>
+      <div id="controls"></div>
+      <div id="content"></div>
+      <div id="overlay"></div>
+      <div id="info"></div>
+    </div>
+  </body>
+  <script type="text/javascript" data-main="config" src="vendor/require.js"></script>
+</html>

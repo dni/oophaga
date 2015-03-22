@@ -1,0 +1,15 @@
+{
+  "moduleName": "ExampleModule",
+  "modelName": "Example",
+  "collectionName": "Examples",
+  "url": "/examples/",
+  "dbTable": "examples",
+  "navigation": true,
+  "fields": ["title"],
+  "columns": ["title"],
+  "model": {
+    "title" : {
+      "type": "text"
+    }
+  }
+}
