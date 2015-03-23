@@ -34,7 +34,6 @@ module.exports = (grunt)->
       scripts:
         files: ['components/**/*.coffee']
         tasks: ['test']
-        ,
         options:
           spawn: false
       json:
@@ -95,7 +94,7 @@ module.exports = (grunt)->
       lib: src: [ 'lib' ]
       build: src: [ 'cache/build' ]
       buildBackend: src: [ 'cache/build/cms' ]
-      vendorBackend: src: [ 'components/frontend/vendor' ]
+      vendorBackend: src: [ 'components/cms/vendor' ]
 
     mkdir:
       all:
@@ -188,7 +187,7 @@ module.exports = (grunt)->
             utilities: '../utilities'
             modules: '../modules'
             App: "../utilities/App"
-            Publish: "../lib/Publish"
+            Oophaga: "../lib/Oophaga"
             Router: '../utilities/Router'
             Utils: '../utilities/Utilities'
             tinymce: 'tinymce/tinymce',

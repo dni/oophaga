@@ -37,7 +37,7 @@ define [
         # Standard Routes
         routes[@Config.moduleName] = "list"
         routes[@Config.modelName+'/:id'] = "details"
-        routes[@Config.modelName+'/new'] = "add"
+        routes[@Config.moduleName+'/new'] = "add"
         Router.processAppRoutes @Controller, routes
 
       if config.settings

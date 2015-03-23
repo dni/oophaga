@@ -7,7 +7,7 @@ define({
       "title": "Text",
       "textarea": "Textarea",
       "colorpicker": "Colorpicker",
-      "checkbox": "Checkbox",
+      "checkboxvalue": "Checkbox",
       "range": "Range",
       "button": "Button",
       "password": "Password",

@@ -34,35 +34,7 @@ define [
       @initFields()
 
     templateHelpers: ->
-      vhs: Utils.Viewhelpers
-      notpublishable: @notpublishable
-      Config: @options.Config
-      t: @options.i18n
-      checkCondition: (condition)->
-        @[condition]()
-      isPrint:->
-        setting = App.Settings.findSetting "MagazineModule"
-        setting.getValue 'print'
-      getOptions:(attribute)->
-        options = {}
-        if attribute.collection
-          App[attribute.collection].forEach (model)->
-            options[model.get("_id")] = model.getValue("title")
-          return options
-        if attribute.setting
-          setting = App.Settings.findSetting @Config.moduleName
-          values = setting.getValue(attribute.setting).split(',')
-          for option in values
-            options[option.trim()] = option.trim()
-          return options
-        return attribute.options
-      foreachAttribute: (fields, cb)->
-        keys = Object.keys(fields)
-        fieldsArray = @Config.fields or keys.splice(0,keys.length-1)
-        for key in fieldsArray
-          field = fields[key]
-          field = @Config.model[key] unless field?
-          cb key, field
+      vhs: _.extend Utils.Viewhelpers, Config: @options.Config, t: @options.i18n
 
     getValuesFromUi: ()->
       fields = @options.Config.model
@@ -95,9 +67,9 @@ define [
       "click .cancel": "cancel"
       "click .delete": "deleteModel"
 
-    cancel: ->
+    cancel: =>
       App.detailRegion.empty()
-      Router.navigate @Config.moduleName
+      Router.navigate @options.Config.moduleName, trigger:true
 
     save: ->
       @model.set "fields", @getValuesFromUi()
@@ -120,6 +92,7 @@ define [
     deleteModel: ->
       Utils.Log @options.i18n.deleteModel, 'delete', text: @model.get '_id'
       App.detailRegion.empty()
+      Router.navigate @options.Config.moduleName, trigger:true
       @model.destroy
         success: ->
 

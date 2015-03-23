@@ -5,6 +5,7 @@ define({
   "attributes": {
     "title": "Titel",
     "number": "Sortierung",
+    "checkboxvalue": "Checkbox",
     "article": "Artikel",
     "magazine": "Magazine",
     "layout": "Layout",

@@ -34,10 +34,16 @@ define [
       @newDetailView model
 
     createNewModel: ->
+      date = new Date
       model = new @Model
       model.urlRoot = @Config.dbTable
       model.collectionName = @Config.collectionName
       model.set
+        published: false
+        date: date
+        crdate: date
+        user: App.User.get "_id"
+        cruser: App.User.get "_id"
         fields: @Config.model
         fieldorder: @Config.fields
         name: @Config.modelName
@@ -58,7 +64,8 @@ define [
     list: ->
       App.listTopRegion.show new @TopView
         navigation: @i18n.navigation
-        newRoute: 'new'+@Config.modelName
+        newModel: @Config.model?
+        newRoute: @Config.moduleName + "/new"
       FilteredCollection = Utilities.FilteredCollection App[@Config.collectionName]
       FilteredCollection.filter @filterFunction
       App.contentRegion.show new @ListView

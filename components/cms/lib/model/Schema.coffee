@@ -9,6 +9,7 @@ module.exports = (dbTable)->
       sortorder: Number
       fieldorder: Array
       published: Boolean
+      cruser: String
       user: String
       crdate: Date
       date: Date
