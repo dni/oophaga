@@ -22,6 +22,7 @@ define [
         model: @model
 
   class RelatedFileView extends Marionette.CompositeView
+    className: "container"
     childView: ItemView
     childViewContainer: ".file-list"
     template: Template

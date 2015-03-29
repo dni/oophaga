@@ -1,4 +1,4 @@
-auth = require "../../utilities/auth"
+auth = require "../../lib/utilities/auth"
 module.exports.setup = (app) ->
 
   app.get "/backupDatabase", auth, (req,res)->

@@ -1,11 +1,11 @@
 async = require "async"
-auth = require './../../utilities/auth'
+auth = require './../../lib/utilities/auth'
 multiparty = require "multiparty"
 fs = require "fs-extra"
 dir = "./public/files/"
 
 module.exports.setup = (app, config, setting)->
-  utils = require("../../utilities/fileutils.coffee")(app, setting)
+  utils = require("../../lib/utilities/fileutils.coffee")(app, setting)
 
   # upload file
   app.post "/uploadFile", auth, (req,res)->

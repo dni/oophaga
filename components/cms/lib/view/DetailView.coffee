@@ -1,7 +1,7 @@
 define [
   'cs!App'
   'cs!Oophaga'
-  'i18n!modules/cms/nls/language.js'
+  'i18n!lib/nls/language.js'
   'cs!lib/model/Collection'
   'cs!Utils'
   'cs!Router'
@@ -34,7 +34,7 @@ define [
       @initFields()
 
     templateHelpers: ->
-      vhs: _.extend Utils.Viewhelpers, Config: @options.Config, t: @options.i18n
+      vhs: _.extend Utils.Viewhelpers, Config: @options.Config, t: attributes: _.extend @options.i18n.attributes, i18n.attributes
 
     getValuesFromUi: ()->
       fields = @options.Config.model

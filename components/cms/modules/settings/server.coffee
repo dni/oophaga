@@ -1,5 +1,5 @@
 async = require "async"
-auth = require './../../utilities/auth'
+auth = require './../../lib/utilities/auth'
 module.exports.setup = (app, config)->
 
   app.get "/clearCache", auth, (req, res) ->

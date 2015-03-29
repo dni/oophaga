@@ -70,5 +70,6 @@ define [
       FilteredCollection.filter @filterFunction
       App.contentRegion.show new @ListView
         config: @Config
+        columns: @Config.columns
         i18n: @i18n
         collection: FilteredCollection

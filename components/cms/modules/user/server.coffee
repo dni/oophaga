@@ -1,5 +1,5 @@
-auth = require "../../utilities/auth"
-utils = require "../../utilities/utils"
+auth = require "../../lib/utilities/auth"
+utils = require "../../lib/utilities/utils"
 
 module.exports.setup = (app, config)->
   User = require('../../lib/model/Schema')(config.dbTable)

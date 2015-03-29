@@ -1,5 +1,5 @@
 fs = require 'fs'
-crud = require './utilities/crud'
+crud = require './lib/utilities/crud'
 dir =  __dirname+'/modules/'
 configuration = require("./configuration.json")
 modules = configuration.backend_modules.map (moduleString)-> dir+moduleString.split("/")[1]

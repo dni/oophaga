@@ -1,8 +1,6 @@
 <div class="related-item">
 	<% if(fields.type.value.split("/")[0]=="image") { %>
-  <p>
       <img width="100" src="./public/files/<%= fields.thumbnail.value %>" alt="<%= fields.alt.value %>" />
-  </p>
 	<% } else { %>
 		<p><%= fields.title.value %></p>
 	<% } %>

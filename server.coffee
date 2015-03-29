@@ -12,7 +12,7 @@ mongoose = require "mongoose"
 db = mongoose.connect 'mongodb://localhost/'+config.dbname
 fs = require 'fs'
 User = require(__dirname+"/components/cms/lib/model/Schema")("users")
-auth = require "./components/cms/utilities/auth"
+auth = require "./components/cms/lib/utilities/auth"
 
 app.http().io()
 

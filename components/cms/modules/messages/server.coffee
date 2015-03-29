@@ -1,5 +1,5 @@
 Message = require("./../../lib/model/Schema")('messages')
-auth = require './../../utilities/auth'
+auth = require './../../lib/utilities/auth'
 
 module.exports.setup = (app, config) ->
 

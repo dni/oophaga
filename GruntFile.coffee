@@ -31,6 +31,9 @@ module.exports = (grunt)->
         files: "components/cms/lib/style/main.css": "components/cms/lib/style/main.less"
 
     watch:
+      less:
+        files: "components/**/*.less"
+        tasks: ["less"]
       scripts:
         files: ['components/**/*.coffee']
         tasks: ['test']
@@ -39,11 +42,6 @@ module.exports = (grunt)->
       json:
         files:  ['components/**/*.json', '!staticblocks.json']
         tasks: ['jsonlint']
-        options:
-          spawn: false
-      magazine:
-        files: ['components/magazine/**/*'],
-        tasks: ['generateMagazine']
         options:
           spawn: false
       server:
