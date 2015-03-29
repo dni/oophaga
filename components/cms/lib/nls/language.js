@@ -15,6 +15,8 @@ define({
     "closeit": "close",
     "deleteModel": "delete",
     "save": "save",
+    "savenew": "save & new",
+    "saveclose": "save & close",
     "publish": "Oophaga",
     "unpublish": "Unpublish",
     "navigation": "General",

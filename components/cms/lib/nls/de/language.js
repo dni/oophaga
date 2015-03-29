@@ -15,6 +15,8 @@ define({
   "deleteModel": "Löschen",
   "navigation": "Allgemein",
   "save": "Speichern",
+  "savenew": "Speichern & Neu",
+  "saveclose": "Speicher & Schließen",
   "date": "Datum",
   "publish": "Veröffentlichen",
   "unpublish": "Unveröffentlichen",

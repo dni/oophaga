@@ -182,12 +182,12 @@ module.exports = (grunt)->
             config: '../config'
             configuration: '../configuration.json'
             lib: '../lib'
-            utilities: '../utilities'
+            utilities: '../lib/utilities'
             modules: '../modules'
-            App: "../utilities/App"
+            App: "../lib/utilities/App"
             Oophaga: "../lib/Oophaga"
-            Router: '../utilities/Router'
-            Utils: '../utilities/Utilities'
+            Router: '../lib/utilities/Router'
+            Utils: '../lib/utilities/Utilities'
             tinymce: 'tinymce/tinymce',
             plugins: 'tinymce/tinymce/plugins',
             'jquery.tinymce': 'tinymce/jquery.tinymce.min',
