@@ -1,7 +1,13 @@
 define [
+  'jquery'
   'cs!App'
-], (App) ->
+  'jquery.form'
+], ($, App) ->
 
+  $('#upload').change ->
+    upload = $("#uploadFile")
+    upload.ajaxForm (response) ->
+    upload.submit()
 
   App.addRegions
     navigationRegion:"#navigation"
