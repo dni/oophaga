@@ -2,16 +2,18 @@
   <ul class="nav navbar-nav">
     <% if (newModel) { %>
       <li>
-        <a class="create" href="#<%= newRoute %>"><span class="glyphicon glyphicon-plus"></span></a>
+      <form class="navbar-form form-inline">
+        <a class="create btn btn-default" href="#<%= newRoute %>"><span class="glyphicon glyphicon-plus"></span></a>
+        </form>
       </li>
     <% } %>
     <li>
       <form class="navbar-form form-inline">
         <div class="btn-group" role="group" aria-label="...">
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list"></span</button>
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-stats"></span</button>
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span</button>
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-calendar"></span</button>
+          <button type="button" id="showlist" class="active btn btn-default"><span class="glyphicon glyphicon-list"></span</button>
+          <button type="button" id="showvisuals" class="btn btn-default"><span class="glyphicon glyphicon-stats"></span</button>
+          <button type="button" id="showmap" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span</button>
+          <button type="button" id="showcalendar" class="btn btn-default"><span class="glyphicon glyphicon-calendar"></span</button>
         </div>
       </form>
     </li>

@@ -61,6 +61,8 @@ define [
     add: ->
       App.detailRegion.show @getContentView()
 
+    visuals:->
+      c.l "visuals"
     list: ->
       App.listTopRegion.show new @TopView
         navigation: @i18n.navigation

@@ -9,6 +9,7 @@
   "columns": ["title"],
   "model": {
     "title" : {
+      "required": true,
       "type": "text"
     }
   }

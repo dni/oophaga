@@ -3,6 +3,10 @@ auth = require "./auth"
 module.exports = (app, config)->
   Schema = require('./../model/Schema')(config.dbTable)
 
+  # public data
+  app.get '/data/'+config.dbTable, (req, res)->
+    Schema.find(published:true).execFind (arr,data)-> res.send data
+
   # crud
   app.post '/'+config.dbTable, auth, (req, res)->
     schema = app.createModel config.moduleName

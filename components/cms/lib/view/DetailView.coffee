@@ -22,8 +22,7 @@ define [
     className: "container"
     initialize:(args)->
       @model = args.model
-      @notpublishable = unless args.Config.notpublishable? then false else true
-      @ui = {}
+      @ui = published: "[name=published]"
       @ui[key] = "[name="+key+"]" for key, arg of args.Config.model
       @bindUIElements()
       @listenTo @model, 'change', @render
@@ -64,15 +63,26 @@ define [
 
     events:
       "click .save": "save"
+      "click .saveclose": "saveClose"
+      "click .savenew": "saveNew"
       "click .cancel": "cancel"
       "click .delete": "deleteModel"
 
+    saveNew: =>
+      @save()
+      Router.navigate @options.Config.moduleName+"/new", trigger:true
+
+    saveClose: =>
+      @save()
+      @cancel()
+
     cancel: =>
       App.detailRegion.empty()
-      Router.navigate @options.Config.moduleName, trigger:true
+      Router.navigate @options.Config.moduleName, trigger: !App.contentRegion.currentView?
 
-    save: ->
+    save: (done)->
       @model.set "fields", @getValuesFromUi()
+      @model.set "published", @ui.published.prop("checked")
       that = @
       if @model.isNew()
         App[that.options.Config.collectionName].create @model,
@@ -82,7 +92,6 @@ define [
             Utils.Log that.options.i18n.newModel, 'new',
               text: res.attributes._id
               href: route
-            Router.navigate route, trigger:false
       else
         Utils.Log @options.i18n.updateModel, 'update',
           text: @model.get '_id'
