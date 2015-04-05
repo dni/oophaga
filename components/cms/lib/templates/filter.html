@@ -1,15 +1,58 @@
-<div>
-<select class="filter-select" id="groupby">
-  <option value="getWeek">Week</option>
-  <option value="getMonth">Month</option>
-  <option value="getDayOfYear">Day</option>
-</select>
-<select class="filter-select" id="year">
-  <option value="2015">2015</option>
-  <option value="2014">2014</option>
-</select>
-<label><input checked="checked" id="cumu" type="checkbox" /> kumuliert</label>
+<div class="col-md-3">
+  <div class="form-group">
+    <label>Type</label>
+    <select name="type">
+      <option value="path">path</option>
+      <option value="bar">bar</option>
+      <option value="pie">pie</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>X Axis</label>
+    <select name="x">
+      <option value="crdate">crdate</option>
+      <option value="date">date</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Y Axis</label>
+    <select name="y">
+      <option value="count">count</option>
+    </select>
+  </div>
 </div>
-<div>
-  <button id="download" class="btn btn-default"><span class="glyphicon glyphicon-download"></span> download</button>
+<div class="col-md-3">
+  <div class="form-group">
+    <label>Stack By</label>
+    <select name="stack">
+      <option value=""></option>
+      <option value="user">User</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Group per</label>
+    <select class="filter-select" name="groupby">
+      <option value=""></option>
+      <option value="getWeek">Week</option>
+      <option value="getMonth">Month</option>
+      <option value="getDayOfYear">Day</option>
+      <option value="getYear">Year</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Filter Year</label>
+    <select class="filter-select" name="year">
+      <option value=""></option>
+      <option value="2015">2015</option>
+      <option value="2014">2014</option>
+    </select>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="form-group">
+    <label><input checked="checked" name="cumu" value="1" type="checkbox" /> cumulated</label>
+  </div>
+  <div class="form-group">
+    <button id="download" class="btn btn-default"><span class="glyphicon glyphicon-download"></span> download</button>
+  </div>
 </div>

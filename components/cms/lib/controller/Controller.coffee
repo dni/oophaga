@@ -89,6 +89,10 @@ define [
     map:->
       c.l "map"
 
+    init: ->
+      App.detailRegion.empty()
+      @list()
+
     list: ->
       App.listTopRegion.show new @TopView
         navigation: @i18n.navigation

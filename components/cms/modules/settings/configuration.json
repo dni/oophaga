@@ -6,8 +6,10 @@
     "url": "/settings/",
     "urlRoot": "settings",
     "dbTable": "settings",
-    "navigation": true,
-    "navigationButton": "cog",
+    "navigation": {
+      "button": "cog",
+      "sub": true
+    },
     "columns": ["title"],
     "notpublishable": true
 }

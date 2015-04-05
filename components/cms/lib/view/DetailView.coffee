@@ -88,18 +88,10 @@ define [
         App[that.options.Config.collectionName].create @model,
           wait: true # related views
           success: (res) ->
-            route = res.attributes.name+'/'+res.attributes._id
-            Utils.Log that.options.i18n.newModel, 'new',
-              text: res.attributes._id
-              href: route
       else
-        Utils.Log @options.i18n.updateModel, 'update',
-          text: @model.get '_id'
-          href: @model.get("name")+'/'+@model.get '_id'
         @model.save()
 
     deleteModel: ->
-      Utils.Log @options.i18n.deleteModel, 'delete', text: @model.get '_id'
       App.detailRegion.empty()
       Router.navigate @options.Config.moduleName, trigger:true
       @model.destroy
@@ -107,6 +99,9 @@ define [
 
     initFields: ->
       @$el.find(".datepicker").datetimepicker showToday:true
+      @$el.find('[data-toggle=tooltip]').tooltip
+        placement: 'right'
+        container: 'body'
       @$el.find(".colorpicker").minicolors
         control: $(this).attr('data-control') || 'hue'
         inline: $(this).attr('data-inline') == 'true'
@@ -114,21 +109,20 @@ define [
         change: (hex, opacity)-> true
         theme: 'bootstrap'
       # tinymce
-      @$el.find(".wysiwyg").tinymce
-        theme: "modern"
-        baseURL: '/vendor/tinymce'
-        menubar : false
-        language: i18n.langCode
-        convert_urls: true,
-        remove_script_host:false,
-        relative_urls : true,
-        plugins: [
-            "advlist autolink lists link charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount code fullscreen",
-            "insertdatetime nonbreaking table contextmenu directionality",
-            "paste"
-        ]
-      toolbar1: "insertfile undo redo | table | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link code"
-      @$el.find('[data-toggle=tooltip]').tooltip
-        placement: 'right'
-        container: 'body'
+      setTimeout =>
+        @$el.find(".wysiwyg").tinymce
+          theme: "modern"
+          baseURL: '/vendor/tinymce'
+          menubar : false
+          language: i18n.langCode
+          convert_urls: true,
+          remove_script_host:false,
+          relative_urls : true,
+          toolbar1: "insertfile undo redo | table | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link code"
+          plugins: [
+              "advlist autolink lists link charmap print preview hr anchor pagebreak",
+              "searchreplace wordcount code fullscreen",
+              "insertdatetime nonbreaking table contextmenu directionality",
+              "paste"
+          ]
+      , 50

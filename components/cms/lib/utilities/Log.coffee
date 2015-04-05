@@ -11,10 +11,10 @@ define [
     if !type? then type = 'log'
 
     App = require "cs!App"
-    username = App.User.attributes.fields.title.value
+    username = App.User.get "_id"
 
     config.model.message.value =  log
-    config.model.name.value = username
+    config.model.user.value = username
     config.model.type.value = type
     config.model.additionalinfo.value = additionalinfo
 

@@ -13,17 +13,11 @@ define [
 
   class Abstractgraph extends Marionette.CompositeView
 
-    groupFunction: (model)=>
-      date = new Date model.get("crdate")
-      # return date[@filter]() if @filter?
-      date.getMonth()
-
-    sortFunction: (d)=> d.date
-
+    tagName: "form"
     template: Template
 
     events:
-      "change select, #cumu": "changeFilter"
+      "change select, input": "changeFilter"
       "click #download": "downloadSvg"
 
     downloadSvg: ->
@@ -34,10 +28,10 @@ define [
       blob = new Blob([html], {type: "image/svg+xml;charset=utf-8"})
       saveAs blob, "graph.svg"
 
+    filter: {}
     changeFilter:->
-      @filter = @$el.find('#groupby').val()
-      @cumu = @$el.find('#cumu').prop("checked")
-      @year = @$el.find('#year').val()
+      @filter.cumu = false # reset checkbox
+      _.forEach @$el.serializeArray(), (filter)=> @filter[filter.name] = filter.value
       @showChart @prepareData()
 
     initialize:->
@@ -50,14 +44,26 @@ define [
     prepareData:->
       that = @
       count = 1
-      @collection.filter (model)->
-        date = new Date model.get("crdate")
-        date.getFullYear() is parseInt that.year
-      @collection.map (model)->
-        count++ if that.cumu
-        date: new Date model.get("crdate")
+
+      if @filter.year
+        @collection.filter (model)->
+          date = new Date model.get(that.filter.x)
+          date.getFullYear() is parseInt that.year
+
+      if @filter.groupBy
+        @collection.groupBy (model)=>
+          date = new Date model.get(that.filter.x)
+          return date[@filter.groupBy]()
+
+      sorted = @collection.sortBy (model)->
+        date = new Date model.get(that.filter.x)
+        date.getTime()
+
+      sorted.map (model)->
+        count++ if that.filter.cumu
+        date: new Date model.get(that.filter.x)
         value: count
-        title: model.getValue("title")
+        title: model.getValue("title") or model.getValue("message")
         href: model.getHref()
 
     preInit:->
@@ -69,6 +75,7 @@ define [
       @yAxis = d3.svg.axis()
         .scale(@y)
         .orient("left")
+      @color = d3.scale.category20()
 
     render:->
       @_ensureViewIsIntact()

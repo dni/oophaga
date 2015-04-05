@@ -35,7 +35,7 @@ define [
         # Routes from Controller
         routes = @Controller.routes || {}
         # Standard Routes
-        routes[@Config.moduleName] = "list"
+        routes[@Config.moduleName] = "init"
         routes[@Config.moduleName+'/list/'] = "list"
         routes[@Config.moduleName+'/calendar/'] = "calendar"
         routes[@Config.moduleName+'/graph/'] = "visuals"
@@ -47,5 +47,8 @@ define [
       if config.settings
         App.vent.trigger 'SettingsModule:translate', @i18n
 
-      if config.navigation is true
-        App.vent.trigger 'publish:addNavItem', {button:config.navigationButton, route:config.moduleName, newRoute: config.model?}, @i18n
+      if config.navigation
+        App.vent.trigger 'CmsModule:addNavItem',
+          navigation:config.navigation
+          route: config.moduleName
+        , @i18n
