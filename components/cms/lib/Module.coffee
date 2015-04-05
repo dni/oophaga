@@ -36,8 +36,12 @@ define [
         routes = @Controller.routes || {}
         # Standard Routes
         routes[@Config.moduleName] = "list"
+        routes[@Config.moduleName+'/list/'] = "list"
+        routes[@Config.moduleName+'/calendar/'] = "calendar"
+        routes[@Config.moduleName+'/graph/'] = "visuals"
+        routes[@Config.moduleName+'/map/'] = "map"
+        routes[@Config.moduleName+'/new/'] = "add"
         routes[@Config.modelName+'/:id'] = "details"
-        routes[@Config.moduleName+'/new'] = "add"
         Router.processAppRoutes @Controller, routes
 
       if config.settings

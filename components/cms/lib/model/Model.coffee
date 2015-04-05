@@ -5,12 +5,20 @@ define [
 ], (App, Backbone, _) ->
   class Model extends Backbone.Model
     idAttribute: "_id"
-    defaults:
-      fields: {}
+
+    defaults: fields: {}
 
     initialize: ->
       @on "change", ->
         @changes.push @previousAttributes()
+
+
+    getHref: -> "##{@get('name')}/#{@get('_id')}"
+
+    getCalenderEvent: ->
+      title: @getValue "title"
+      url: @getHref()
+      start: @get "crdate"
 
     setValue: (fieldname, val)->
       fields = @get "fields"
@@ -33,7 +41,7 @@ define [
         coll = App[collectionName].findWhere "_id":fields[fieldname].value
         coll.getValue collectionField
 
-    toggleOophaga: ->
+    togglePublished: ->
       @set "published", not @get "published"
 
     changes: []

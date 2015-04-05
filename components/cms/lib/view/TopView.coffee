@@ -10,6 +10,7 @@ define [
     defaults:
       navigation: 'Navigation Title'
       newModel:false
+      model:false
       newRoute:false
       search:false
       icon: 'plus'
@@ -18,31 +19,10 @@ define [
     template: Template
     initialize: (args)->
       @model = new TopModel args
-
     events:
-      "click #showlist": "showList"
-      "click #showvisuals": "showVisuals"
-      "click #showcalendar": "showCalender"
-      "click #showmap": "showMap"
-
-    setActive:(el)->
-      $el = $(el).parent()
+      "click .view": "setActive"
+    setActive:(e)->
+      $el = $(e.target).parent()
       return if $el.hasClass("active")
-      @$el.find("button.active").removeClass("active")
+      @$el.find(".active").removeClass("active")
       $el.addClass "active"
-
-    showList: (e)=>
-      return unless @setActive(e.target)
-      c.l "showList"
-
-    showVisuals: (e)=>
-      return unless @setActive(e.target)
-      c.l "showV"
-
-    showCalender: (e)=>
-      return unless @setActive(e.target)
-      c.l "showV"
-
-    showMap: (e)=>
-      return unless @setActive(e.target)
-      c.l "showV"

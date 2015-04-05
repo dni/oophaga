@@ -9,8 +9,11 @@ define [
   "cs!../view/TopView"
   "cs!../view/ListView"
   "cs!../view/DetailView"
+  "cs!../view/GraphView"
+  "cs!../view/CalendarView"
 
-], ( App, Utilities, Marionette, _, Model, Collection, EmptyView, TopView, ListView, DetailView) ->
+], ( App, Utilities, Marionette, _, Model, Collection, EmptyView, TopView, ListView, DetailView, GraphView, CalendarView) ->
+
 
   class Controller extends Marionette.Controller
 
@@ -20,8 +23,16 @@ define [
       unless @Collection? then @Collection = Collection
       unless @DetailView? then @DetailView = DetailView
       unless @ListView? then @ListView = ListView
+      unless @GraphView? then @GraphView = GraphView
+      unless @CalendarView? then @CalendarView = CalendarView
       unless @TopView? then @TopView = TopView
       unless @EmptyView? then @EmptyView = EmptyView
+
+    getCollection: ->
+      unless @FilteredCollection?
+        @FilteredCollection = Utilities.FilteredCollection App[@Config.collectionName]
+      @FilteredCollection.filter @filterFunction
+      @FilteredCollection
 
     newDetailView:(model)->
       @detailView = new @DetailView
@@ -62,16 +73,30 @@ define [
       App.detailRegion.show @getContentView()
 
     visuals:->
-      c.l "visuals"
+      App.contentRegion.show new @GraphView
+        config: @Config
+        i18n: @i18n
+        className: "container"
+        collection: @getCollection()
+
+    calendar:->
+      App.contentRegion.show new @CalendarView
+        config: @Config
+        i18n: @i18n
+        className: "container"
+        collection: @getCollection()
+
+    map:->
+      c.l "map"
+
     list: ->
       App.listTopRegion.show new @TopView
         navigation: @i18n.navigation
+        model: @Config.model?
         newModel: @Config.model?
-        newRoute: @Config.moduleName + "/new"
-      FilteredCollection = Utilities.FilteredCollection App[@Config.collectionName]
-      FilteredCollection.filter @filterFunction
+        moduleName: @Config.moduleName
       App.contentRegion.show new @ListView
         config: @Config
         columns: @Config.columns
         i18n: @i18n
-        collection: FilteredCollection
+        collection: @getCollection()
