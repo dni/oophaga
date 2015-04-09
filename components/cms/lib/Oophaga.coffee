@@ -18,6 +18,7 @@ define [
   Module: Module
   Controller:
     Controller: Controller
+
     LayoutController: LayoutController
   Model: Model
   Collection: Collection

@@ -17,7 +17,7 @@ define [
       @on 'render', @afterRender
 
     showRelatedView: =>
-      @$el.parent().find('.related-view').show();
+      @$el.parent().find('.related-view').show()
       @relatedRegion.show @RelatedView
 
     afterRender:->
@@ -25,4 +25,3 @@ define [
       # dont create subviews if model is new and there is no _id for the relation
       if !@DetailView.model.isNew() then @showRelatedView()
       else @DetailView.model.on "sync", @showRelatedView, @
-

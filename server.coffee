@@ -47,6 +47,7 @@ app.configure ->
   app.use passport.initialize()
   app.use passport.session()
 
+
 # login
 app.get '/login', (req, res)->
   res.sendfile process.cwd()+'/components/cms/login.html'

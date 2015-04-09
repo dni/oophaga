@@ -14,6 +14,7 @@ define [
 
   class Controller extends Marionette.Controller
 
+
     constructor: (args)->
       @[key] = arg for key, arg of args
       unless @Model? then @Model = Model

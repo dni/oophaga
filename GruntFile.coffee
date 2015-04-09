@@ -12,6 +12,7 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-less'
+  grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
   grunt.loadNpmTasks 'grunt-jsonlint'
@@ -30,17 +31,27 @@ module.exports = (grunt)->
       development:
         files: "components/cms/lib/style/main.css": "components/cms/lib/style/main.less"
 
+    coffee:
+      test:
+        files: 'spec.js': 'components/cms/**/spec/*.coffee'
+
     watch:
+      coffee:
+          files: ['components/cms/**/spec/*.coffee'],
+          tasks: ['coffee', 'test']
+
       less:
         files: "components/**/*.less"
         tasks: ["less"]
+
       scripts:
-        files: ['components/**/*.coffee']
+        files: ['components/**/*.coffee', '!components/**/spec/*.coffee']
         tasks: ['test']
         options:
           spawn: false
+
       json:
-        files:  ['components/**/*.json', '!staticblocks.json']
+        files:  ['components/**/*.json']
         tasks: ['jsonlint']
         options:
           spawn: false
@@ -56,7 +67,7 @@ module.exports = (grunt)->
           'max_line_length':
             level: 'ignore'
         files:
-          src: ['components/cms/**/*.coffee', 'components/frontend/**/*.coffee']
+          src: ['components/cms/**/*.coffee', 'components/cms/**/*.coffee']
 
     jsonlint:
       all:
@@ -64,14 +75,38 @@ module.exports = (grunt)->
 
     jasmine:
       cms:
-        src: '*.js'
         options:
-          specs: 'components/cms/modules/**/spec/*Spec.js'
-          helpers: 'components/cms/modules/**/spec/*Helper.js'
-          # host : 'http://localhost:1666/admin/'
+          specs: 'spec.js'
+          # helpers: 'components/cms/**/spec/*Helper.js'
+          # host : 'http://localhost:1666/'
           template: require 'grunt-template-jasmine-requirejs'
           templateOptions:
-            requireConfigFile: 'components/cms/config.js'
+            requireConfig:
+              appDir: 'components/cms'
+              baseUrl: 'components/cms/vendor'
+              stubModules: ['less', 'css', 'cs', 'coffee-script'],
+              modules: [{
+                name: 'config'
+                include: backend_modules
+                exclude: ['coffee-script', 'css', 'less']
+              }]
+              shim:
+                'jquery.tinymce':['jquery', 'tinymce']
+                'jquery.ui':['jquery']
+                'jquery.minicolors':['jquery']
+              paths:
+                config: '../config'
+                configuration: '../configuration.json'
+                lib: '../lib'
+                utilities: '../lib/utilities'
+                modules: '../modules'
+                App: "../lib/utilities/App"
+                Oophaga: "../lib/Oophaga"
+                Router: '../lib/utilities/Router'
+                Utils: '../lib/utilities/Utilities'
+                tinymce: 'tinymce/tinymce',
+                plugins: 'tinymce/tinymce/plugins',
+                'jquery.tinymce': 'tinymce/jquery.tinymce.min',
 
     clean:
       everything: src: [

@@ -46,7 +46,7 @@ define [
         return c.l "field doesnt exist" unless field
         if field.collection
           App[field.collection].findBy _id: field.value, (model)->
-              model.getValue("title")
+            model.getValue("title")
         else
           -field.getValue target.attr("class")
         -item.getValue(target.attr("class"))

@@ -8,6 +8,7 @@ define [
       @[key] = arg for key, arg of args
 
     init:->
+      console.log "lol"
 
       unless @Config? then return c.l "no module Config"
       unless @i18n? then return c.l "no module i18n"
