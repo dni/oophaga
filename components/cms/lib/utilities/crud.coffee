@@ -19,6 +19,7 @@ module.exports = (app, config)->
         schema[key] = req.body[key]
     app.emit config.moduleName+':after:post', req, res, schema
     schema.save ->
+      app.log schema, "create"
       req.io.broadcast "createModel", schema, config.collectionName
       res.send schema
 
@@ -39,6 +40,7 @@ module.exports = (app, config)->
       schema.published = req.body.published
       schema.save ->
         app.emit config.moduleName+':after:put', req, res, schema
+        app.log schema, "update"
         req.io.broadcast "updateModel", schema._id, config.collectionName
         res.send schema
 
@@ -46,5 +48,6 @@ module.exports = (app, config)->
     Schema.findById req.params.id, (e, schema)->
       schema.remove ->
         app.emit config.moduleName+':after:delete', req, res, schema
+        app.log schema, "delete"
         req.io.broadcast "destroyModel", schema._id, config.collectionName
         res.send 'deleted'

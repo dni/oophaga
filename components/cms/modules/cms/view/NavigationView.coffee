@@ -7,12 +7,14 @@ define [
 
   class NavigationItemView extends Marionette.ItemView
     template: Template
-    tagName: 'li'
+    onRender:->
+      @$el = @$el.children()
+      @$el.unwrap()
+      @setElement @$el
 
   class NavigationView extends Marionette.CollectionView
     tagName: "ul"
     className: "nav navbar-nav"
-
     childView: NavigationItemView
     events:
       "click a": "clicked"

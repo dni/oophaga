@@ -23,18 +23,22 @@ module.exports.setup = (app)->
     schema.fields = fields
     return schema
 
-  app.log = (string, type, name, additionalinfo)->
-    if !additionalinfo? then additionalinfo = ''
+  app.log = (model, type)->
+    return if model.name is "Message" # dont log yourself ;)
     if !type? then type = 'log'
     if !name? then name = 'System'
+    additionalinfo =
+      href: "##{model.name}/#{model._id}"
+    msg = "#{app.user.getFieldValue("title")}: #{type}, #{model.name}"
     message = app.createModel 'MessagesModule'
     message.setFieldValue
-      name: name
-      message: string
+      name: message.cruser
+      message: msg
       type: type
       additionalinfo: additionalinfo
     message.save ->
-      app.io.broadcast "message", message
+      app.io.broadcast "createModel", message, "Messages"
+      app.io.broadcast "message", msg, type
 
   app.configure ->
     # load/setup modules

@@ -151,6 +151,9 @@ module.exports = (grunt)->
           "jquery.js": "jquery/dist/jquery.js"
           "io.js": "socket.io-client/dist/socket.io.js"
           "require.js": "requirejs/require.js"
+          "d3.js": 'd3/d3.js'
+          "fullcalendar.js": 'fullcalendar/dist/fullcalendar.js'
+          "d3-tip.js": 'd3-tip/index.js'
           "jquery.ui.js": "jquery-ui/jquery-ui.js"
           "jquery.form.js": "jquery-form/jquery.form.js"
           "underscore.js": "underscore/underscore.js"
@@ -178,10 +181,12 @@ module.exports = (grunt)->
           "lessc.js": "require-less/lessc.js"
           "bootstrap-datetimepicker.js": "eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
           "moment.js": "moment/min/moment-with-locales.js"
+          "FileSaver.js": "file-saver/FileSaver.js"
           # style
           "style": "bootstrap/less"
           "style/boostrap.css": "bootstrap/dist/css/bootstrap.css"
           "style/.": "jcrop/css/*"
+          "style/fullcalendar.css": 'fullcalendar/dist/fullcalendar.css'
           "style/jquery.minicolors.css": "jquery-minicolors/jquery.minicolors.css"
           "style/jquery.minicolors.png": "jquery-minicolors/jquery.minicolors.png"
           "style/bootstrap-datetimepicker.less": "eonasdan-bootstrap-datetimepicker/src/less/bootstrap-datetimepicker.less"

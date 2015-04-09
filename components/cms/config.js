@@ -15,6 +15,7 @@ require.config({
   shim: {
     'jquery.tinymce':['jquery', 'tinymce'],
     'minicolors':['jquery'],
+    'fullcalendar':['jquery', 'moment'],
   }
 });
 require(['cs!App','text!configuration', 'backbone', 'jquery'], function(App, configJSON, Backbone, $){

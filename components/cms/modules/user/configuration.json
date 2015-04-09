@@ -8,8 +8,10 @@
     "urlRoot": "users",
     "dbTable": "users",
     "notpublishable": true,
-    "navigation": true,
-    "navigationButton": "user",
+    "navigation": {
+      "sub": true,
+      "button": "user"
+    },
     "columns": ["title", "username", "email"],
     "fields": ["title", "email", "username", "password"],
     "model": {

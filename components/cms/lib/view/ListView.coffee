@@ -7,7 +7,7 @@ define [
   'cs!Utils'
   'cs!Router'
 ], (App, $, Marionette, Template, TemplateList, Utils, Router) ->
-  columns=""
+  columns=[]
   class ListItemView extends Marionette.ItemView
     tagName: "tr"
     template: Template
@@ -16,6 +16,7 @@ define [
       columns: columns
     events:
       "click .ok": "selectItem"
+      "click .remove": "removeItem"
       "click": "clicked"
     clicked: (e)->
       target = $(e.target)
@@ -25,6 +26,8 @@ define [
       Router.navigate @model.get("name")+"/"+@model.get("_id"), trigger:true
     selectItem:->
       @$el.toggleClass 'info'
+    removeItem:->
+      @model.destroy()
 
   class ListView extends Marionette.CompositeView
     childView: ListItemView
@@ -53,8 +56,7 @@ define [
       @collection.sort()
 
     initialize:->
-      columns = ['title', 'date']
-      columns = @columns if @columns
+      columns = @columns or @options.columns
       if @relatedView
         @collection = Utils.FilteredCollection App[@collectionName]
         @collection.filter (model)=> model.getValue(@fieldName) is @model.get("_id")

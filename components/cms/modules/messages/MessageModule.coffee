@@ -8,6 +8,5 @@ define [
 ( Oophaga, Controller, Config, i18n ) ->
 
   new Oophaga.Module
-    Controller: Controller
     Config: Config
     i18n: i18n

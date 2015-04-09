@@ -1,5 +1,4 @@
 auth = require "../../lib/utilities/auth"
-utils = require "../../lib/utilities/utils"
 
 module.exports.setup = (app, config)->
   User = require('../../lib/model/Schema')(config.dbTable)
@@ -10,8 +9,7 @@ module.exports.setup = (app, config)->
   # create default admin user if no user exists
   User.count {}, (err, count)->
     if count == 0
-      admin = utils.createModel User, config
-
+      admin = app.createModel "UserModule"
       admin.setFieldValue
         'email': "admin@publish.org"
         'username': "admin"
