@@ -9,6 +9,7 @@ public/books
 .DS_Store
 
 _SpecRunner.html
+spec.js
 .grunt
 
 npm-debug.log

@@ -1,5 +1,5 @@
 # define ['jquery'], ($)->
-describe "Neuer Test mit Harald QM: Visualisierungen", ->
+describe "Neeeuer Test mit Harald QM: Visualisierungen", ->
 
   it "download der Visualisierung sollte möglich sein", ->
     expect(true).toBeTruthy()

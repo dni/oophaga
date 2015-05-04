@@ -12,4 +12,4 @@ define [
 
     getCalendarEvents: ->
       return @calendarevents if @calendarevents
-      @calendarevents = @map (model)=> model.getCalenderEvent()
+      @calendarevents = @map (model)-> model.getCalenderEvent()
