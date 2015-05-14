@@ -1,16 +1,19 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <% columns.forEach(function(column){ %>
-        <th class="<%= column %>"><%= i18n.attributes[column] %></th>
-      <% });%>
-      <th>
-        <button class="btn btn-default btn-xs">Select all</button>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-
-
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Search">
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="100">
+          <button class="btn btn-default btn-xs">Select all</button>
+        </th>
+        <% columns.forEach(function(column){ %>
+          <th class="<%= column %>"><%= i18n.attributes[column] %></th>
+        <% });%>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

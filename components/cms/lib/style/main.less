@@ -15,8 +15,11 @@
 
 @icon-font-path:"/public/fonts/";
 @screen-lg-min:1400px;
-
+#map {height:600px}
+#map img {max-width:none;}
 .navbar {margin-bottom:0;}
+.tab-content {padding-top:18px;}
+
 .navbar-inner {border-radius:0px;}
 .nav > li > form {
   overflow:hidden;
@@ -31,12 +34,15 @@
 
 #subnavigation {
   position: fixed;
+  z-index:3;
   left: 6px;
   top: 120px;
   > div {margin-bottom:12px;}
 }
 
 #controls{
+  >div>* {margin:0 6px 5px 0;}
+  padding:6px 0 0 0;
   background:#ddd;
 }
 
@@ -63,8 +69,6 @@ img {
   box-sizing: border-box
 }
 
-#details {background:#eee;}
-#details > div {padding:42px 0;}
 /* LOGIN */
 #login > div {display:none;}
 
@@ -157,9 +161,5 @@ footer a {color:#008000;}
   }
   #setting-details {
     h1,h2 {width:100%;}
-  }
-  .form-fields {
-    .make-row();.clearfix();
-    > * {.make-lg-column(6);}
   }
 }

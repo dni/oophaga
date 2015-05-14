@@ -12,18 +12,11 @@ define [
       unless @LayoutView? then @LayoutView = LayoutView
       unless @RelatedView? then @RelatedView = RelatedView
 
-    getContentView:(model)->
-      model = @createNewModel() unless model?
-      @newLayoutView model
-
-    newRelatedView:(model)->
-      new @RelatedView
+    newDetailView:(model)->
+      @detailView = new @DetailView
         model: model
-        RelatedViews: @RelatedViews
-
-    newLayoutView:(model)->
-      detailView = @newDetailView model
-      relatedView = @newRelatedView model
-      new @LayoutView
-        detailView: detailView
-        relatedView: relatedView
+        Config: @Config
+        i18n: @i18n
+        relatedView: new @RelatedView
+          model: model
+          RelatedViews: @RelatedViews

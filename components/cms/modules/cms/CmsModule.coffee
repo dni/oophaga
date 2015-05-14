@@ -1,22 +1,41 @@
 define [
   'cs!App'
+  'googlemaps!'
   'cs!Oophaga'
   'i18n!./nls/language'
   'text!./configuration.json'
   'cs!./model/NavigationItem'
   'cs!./model/NavigationItems'
-  'cs!./view/NavigationView'
+  'cs!./view/Navbar'
   "css!lib/style/main"
   # "less!lib/style/main"
 ],
-( App, Oophaga, i18n, Config, NavigationItem, Collection, NavigationView)->
+( App, google, Oophaga, i18n, Config, NavigationItem, Collection, Navbar)->
+
+  App.google = google
+  App.getCurrentPosition = ->
+    App.position =
+      coords:
+        accuracy: 13976
+        altitude: null
+        altitudeAccuracy: null
+        heading: null
+        latitude: 48.579068299999996
+        longitude: 14.0396111
+        speed: null
+      timestamp: Date.now()
+    if navigator.geolocation
+      navigator.geolocation.getCurrentPosition (position)->
+        App.position = position
+    App.vent.trigger 'newPosition'
+
+  App.getCurrentPosition()
 
   NavigationItems = new Collection
   SubNavigationItems = new Collection
 
   # show navigation
-  App.navigationRegion.show new NavigationView collection: NavigationItems
-  App.subnavigationRegion.show new NavigationView collection: SubNavigationItems, className: "btn-group-vertical", tagName: "div"
+  App.navigationRegion.show new Navbar navitems: NavigationItems, subnavitems: SubNavigationItems
 
   # overlay view
   App.overlayRegion.show new Oophaga.View.OverlayView

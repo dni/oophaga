@@ -1,7 +1,7 @@
 define [
   'cs!App'
   'cs!Oophaga'
-  'i18n!lib/nls/language.js'
+  'i18n!lib/nls/language'
   'cs!lib/model/Collection'
   'cs!Utils'
   'cs!Router'
@@ -17,11 +17,14 @@ define [
   #important for build
   tinyMCE.baseURL = "/vendor/tinymce"
 
-  class DetailView extends Marionette.ItemView
+  class DetailView extends Marionette.LayoutView
     template: Template
-    className: "container"
+    regions:
+      relatedRegion: "#relations"
+
     initialize:(args)->
       @model = args.model
+      @relatedView = args.relatedView
       @ui = published: "[name=published]"
       @ui[key] = "[name="+key+"]" for key, arg of args.Config.model
       @bindUIElements()
@@ -46,7 +49,17 @@ define [
           field.value = @ui[key].prop('checked')
       return fields
 
+    showRelatedView: =>
+      @$el.find('#relation-tab').show()
+      @relatedRegion.show @relatedView
+
     renderRelatedViews: ->
+      # show related Views
+      if @relatedView
+        # dont create subviews if model is new and there is no _id for the relation
+        if !@model.isNew() then @showRelatedView()
+        else @model.on "sync", @showRelatedView, @
+      # fileview as field type file
       fields = @model.get "fields"
       @RelatedViews = {}
       for key, field of fields
@@ -82,6 +95,9 @@ define [
 
     save: (done)->
       @model.set "fields", @getValuesFromUi()
+      #set geolocation
+      App.getCurrentPosition()
+      @model.setLocation [App.position.coords.latitude, App.position.coords.longitude]
       @model.set "published", @ui.published.prop("checked")
       that = @
       if @model.isNew()

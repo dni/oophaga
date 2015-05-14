@@ -12,7 +12,6 @@ define [
       @on "change", ->
         @changes.push @previousAttributes()
 
-
     getHref: -> "##{@get('name')}/#{@get('_id')}"
 
     getCalenderEvent: ->
@@ -20,17 +19,28 @@ define [
       url: @getHref()
       start: @get "crdate"
 
+    getLocation:->
+      lat: @get 'lat'
+      lng: @get 'lng'
+
+    setLocation:(pos)->
+      @set 'lat', pos[0]
+      @set 'lng', pos[1]
+
     setValue: (fieldname, val)->
       fields = @get "fields"
       if _.isObject fieldname
         for key, value of fieldname
+          throw new Error("Field doesnt exist", key) unless fields[key]
           fields[key].value = value
       else
+        throw new Error("Field doesnt exist", fieldname) unless fields[fieldname]
         fields[fieldname].value = val
       @set "fields", fields
 
     getValue: (fieldname)->
       fields = @get "fields"
+      # throw new Error("Field doesnt exist", fieldname) unless fields[fieldname]
       return fields[fieldname]?.value
 
     getCollection: (fieldname, collectionField)->

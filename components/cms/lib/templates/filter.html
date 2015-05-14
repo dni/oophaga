@@ -1,58 +1,47 @@
-<div class="col-md-3">
-  <div class="form-group">
-    <label>Type</label>
-    <select name="type">
-      <option value="path">path</option>
-      <option value="bar">bar</option>
-      <option value="pie">pie</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>X Axis</label>
-    <select name="x">
-      <option value="crdate">crdate</option>
-      <option value="date">date</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Y Axis</label>
-    <select name="y">
-      <option value="count">count</option>
-    </select>
-  </div>
+<div class="container">
+  <ul class="nav navbar-nav">
+    <li>
+      <form class="navbar-form form-inline">
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-default active">
+            <input type="radio" name="type" value="path" checked>
+            Path </label>
+          <label class="btn btn-default">
+            <input type="radio" name="type" value="pie">
+            Pie </label>
+          <label class="btn btn-default">
+            <input type="radio" name="type" value="bar">
+            Bars </label>
+        </div>
+      </form>
+    </li>
+    <li>
+      <form class="navbar-form form-inline">
+        <div class="btn-group">
+          <!-- Single button -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              Value Y-Axis <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Count</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#"><span class="glyphicon glyphicon-plus"></span> create new</a></li>
+            </ul>
+          </div>
+          <button class="btn btn-default">cumulated</button>
+        </div>
+      </form>
+    </li>
+    <li>
+      <form class="navbar-form form-inline">
+        <div class="form-group">
+          <button id="download" class="btn btn-default"><span class="glyphicon glyphicon-download"></span> download</button>
+        </div>
+      </form>
+    </li>
+  </ul>
 </div>
-<div class="col-md-3">
-  <div class="form-group">
-    <label>Stack By</label>
-    <select name="stack">
-      <option value=""></option>
-      <option value="user">User</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Group per</label>
-    <select class="filter-select" name="groupby">
-      <option value=""></option>
-      <option value="getWeek">Week</option>
-      <option value="getMonth">Month</option>
-      <option value="getDayOfYear">Day</option>
-      <option value="getYear">Year</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Filter Year</label>
-    <select class="filter-select" name="year">
-      <option value=""></option>
-      <option value="2015">2015</option>
-      <option value="2014">2014</option>
-    </select>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="form-group">
-    <label><input checked="checked" name="cumu" value="1" type="checkbox" /> cumulated</label>
-  </div>
-  <div class="form-group">
-    <button id="download" class="btn btn-default"><span class="glyphicon glyphicon-download"></span> download</button>
-  </div>
-</div>
+<div id="graph-el" class="container"></div>

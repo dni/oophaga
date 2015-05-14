@@ -6,6 +6,7 @@ define [
   'cs!utilities/Date'
 ], ( Vent, Log, Debug, Viewhelpers) ->
 
+
   # return utilites, date util extens Date Object
   Utilities =
     Viewhelpers: Viewhelpers

@@ -10,8 +10,7 @@ define [
     upload.submit()
 
   App.addRegions
-    navigationRegion:"#navigation"
-    subnavigationRegion:"#subnav-buttons"
+    navigationRegion:"#navbar"
     contentRegion:"#content"
     detailRegion:"#details"
     infoRegion:"#info"

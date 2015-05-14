@@ -2,6 +2,7 @@
   "backend_modules": [
     "cs!modules/cms/CmsModule",
     "cs!modules/settings/SettingsModule",
+    "cs!modules/user/UserModule",
     "cs!modules/files/FileModule",
     "cs!modules/messages/MessageModule",
     "cs!modules/simple/SimpleModule",

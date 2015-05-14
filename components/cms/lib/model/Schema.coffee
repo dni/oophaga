@@ -10,6 +10,8 @@ module.exports = (dbTable)->
       fieldorder: Array
       published: Boolean
       cruser: String
+      lat: String
+      lng: String
       user: String
       crdate: Date
       date: Date

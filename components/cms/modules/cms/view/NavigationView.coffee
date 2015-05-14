@@ -13,9 +13,8 @@ define [
       @setElement @$el
 
   class NavigationView extends Marionette.CollectionView
-    tagName: "ul"
-    className: "nav navbar-nav"
     childView: NavigationItemView
+    tagName: "ul"
     events:
       "click a": "clicked"
 

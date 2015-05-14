@@ -10,6 +10,9 @@ define [
     defaults:
       navigation: 'Navigation Title'
       newModel:false
+      filter: false
+      group: false
+      sort: false
       model:false
       newRoute:false
       search:false
@@ -17,6 +20,7 @@ define [
 
   class TopView extends Marionette.ItemView
     template: Template
+    className: "container"
     initialize: (args)->
       @model = new TopModel args
     events:

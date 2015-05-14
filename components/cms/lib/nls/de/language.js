@@ -4,6 +4,8 @@ define({
     "crdate": "Date created",
     "user": "updated from",
     "cruser": "created from",
+    "lat": "Latitude",
+    "lng": "Longitude",
     "published": "published",
   },
   "langCode": "de",

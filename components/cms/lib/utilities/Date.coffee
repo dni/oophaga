@@ -1,7 +1,8 @@
 define [
-  'i18n!lib/nls/language.js'
+  'i18n!lib/nls/language'
 ],
 (i18n) ->
+
 
   Number::pad = (digits, signed) ->
     s = Math.abs(@).toString()

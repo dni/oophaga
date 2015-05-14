@@ -27,37 +27,21 @@ module.exports = (grunt)->
 
     pkg: grunt.file.readJSON 'package.json'
 
-    less:
-      development:
-        files: "components/cms/lib/style/main.css": "components/cms/lib/style/main.less"
-
-    coffee:
-      test:
-        files: 'spec.js': 'components/cms/**/spec/*.coffee'
-
     watch:
       coffee:
-          files: ['components/cms/**/spec/*.coffee'],
-          tasks: ['coffee', 'test']
-
+        files: ['spec/**/*.coffee'],
+        tasks: ['coffee', 'test']
       less:
         files: "components/**/*.less"
         tasks: ["less"]
-
       scripts:
         files: ['components/**/*.coffee', '!components/**/spec/*.coffee']
         tasks: ['test']
         options:
           spawn: false
-
       json:
         files:  ['components/**/*.json']
         tasks: ['jsonlint']
-        options:
-          spawn: false
-      server:
-        files: ['server.coffee']
-        tasks: ['restart']
         options:
           spawn: false
 
@@ -69,6 +53,16 @@ module.exports = (grunt)->
         files:
           src: ['components/cms/**/*.coffee', 'components/cms/**/*.coffee']
 
+    less:
+      development:
+        files: "components/cms/lib/style/main.css": "components/cms/lib/style/main.less"
+
+    coffee:
+      testCms:
+        files: 'spec/cms/spec.js': 'spec/cms/*.coffee'
+      testApi:
+        files: 'spec/api/spec.js': 'spec/api/*.coffee'
+
     jsonlint:
       all:
         src:  ['components/**/*.json']
@@ -76,12 +70,13 @@ module.exports = (grunt)->
     jasmine:
       cms:
         options:
-          specs: 'spec.js'
+          specs: 'spec/cms/spec.js'
           # helpers: 'components/cms/**/spec/*Helper.js'
           # host : 'http://localhost:1666/'
           template: require 'grunt-template-jasmine-requirejs'
           templateOptions:
             requireConfig:
+              i18n: locale: "de"
               appDir: 'components/cms'
               baseUrl: 'components/cms/vendor'
               stubModules: ['less', 'css', 'cs', 'coffee-script'],
@@ -179,6 +174,8 @@ module.exports = (grunt)->
           "css-builder.js": "require-css/css-builder.js"
           "normalize.js": "require-css/normalize.js"
           "lessc.js": "require-less/lessc.js"
+          "googlemaps.js": 'googlemaps-amd/src/googlemaps.js'
+          "async.js": 'requirejs-plugins/src/async.js'
           "bootstrap-datetimepicker.js": "eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
           "moment.js": "moment/min/moment-with-locales.js"
           "FileSaver.js": "file-saver/FileSaver.js"
@@ -291,7 +288,6 @@ module.exports = (grunt)->
   ]
 
   grunt.registerTask 'test', 'Test the App with Jasmine and JSONlint, Coffeelint', [
-    'jsonlint'
     'coffeelint'
     'jasmine'
   ]

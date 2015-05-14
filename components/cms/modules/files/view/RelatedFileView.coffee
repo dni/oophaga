@@ -4,7 +4,7 @@ define [
   'cs!utilities/Utilities'
   'cs!lib/model/Collection'
   'cs!Router'
-  'i18n!../nls/language.js'
+  'i18n!../nls/language'
   'marionette'
   'tpl!../templates/related.html'
   'tpl!../templates/related-item.html'

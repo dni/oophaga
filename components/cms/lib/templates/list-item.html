@@ -1,3 +1,9 @@
+<td>
+  <div class="btn-group">
+    <button class="ok btn btn-default btn-xs"><span class="glyphicon glyphicon-ok"></span></button>
+    <button class="remove btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+  </div>
+</td>
 <% columns.forEach(function(column){
   var value = "";
   if (fields[column] === undefined) {
@@ -10,12 +16,11 @@
     value = fields[column].value;
   }
 %>
-  <td class="column-<%= column %>"><%= value %></td>
+<td class="column-<%= column %>">
+  <% if (fields[column].type == "color") { %>
+    <span style="background:<%= value %>;display:inline-block;width:16px;height:16px;border-radius:16px;"></span>
+  <% } else { %>
+    <%= value %>
+  <% } %>
+  </td>
 <% }); %>
-<td>
-  <div class="btn-group">
-    <button class="ok btn btn-default btn-xs"><span class="glyphicon glyphicon-ok"></span></button>
-    <button class="remove btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-  </div>
-</td>
-<div class="buttons">

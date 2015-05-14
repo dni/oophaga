@@ -1,0 +1,19 @@
+{
+  "moduleName": "ExampleModule",
+  "modelName": "Example",
+  "collectionName": "Examples",
+  "url": "/examples/",
+  "dbTable": "examples",
+  "navigation": true,
+  "fields": ["title", "armin"],
+  "columns": ["title", "armin"],
+  "model": {
+    "title" : {
+      "required": true,
+      "type": "text"
+    },
+    "armin" : {
+      "type": "text"
+    }
+  }
+}

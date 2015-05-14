@@ -50,10 +50,10 @@ define [
           date = new Date model.get(that.filter.x)
           date.getFullYear() is parseInt that.year
 
-      if @filter.groupBy
+      if @filter.normalize
         @collection.groupBy (model)=>
           date = new Date model.get(that.filter.x)
-          return date[@filter.groupBy]()
+          return date[@filter.normalize]()
 
       sorted = @collection.sortBy (model)->
         date = new Date model.get(that.filter.x)
@@ -80,8 +80,8 @@ define [
     render:->
       @_ensureViewIsIntact()
       @triggerMethod('before:render', this)
-      if @template then @$el.prepend @template()
-      @svg = d3.select(@el).append("svg")
+      @$el.prepend @template()
+      @svg = d3.select(@$el.find("#graph-el").get(0)).append("svg")
         .attr "xmlns", "http://www.w3.org/2000/svg"
         .attr("width", @width + @margin.left + @margin.right)
         .attr("height", (@height + @margin.top + @margin.bottom))

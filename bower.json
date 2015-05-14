@@ -35,7 +35,8 @@
     "moment": "~2.8.4",
     "backbone.iobind": "~0.4.9",
     "fullcalendar": "~2.3.1",
-    "file-saver": "*"
+    "file-saver": "*",
+    "googlemaps-amd": "~1.0.1"
   },
   "devDependencies": {}
 }

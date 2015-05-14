@@ -10,15 +10,15 @@ define [
   'cs!lib/view/EmptyView'
   'cs!lib/view/TopView'
   'cs!lib/view/OverlayView'
+  'cs!lib/view/MapView'
   'cs!lib/Regions'
   'cs!lib/Events'
   'cs!lib/Socket'
-], ( Utils, Controller, LayoutController, Module, Model, Collection, ListView, DetailView, EmptyView, TopView, OverlayView) ->
+], ( Utils, Controller, LayoutController, Module, Model, Collection, ListView, DetailView, EmptyView, TopView, OverlayView, MapView) ->
   Utils: Utils
   Module: Module
   Controller:
     Controller: Controller
-
     LayoutController: LayoutController
   Model: Model
   Collection: Collection
@@ -28,3 +28,4 @@ define [
     ListView: ListView
     DetailView: DetailView
     OverlayView: OverlayView
+    MapView: MapView

@@ -83,6 +83,16 @@ define [
           disabled: true
           collection: "Users"
           type: "select"
+        lat:
+          label: i18n.lat
+          value: model.lat
+          disabled: true
+          type: "text"
+        lng:
+          label: i18n.lng
+          value: model.lng
+          disabled: true
+          type: "text"
 
       Object.keys(fields).forEach (key)->
         field = fields[key]

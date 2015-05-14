@@ -13,13 +13,16 @@ define [
       t: i18n
 
     regions:
-      childRegion: '.modal-body'
+      childRegion: '.modal-content'
 
     initialize:->
       @childRegion.on "show", ->
         $(".modal").modal "show"
       @childRegion.on "empty", ->
         $(".modal").modal "hide"
+
+    show: (view)->
+      @childRegion.show view
 
     events:
       "click .ok": "ok"

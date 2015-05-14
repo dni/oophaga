@@ -1,7 +1,7 @@
 define [
   'cs!Oophaga'
   'cs!./controller/FileController'
-  "i18n!./nls/language.js"
+  "i18n!./nls/language"
   "text!./configuration.json"
   'less!./style/browse.less'
 ],( Oophaga, Controller, i18n, Config ) ->

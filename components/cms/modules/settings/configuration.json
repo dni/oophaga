@@ -6,6 +6,17 @@
     "url": "/settings/",
     "urlRoot": "settings",
     "dbTable": "settings",
+    "controls": {
+      "newModel":false,
+      "views": [
+        "list",
+        "calendar",
+        "map",
+        "graph"
+      ],
+      "search":false,
+      "icon": "plus"
+    },
     "navigation": {
       "button": "cog",
       "sub": true

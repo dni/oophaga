@@ -1,5 +1,6 @@
 define ['jquery', "cs!App"], ($, App)->
 
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 9999
   describe "requirejs", ->
     it "require jsshould be available", ->
       expect($).toBeTruthy()
