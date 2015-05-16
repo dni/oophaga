@@ -54,15 +54,15 @@ define [
           App.google.event.trigger(App.map, 'resize')
         , 1000
       , 1000
-      @interval = setInterval ->
-        console.log "nterval"
-        marker?.setMap null
-        App.getCurrentPosition()
-        pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
-        marker = new App.google.Marker
-          map: App.map,
-          position: pos
-      , 5000
+      # @interval = setInterval ->
+      #   console.log "nterval"
+      #   marker?.setMap null
+      #   App.getCurrentPosition()
+      #   pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
+      #   marker = new App.google.Marker
+      #     map: App.map,
+      #     position: pos
+      # , 5000
 
     # initChildren:->
     #   @findView = new MapFindsView collection: App.Finds

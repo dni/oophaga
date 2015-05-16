@@ -1,2 +1,2 @@
 module.exports.setup = (app, config) ->
-  Example = require("../../lib/model/Schema")(config.dbTable)
+  Example = require("../../lib/model/Schema")(config)

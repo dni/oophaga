@@ -32,7 +32,6 @@ define [
   class ListView extends Marionette.CompositeView
     childView: ListItemView
     template: TemplateList
-    className: "container"
     events:
       "click th": "clickSort"
     childViewContainer: 'tbody'

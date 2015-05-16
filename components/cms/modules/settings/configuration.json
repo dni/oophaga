@@ -6,21 +6,30 @@
     "url": "/settings/",
     "urlRoot": "settings",
     "dbTable": "settings",
+    "notpublishable": true,
     "controls": {
-      "newModel":false,
-      "views": [
-        "list",
-        "calendar",
-        "map",
-        "graph"
-      ],
-      "search":false,
-      "icon": "plus"
+      "create":false,
+      "filter": false,
+      "group": false,
+      "sort": false,
+      "views": {
+        "list": "list"
+      }
+
     },
     "navigation": {
       "button": "cog",
       "sub": true
     },
     "columns": ["title"],
-    "notpublishable": true
+    "model": {
+      "fields"  : {
+        "db": "Object",
+        "type": "setting"
+      },
+      "title": {
+        "db": "String",
+        "type": "text"
+      }
+    }
 }

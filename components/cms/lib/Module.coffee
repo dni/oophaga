@@ -1,11 +1,13 @@
 define [
     'cs!App'
     'cs!Router'
+    "cs!./model/ControlsModel"
     'cs!lib/controller/Controller'
-], ( App, Router, Controller) ->
+], ( App, Router, ControlsModel, Controller) ->
   class Module
     constructor: (args)->
       @[key] = arg for key, arg of args
+
 
     init:->
       unless @Config? then return c.l "no module Config"
@@ -14,9 +16,37 @@ define [
 
       @Config = JSON.parse @Config
       config = @Config
+
       @Controller = new @Controller
         i18n: @i18n
         Config: @Config
+        controls: new ControlsModel
+
+      if @Config.controls
+        @Controller.controls.set @Config.controls
+
+      # Routes from Controller
+      routes = @Controller.routes || {}
+
+      # Standard Routes
+      routes[@Config.moduleName] = "defaultView"
+
+      if @Controller.controls.get "create"
+        routes[@Config.moduleName+'/new/'] = "add"
+        routes[@Config.moduleName+'/new/:relation'] = "add"
+
+      routes[@Config.moduleName+'/filter/:filterId'] = "filter" if @Controller.controls.get "filter"
+      routes[@Config.modelName+'/:id'] = "edit"
+
+      views = @Controller.controls.get "views"
+      Object.keys(views).forEach (key)=>
+        href = "#{@Config.moduleName}/#{key}/"
+        routes[href] = key
+
+      @Controller.controls.set
+        moduleName: @Config.moduleName
+
+      Router.processAppRoutes @Controller, routes
 
 
       # collection
@@ -31,18 +61,6 @@ define [
       else
         App.ready @Config.moduleName
 
-      unless @disableRoutes
-        # Routes from Controller
-        routes = @Controller.routes || {}
-        # Standard Routes
-        routes[@Config.moduleName] = "init"
-        routes[@Config.moduleName+'/list/'] = "list"
-        routes[@Config.moduleName+'/calendar/'] = "calendar"
-        routes[@Config.moduleName+'/graph/'] = "visuals"
-        routes[@Config.moduleName+'/map/'] = "map"
-        routes[@Config.moduleName+'/new/'] = "add"
-        routes[@Config.modelName+'/:id'] = "details"
-        Router.processAppRoutes @Controller, routes
 
       if config.settings
         App.vent.trigger 'SettingsModule:translate', @i18n

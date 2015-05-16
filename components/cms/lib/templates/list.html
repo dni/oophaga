@@ -1,5 +1,18 @@
-<div class="form-group">
-  <input type="text" class="form-control" placeholder="Search">
+<!-- <div class="form-group"> -->
+<!--   <input type="text" class="form-control" placeholder="Search"> -->
+<!-- </div> -->
+<!-- Split button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">date</a></li>
+    <li><a href="#">crdate</a></li>
+    <li><a href="#">title</a></li>
+  </ul>
 </div>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -9,7 +22,7 @@
           <button class="btn btn-default btn-xs">Select all</button>
         </th>
         <% columns.forEach(function(column){ %>
-          <th class="<%= column %>"><%= i18n.attributes[column] %></th>
+          <th><%= i18n.attributes[column] %></th>
         <% });%>
       </tr>
     </thead>

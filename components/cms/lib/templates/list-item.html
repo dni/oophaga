@@ -19,6 +19,8 @@
 <td class="column-<%= column %>">
   <% if (fields[column].type == "color") { %>
     <span style="background:<%= value %>;display:inline-block;width:16px;height:16px;border-radius:16px;"></span>
+  <% } else if (column == "thumbnail") { %>
+    <img src="/public/files/<%= fields[column].value %>" alt="">
   <% } else { %>
     <%= value %>
   <% } %>

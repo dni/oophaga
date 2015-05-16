@@ -2,35 +2,16 @@ mongoose = require 'mongoose'
 _ = require "underscore"
 Schema = mongoose.Schema
 collections = {}
+metaAttributes = require "../utilities/meta-attributes.json"
 
-module.exports = (dbTable)->
-  unless collections[dbTable]?
-    schema = new Schema
-      sortorder: Number
-      fieldorder: Array
-      published: Boolean
-      cruser: String
-      lat: String
-      lng: String
-      user: String
-      crdate: Date
-      date: Date
-      name: String
-      fields: Object
+module.exports = (config)->
+  # require schema with config.dbTable after first init
+  return collections[config] if typeof config is "string"
 
-    schema.methods.setFieldValue = (field, value)->
-      if _.isObject field
-        for key, value of field
-          @fields[key]?.value = value
-      else
-        @fields[field]?.value = value
+  unless collections[config.dbTable]?
+    schemaObj = {}
+    Object.keys(metaAttributes).forEach (key)-> schemaObj[key] = metaAttributes[key].db or "String"
+    Object.keys(config.model).forEach (key)-> schemaObj[key] = config.model[key].db or "String"
+    collections[config.dbTable] = mongoose.model config.dbTable, new Schema schemaObj
 
-    schema.methods.getFieldValue = (field)->
-      @fields[field].value
-
-    schema.pre 'save', (next)->
-      @date = Date.now
-      next()
-
-    collections[dbTable] = mongoose.model dbTable, schema
-  collections[dbTable]
+  collections[config.dbTable]

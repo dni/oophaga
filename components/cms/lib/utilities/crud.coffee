@@ -1,7 +1,7 @@
 auth = require "./auth"
 
 module.exports = (app, config)->
-  Schema = require('./../model/Schema')(config.dbTable)
+  Schema = require('./../model/Schema')(config)
 
   # public data
   app.get '/data/'+config.dbTable, (req, res)->

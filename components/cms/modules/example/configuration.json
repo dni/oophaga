@@ -10,6 +10,7 @@
   "model": {
     "title" : {
       "required": true,
+      "db": "String",
       "type": "text"
     }
   }

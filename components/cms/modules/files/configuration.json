@@ -8,11 +8,14 @@
   "urlRoot": "files",
   "dbTable": "files",
   "notpublishable":true,
+  "controls": {
+    "create": false
+  },
   "navigation": {
     "button": "file",
     "sub": true
   },
-  "columns": ["title", "type"],
+  "columns": ["thumbnail", "title", "type"],
   "fields": ["title", "type", "info", "alt", "desc"],
   "model": {
     "title" : {

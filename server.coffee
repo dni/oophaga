@@ -6,13 +6,13 @@ sessionSecret = 'oophaga#isla#colon'
 express = require 'express.io'
 app = express()
 app.config = config
-passport = require "passport"
-LocalStrategy = require('passport-local').Strategy
 mongoose = require "mongoose"
 db = mongoose.connect 'mongodb://localhost/'+config.dbname
 fs = require 'fs'
-User = require(__dirname+"/components/cms/lib/model/Schema")("users")
 auth = require "./components/cms/lib/utilities/auth"
+passport = require "passport"
+LocalStrategy = require('passport-local').Strategy
+UserModule = require "./components/cms/modules/user/server.coffee"
 
 app.http().io()
 
@@ -22,22 +22,6 @@ app.configure ->
   #prerenderer for seo
   # app.use require 'prerender-node'
 
-  #authentication
-  passport.use new LocalStrategy (username, password, done) ->
-    User.findOne(
-      'fields.username.value': username
-      'fields.password.value': password
-    ).execFind (err, user)->
-      app.user = user[0]
-      done err, user[0]
-
-  passport.serializeUser (user, done) ->
-    done null, user._id
-
-  passport.deserializeUser (_id, done)->
-    User.findById _id, (err, user)->
-      if !err then app.user = user
-      done(err, user)
 
   app.use '/public', express.static 'public'
   app.use express.json()
@@ -46,18 +30,12 @@ app.configure ->
   app.use express.session secret: sessionSecret
   app.use passport.initialize()
   app.use passport.session()
+  console.log UserModule
+  passport.use new LocalStrategy UserModule.localstrategy
+  passport.deserializeUser UserModule.deserialize
+  passport.serializeUser (user, done)-> done null, user._id
 
 
-# login
-app.get '/login', (req, res)->
-  res.sendfile process.cwd()+'/components/cms/login.html'
-
-app.post '/login', passport.authenticate('local', failureRedirect: '/login'), (req, res)->
-  res.redirect config.adminroute
-
-app.get '/logout', (req, res)->
-  req.logout()
-  res.redirect '/login'
 
 #admin route
 app.get config.adminroute, auth, (req, res)->

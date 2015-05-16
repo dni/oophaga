@@ -1,0 +1,38 @@
+{
+  "published" : {
+    "db": "Boolean",
+    "type": "checkbox"
+  },
+  "date" : {
+    "db": "Date",
+    "disabled": "true",
+    "type": "date"
+  },
+  "crdate" : {
+    "db": "Date",
+    "disabled": "true",
+    "type": "date"
+  },
+  "user" : {
+    "db": "String",
+    "type": "select",
+    "disabled": "true",
+    "collection": "Users"
+  },
+  "cruser" : {
+    "db": "String",
+    "type": "select",
+    "disabled": "true",
+    "collection": "Users"
+  },
+  "lat" : {
+    "db": "String",
+    "disabled": "true",
+    "type": "text"
+  },
+  "lng" : {
+    "db": "String",
+    "disabled": "true",
+    "type": "text"
+  }
+}

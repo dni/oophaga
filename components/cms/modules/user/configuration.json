@@ -17,19 +17,19 @@
     "model": {
         "title" : {
           "type": "text",
-          "mongooseType": "String"
+          "db": "String"
         },
         "username": {
           "type": "text",
-          "mongooseType": "String"
+          "db": "String"
         },
         "password": {
           "type": "password",
-          "mongooseType": "String"
+          "db": "String"
         },
         "email": {
           "type": "text",
-          "mongooseType": "String"
+          "db": "String"
         }
     }
 }

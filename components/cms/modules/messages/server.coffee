@@ -1,7 +1,7 @@
-Message = require("./../../lib/model/Schema")('messages')
 auth = require './../../lib/utilities/auth'
 
 module.exports.setup = (app, config) ->
+  Message = require("./../../lib/model/Schema")(config)
 
   app.get "/messages", auth, (req, res) ->
     limit = if req.query.limit? then req.query.limit else 25

@@ -3,7 +3,6 @@ crud = require './lib/utilities/crud'
 dir =  __dirname+'/modules/'
 configuration = require("./configuration.json")
 modules = configuration.backend_modules.map (moduleString)-> dir+moduleString.split("/")[1]
-Setting = require('./lib/model/Schema')('settings')
 
 module.exports.setup = (app)->
 
@@ -11,16 +10,18 @@ module.exports.setup = (app)->
   app.collections = {}
   app.createModel = (moduleName, fields)->
     config = app.modules[moduleName].config
-    fields = config.model unless fields?
     Schema = require('./lib/model/Schema')(config.dbTable)
     schema = new Schema
-    schema.cruser = app.user._id if app.user
-    schema.user = app.user._id if app.user
+    # ? is important for admin creation
+    schema.cruser = app.user?._id
+    schema.user = app.user?._id
     schema.crdate = new Date()
     schema.date = new Date()
     schema.published = false
+    schema.relation = ""
     schema.name = config.modelName
-    schema.fields = fields
+    Object.keys(fields).forEach (key)->
+      schema[key] = fields[key]
     return schema
 
   app.log = (model, type)->
@@ -50,18 +51,5 @@ module.exports.setup = (app)->
           if config.collectionName
             app.collections[config.collectionName] = config # important for import
             crud app, config
-          waitFor = (done)-> # waitFor setting function ;)
-            return done() unless config.settings
-            Setting.findOne("fields.title.value": config.moduleName).exec (err, setting)->
-              return done setting if setting
-              setting = app.createModel "SettingsModule", config.settings
-              setting.fields.title = type: "type", value: config.moduleName
-              setting.set "fieldorder", Object.keys(config.settings).splice(1)
-              setting.save ->
-                console.log "created Setting", setting.getFieldValue "title"
-                done setting
-          waitFor (setting)->
-            app.modules[config.moduleName] =
-              config: config
-              setting: setting
-            module_server.setup app, config, setting
+          app.modules[config.moduleName] = config: config
+          module_server.setup app, config

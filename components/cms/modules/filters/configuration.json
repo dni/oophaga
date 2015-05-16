@@ -1,0 +1,28 @@
+{
+    "moduleName": "FilterModule",
+    "name": "FilterModule",
+    "modelName": "Filter",
+    "collectionName": "Filters",
+    "url": "/filters/",
+    "urlRoot": "filters",
+    "dbTable": "filters",
+    "fields": ["title", "field", "operations", "input"],
+    "model": {
+      "title": {
+        "type": "text"
+      },
+      "field": {
+        "type": "text"
+      },
+      "operations": {
+        "type": "select",
+        "options": [
+          "equals"
+        ]
+      },
+      "input": {
+        "type": "text"
+      }
+    },
+    "notpublishable": true
+}
