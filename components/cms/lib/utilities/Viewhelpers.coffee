@@ -4,7 +4,8 @@ define [
   'i18n!lib/nls/language'
   'text!lib/templates/buttons.html'
   'text!lib/templates/field.html'
-], (App, _, i18n, buttonTemplate, fieldTemplate) ->
+  'text!./meta-attributes.json'
+], (App, _, i18n, buttonTemplate, fieldTemplate, metaAttributes) ->
 
   Viewhelpers =
     getModel: (field)->
@@ -29,72 +30,31 @@ define [
       string += " required='required'" if attr.required
       string
 
-    isPrint:->
-      setting = App.Settings.findSetting "MagazineModule"
-      setting.getValue 'print'
-
     getOptions:(attribute)->
       options = {}
       if attribute.collection
         App[attribute.collection].forEach (model)->
-          options[model.get("_id")] = model.getValue("title")
+          options[model.get("_id")] = model.get("title")
         return options
       if attribute.setting
         setting = App.Settings.findSetting @Config.moduleName
-        values = setting.getValue(attribute.setting).split(',')
+        values = setting.get(attribute.setting).split(',')
         for option in values
           options[option.trim()] = option.trim()
         return options
       return attribute.options
 
-    foreachAttribute: (fields, cb)->
-      keys = Object.keys(fields)
-      fieldsArray = @Config.fields or keys.splice(0,keys.length-1)
-      for key in fieldsArray
-        field = fields[key]
-        field = @Config.model[key] unless field?
+    foreachAttribute: (model, cb)->
+      for key in @Config.fields
+        field = @Config.model[key]
+        field.value = model[key]
         cb key, field
 
     foreachMetaAttribute: (model, cb)->
-      fields =
-        published:
-          label: i18n.published
-          value: model.published
-          type: "checkbox"
-        date:
-          label: i18n.date
-          value: model.date
-          disabled: true
-          type: "date"
-        crdate:
-          label: i18n.crdate
-          value: model.crdate
-          disabled: true
-          type: "date"
-        user:
-          label: i18n.user
-          value: model.user
-          disabled: true
-          collection: "Users"
-          type: "select"
-        cruser:
-          label: i18n.cruser
-          value: model.cruser
-          disabled: true
-          collection: "Users"
-          type: "select"
-        lat:
-          label: i18n.lat
-          value: model.lat
-          disabled: true
-          type: "text"
-        lng:
-          label: i18n.lng
-          value: model.lng
-          disabled: true
-          type: "text"
-
+      fields = JSON.parse metaAttributes
       Object.keys(fields).forEach (key)->
         field = fields[key]
+        field.label = i18n[key]
+        field.value = model[key]
         cb key, field
 

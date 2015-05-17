@@ -6,23 +6,7 @@
 </td>
 <% columns.forEach(function(column){
   var value = "";
-  if (fields[column] === undefined) {
-    if (column == "date") value = crdate;
-    if (column == "cruser") value = vhs.getModel({value: cruser, collection: "Users"}).getValue("title");
-  }
-  else if (fields[column].collection) {
-    value = vhs.getModel(fields[column]).getValue('title');
-  } else {
-    value = fields[column].value;
-  }
+  value = obj[column];
 %>
-<td class="column-<%= column %>">
-  <% if (fields[column].type == "color") { %>
-    <span style="background:<%= value %>;display:inline-block;width:16px;height:16px;border-radius:16px;"></span>
-  <% } else if (column == "thumbnail") { %>
-    <img src="/public/files/<%= fields[column].value %>" alt="">
-  <% } else { %>
-    <%= value %>
-  <% } %>
-  </td>
+  <td class="column-<%= column %>"> <%= value %></td>
 <% }); %>

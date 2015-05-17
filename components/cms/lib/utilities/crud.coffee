@@ -9,14 +9,7 @@ module.exports = (app, config)->
 
   # crud
   app.post '/'+config.dbTable, auth, (req, res)->
-    schema = app.createModel config.moduleName
-    # do not overwrite hidden fields just update req.body fields
-    Object.keys(req.body).forEach (key)->
-      if key is "fields"
-        Object.keys(req.body[key]).forEach (field)->
-          schema[key][field].value = req.body[key][field].value
-      else
-        schema[key] = req.body[key]
+    schema = app.createModel config.moduleName, req.body
     app.emit config.moduleName+':after:post', req, res, schema
     schema.save ->
       app.log schema, "create"
@@ -34,9 +27,9 @@ module.exports = (app, config)->
   app.put '/'+config.dbTable+'/:id', auth, (req, res)->
     Schema.findById req.params.id, (e, schema)->
       app.emit config.moduleName+':before:put', req, res, schema
+      Object.keys(req.body).forEach (key)-> schema[key] = req.body[key]
       schema.date = new Date()
-      schema.user = app.user._id
-      schema.fields = req.body.fields
+      schema.user = req.user._id
       schema.published = req.body.published
       schema.save ->
         app.emit config.moduleName+':after:put', req, res, schema

@@ -4,7 +4,6 @@
 </div>
 <div class="modal-body clearfix">
   <div role="tabpanel">
-
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#fields" aria-controls="fields" role="tab" data-toggle="tab">Data</a></li>
@@ -16,15 +15,15 @@
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="fields">
         <div class="form-fields">
-          <% vhs.foreachAttribute(fields, function(key, attribute){ %>
-          <%= vhs.renderField(key, attribute) %>
+          <% vhs.foreachAttribute(obj, function(key, attribute){ %>
+            <%= vhs.renderField(key, attribute) %>
           <% }); %>
         </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="meta">
         <div class="form-fields">
-          <% vhs.foreachMetaAttribute(arguments[0], function(key, attribute){ %>
-          <%= vhs.renderField(key, attribute) %>
+          <% vhs.foreachMetaAttribute(obj, function(key, attribute){ %>
+            <%= vhs.renderField(key, attribute) %>
           <% }); %>
         </div>
       </div>

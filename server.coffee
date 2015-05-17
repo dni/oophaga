@@ -21,8 +21,6 @@ app.configure ->
 
   #prerenderer for seo
   # app.use require 'prerender-node'
-
-
   app.use '/public', express.static 'public'
   app.use express.json()
   app.use express.urlencoded()
@@ -30,7 +28,6 @@ app.configure ->
   app.use express.session secret: sessionSecret
   app.use passport.initialize()
   app.use passport.session()
-  console.log UserModule
   passport.use new LocalStrategy UserModule.localstrategy
   passport.deserializeUser UserModule.deserialize
   passport.serializeUser (user, done)-> done null, user._id
@@ -39,6 +36,7 @@ app.configure ->
 
 #admin route
 app.get config.adminroute, auth, (req, res)->
+  app.user = req.user
   dir = '/components/cms/'
   dir = '/cache/build/cms/' if port is config.port
   app.use '/', express.static process.cwd()+dir

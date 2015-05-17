@@ -38,16 +38,16 @@ define [
     templateHelpers: ->
       vhs: _.extend Utils.Viewhelpers, Config: @options.Config, t: attributes: _.extend @options.i18n.attributes, i18n.attributes
 
-    getValuesFromUi: ()->
+    setValuesFromUi: ()->
       fields = @options.Config.model
       for key, field of fields
         return unless @ui[key]
-        field.value = @ui[key].val()
         if field.type is "date"
-          field.value is @ui[key].parent().data("DateTimePicker").getDate()
+          @model.set key, @ui[key].parent().data("DateTimePicker").getDate()
         if field.type is "checkbox"
-          field.value = @ui[key].prop('checked')
-      return fields
+          @model.set key, @ui[key].prop('checked')
+        else
+          @model.set key, @ui[key].val()
 
     showRelatedView: =>
       @$el.find('#relation-tab').show()
@@ -94,14 +94,13 @@ define [
       Router.navigate @options.Config.moduleName, trigger: !App.contentRegion.currentView?
 
     save: (done)->
-      @model.set "fields", @getValuesFromUi()
+      @setValuesFromUi()
       #set geolocation
       App.getCurrentPosition()
       @model.setLocation [App.position.coords.latitude, App.position.coords.longitude]
       @model.set "published", @ui.published.prop("checked")
-      that = @
       if @model.isNew()
-        App[that.options.Config.collectionName].create @model,
+        App[@options.Config.collectionName].create @model,
           wait: true # related views
           success: (res) ->
       else

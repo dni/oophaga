@@ -3,6 +3,7 @@ crud = require './lib/utilities/crud'
 dir =  __dirname+'/modules/'
 configuration = require("./configuration.json")
 modules = configuration.backend_modules.map (moduleString)-> dir+moduleString.split("/")[1]
+SettingsModule = require "./modules/settings/server.coffee"
 
 module.exports.setup = (app)->
 
@@ -30,10 +31,9 @@ module.exports.setup = (app)->
     if !name? then name = 'System'
     additionalinfo =
       href: "##{model.name}/#{model._id}"
-    msg = "#{app.user.getFieldValue("title")}: #{type}, #{model.name}"
-    message = app.createModel 'MessagesModule'
-    message.setFieldValue
-      name: message.cruser
+    msg = "#{app.user.title}: #{type}, #{model.name}"
+    message = app.createModel 'MessagesModule',
+      name: app.user.title
       message: msg
       type: type
       additionalinfo: additionalinfo

@@ -69,10 +69,13 @@ define [
       @newDetailView model
 
     createNewModel: (relation)->
+      fields= {}
       date = new Date
       model = new @Model
       model.urlRoot = @Config.dbTable
       model.collectionName = @Config.collectionName
+      Object.keys(@Config.model).forEach (key)=>
+        fields[key] = @Config.model[key].default or ""
       model.set
         relation: relation
         published: false
@@ -80,9 +83,10 @@ define [
         crdate: date
         user: App.User.get "_id"
         cruser: App.User.get "_id"
-        fields: @Config.model
         fieldorder: @Config.fields
         name: @Config.modelName
+      model.set fields
+      console.log model
       return model
 
     edit: (id) ->
