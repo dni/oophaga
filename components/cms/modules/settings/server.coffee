@@ -9,8 +9,7 @@ module.exports.setup = (app, config)->
   app.settings = {}
   Setting = require('../../lib/model/Schema')(config.dbTable)
 
-  async.eacSeries.forEach (module)->
-    console.log module
+  async.eachSeries modules, (module)->
     config = require module+'/configuration.json'
     if config.settings
       Setting.findOne(title: config.moduleName).execFind (err, setting)->
@@ -21,7 +20,7 @@ module.exports.setup = (app, config)->
           console.log "created setting: #{config.moduleName}"
           setting.save()
         app.settings[config.moduleName] = setting[0]
-
+        console.log app.settings
 
   app.get "/clearCache", auth, (req, res) ->
     app.log "cleared the cache", undefined, app.user.fields.title.value
