@@ -16,10 +16,17 @@ define [
       date.format()
 
     renderButtons: (notpublishable, published)->
-      _.template buttonTemplate, _.extend i18n, "notpublishable": notpublishable
+      compiled = _.template buttonTemplate
+      compiled _.extend i18n, "notpublishable": notpublishable
+
+    renderEdit: (id)->
+      compiled = _.template """
+      """
+      compiled _.extend i18n, moduleName: @Config.moduleName, id: id
 
     renderField: (key, attribute)->
-      _.template fieldTemplate, _.extend @, key:key, attribute: attribute
+      compiled = _.template fieldTemplate
+      compiled _.extend @, key:key, attribute: attribute
 
     checkCondition: (condition)->
       @[condition]()

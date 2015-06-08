@@ -15,7 +15,7 @@
     "button": "file",
     "sub": true
   },
-  "columns": ["thumbnail", "title", "type"],
+  "columns": ["title", "type", "date"],
   "fields": ["title", "type", "info", "alt", "desc"],
   "model": {
     "title" : {

@@ -36,7 +36,10 @@ define [
         routes[@Config.moduleName+'/new/:relation'] = "add"
 
       routes[@Config.moduleName+'/filter/:filterId'] = "filter" if @Controller.controls.get "filter"
-      routes[@Config.modelName+'/:id'] = "edit"
+      routes[@Config.moduleName+'/edit/:id'] = "edit"
+      routes[@Config.moduleName+'/show/:id'] = "show"
+      routes[@Config.moduleName+'/remove/'] = "removeSelected"
+      routes[@Config.moduleName+'/export/'] = "exportSelected"
 
       views = @Controller.controls.get "views"
       Object.keys(views).forEach (key)=>
@@ -52,7 +55,7 @@ define [
       # collection
       if @Config.collectionName
         App[@Config.collectionName] = new @Controller.Collection
-        App[@Config.collectionName].model = @Controller.Model
+        App[@Config.collectionName].model = @Controller.Model.extend moduleName: @Config.moduleName
         App[@Config.collectionName].url = @Config.url
         App[@Config.collectionName].fetch
           success:->

@@ -4,7 +4,7 @@ define({
 	"details": "Beispiel Details",
   "attributes": {
     "title": "Titel",
-    "armin": "Armin English"
+    "population": "Population"
   },
 	"newModel": "hat ein neues Beispiel erstellt",
   "updateModel": "hat ein Beispiel aktualisiert",

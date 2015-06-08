@@ -36,7 +36,14 @@
     "backbone.iobind": "~0.4.9",
     "fullcalendar": "~2.3.1",
     "file-saver": "*",
-    "googlemaps-amd": "~1.0.1"
+    "googlemaps-amd": "~1.0.1",
+    "backgrid": "~0.3.5",
+    "backgrid-select-all": "~0.3.5",
+    "backgrid-filter": "~0.3.5",
+    "dcjs": "~1.7.3"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "underscore": "1.8.3"
+  }
 }

@@ -6,7 +6,7 @@ define [
   'cs!Utils'
   'cs!Router'
   'marionette'
-  'tpl!lib/templates/detail.html'
+  'tpl!lib/templates/edit.html'
   'cs!modules/files/view/RelatedFileView'
   'bootstrap-datetimepicker'
   'jquery.tinymce'
@@ -17,7 +17,7 @@ define [
   #important for build
   tinyMCE.baseURL = "/vendor/tinymce"
 
-  class DetailView extends Marionette.LayoutView
+  class EditView extends Marionette.LayoutView
     template: Template
     regions:
       relatedRegion: "#relations"
@@ -28,7 +28,6 @@ define [
       @ui = published: "[name=published]"
       @ui[key] = "[name="+key+"]" for key, arg of args.Config.model
       @bindUIElements()
-      @listenTo @model, 'change', @render
       @on "render", @afterRender, @
 
     afterRender:->
@@ -40,8 +39,9 @@ define [
 
     setValuesFromUi: ()->
       fields = @options.Config.model
-      for key, field of fields
-        return unless @ui[key]
+      Object.keys(fields).forEach (key)=>
+        field = fields[key]
+        return unless @ui[key]?
         if field.type is "date"
           @model.set key, @ui[key].parent().data("DateTimePicker").getDate()
         if field.type is "checkbox"
@@ -83,7 +83,7 @@ define [
 
     saveNew: =>
       @save()
-      Router.navigate @options.Config.moduleName+"/new", trigger:true
+      Router.navigate @options.Config.moduleName+"/new/", trigger:true
 
     saveClose: =>
       @save()
@@ -103,11 +103,15 @@ define [
         App[@options.Config.collectionName].create @model,
           wait: true # related views
           success: (res) ->
+            App.overlayRegion.currentView.childRegion.empty()
+
       else
         @model.save()
+        App.overlayRegion.currentView.childRegion.empty()
+        Router.navigate @options.Config.moduleName, trigger:true
 
     deleteModel: ->
-      App.detailRegion.empty()
+      App.overlayRegion.currentView.childRegion.empty()
       Router.navigate @options.Config.moduleName, trigger:true
       @model.destroy
         success: ->

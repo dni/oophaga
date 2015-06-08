@@ -11,6 +11,7 @@
       "create":false,
       "filter": false,
       "group": false,
+      "deleteAble": false,
       "sort": false,
       "views": {
         "list": "list"

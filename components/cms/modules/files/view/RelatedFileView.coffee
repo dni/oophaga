@@ -54,11 +54,11 @@ define [
       @collection = Utilities.FilteredCollection App.Files
       @listenTo @, "render", @updateButton
       @collection.filter (file)=>
-        if @model.get("_id") is file.getValue "relation"
+        if @model.get("_id") is file.get "relation"
           if @fieldrelation
-            return file.getValue('fieldrelation') is @fieldrelation
+            return file.get('fieldrelation') is @fieldrelation
           else
-            return file.getValue('fieldrelation') is undefined
+            return file.get('fieldrelation') is undefined
         else
           return false
       @listenTo @collection, "reset remove", @updateButton

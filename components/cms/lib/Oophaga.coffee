@@ -6,7 +6,7 @@ define [
   'cs!lib/model/Model'
   'cs!lib/model/Collection'
   'cs!lib/view/ListView'
-  'cs!lib/view/DetailView'
+  'cs!lib/view/EditView'
   'cs!lib/view/EmptyView'
   'cs!lib/view/TopView'
   'cs!lib/view/OverlayView'
@@ -14,7 +14,7 @@ define [
   'cs!lib/Regions'
   'cs!lib/Events'
   'cs!lib/Socket'
-], ( Utils, Controller, LayoutController, Module, Model, Collection, ListView, DetailView, EmptyView, TopView, OverlayView, MapView) ->
+], ( Utils, Controller, LayoutController, Module, Model, Collection, ListView, EditView, EmptyView, TopView, OverlayView, MapView) ->
   Utils: Utils
   Module: Module
   Controller:
@@ -26,6 +26,6 @@ define [
     EmptyView: EmptyView
     TopView: TopView
     ListView: ListView
-    DetailView: DetailView
+    EditView: EditView
     OverlayView: OverlayView
     MapView: MapView

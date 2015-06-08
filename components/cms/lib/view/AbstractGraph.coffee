@@ -56,14 +56,14 @@ define [
           return date[@filter.normalize]()
 
       sorted = @collection.sortBy (model)->
-        date = new Date model.get(that.filter.x)
+        date = new Date model.get "date"
         date.getTime()
 
       sorted.map (model)->
         count++ if that.filter.cumu
-        date: new Date model.get(that.filter.x)
+        date: new Date model.get "date"
         value: count
-        title: model.getValue("title") or model.getValue("message")
+        title: model.get("title") or model.get("message")
         href: model.getHref()
 
     preInit:->

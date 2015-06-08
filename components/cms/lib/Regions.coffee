@@ -4,10 +4,12 @@ define [
   'jquery.form'
 ], ($, App) ->
 
-  $('#upload').change ->
-    upload = $("#uploadFile")
-    upload.ajaxForm (response) ->
-    upload.submit()
+  App.vent.on "ready", ->
+    $('#upload').change ->
+      console.log "change"
+      upload = $("#uploadFile")
+      upload.ajaxForm (response) ->
+      upload.submit()
 
   App.addRegions
     navigationRegion:"#navbar"

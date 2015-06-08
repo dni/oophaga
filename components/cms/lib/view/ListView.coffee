@@ -48,18 +48,18 @@ define [
         return c.l "field doesnt exist" unless field
         if field.collection
           App[field.collection].findBy _id: field.value, (model)->
-            model.getValue("title")
+            model.get("title")
         else
-          -field.getValue target.attr("class")
-        -item.getValue(target.attr("class"))
+          -field.get target.attr("class")
+        -item.get(target.attr("class"))
       @collection.sort()
 
     initialize:->
       columns = @columns or @options.columns
       if @relatedView
         @collection = Utils.FilteredCollection App[@collectionName]
-        @collection.filter (model)=> model.getValue(@fieldName) is @model.get("_id")
-        @collection.comparator = (model)-> -(new Date model.getValue("date")).getTime()
+        @collection.filter (model)=> model.get(@fieldName) is @model.get("_id")
+        @collection.comparator = (model)-> -(new Date model.get("date")).getTime()
         @collection.sort()
 
     templateHelpers:->

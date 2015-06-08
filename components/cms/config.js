@@ -13,9 +13,19 @@ require.config({
     'jquery.tinymce': 'tinymce/jquery.tinymce.min',
   },
   shim: {
+    'crossfilter': {
+      deps: [],
+      exports: 'crossfilter'
+    },
     'jquery.tinymce':['jquery', 'tinymce'],
     'minicolors':['jquery'],
     'fullcalendar':['jquery', 'moment'],
+    'backgrid': {
+      deps: ['jquery', 'underscore', 'backbone'],
+      exports: 'Backgrid'
+    },
+    'backgrid-select-all': { deps: ['backbone', 'backgrid']},
+    'backgrid-filter': { deps: ['backbone', 'backgrid']},
   }
 });
 require(['cs!App','text!configuration', 'backbone', 'jquery'], function(App, configJSON, Backbone, $){

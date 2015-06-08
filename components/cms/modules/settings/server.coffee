@@ -9,18 +9,22 @@ module.exports.setup = (app, config)->
   app.settings = {}
   Setting = require('../../lib/model/Schema')(config.dbTable)
 
-  async.eachSeries modules, (module)->
+  async.eachSeries modules, (module, done)->
     config = require module+'/configuration.json'
-    if config.settings
-      Setting.findOne(title: config.moduleName).execFind (err, setting)->
-        unless setting.length
-          setting = app.createModel "SettingsModule",
-            title: config.moduleName
-            fields: config.setting
-          console.log "created setting: #{config.moduleName}"
-          setting.save()
+    return done() unless config.settings?
+    Setting.findOne(title: config.moduleName).execFind (err, setting)->
+      unless setting.length
+        newsetting = app.createModel "SettingsModule",
+          title: config.moduleName
+          fields: config.settings
+        console.log "created setting: #{config.moduleName}"
+        newsetting.save ->
+          app.settings[config.moduleName] = newsetting
+          done()
+      else
         app.settings[config.moduleName] = setting[0]
-        console.log app.settings
+        done()
+
 
   app.get "/clearCache", auth, (req, res) ->
     app.log "cleared the cache", undefined, app.user.fields.title.value

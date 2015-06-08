@@ -15,8 +15,7 @@ module.exports.setup = (app, config, setting)->
       async.eachSeries files['files[]'], (srcFile, done)->
         title = utils.safeFilename srcFile.originalFilename
         fs.renameSync srcFile.path, dir+title
-        file = app.createModel config.moduleName
-        file.setFieldValue
+        file = app.createModel config.moduleName,
           "title": title
           "link": title
           "type": srcFile.headers['content-type']
@@ -26,15 +25,16 @@ module.exports.setup = (app, config, setting)->
             done()
         if srcFile.headers['content-type'].split("/")[0] is "image"
           utils.createImages file, saveFile
-        else if srcFile.headers['content-type'] is "text/csv"
-          utils.importCsv file, saveFile
+        # else if srcFile.headers['content-type'] is "text/csv"
+          # utils.importCsv file, saveFile
+          # console.log "import disabled"
         else
           saveFile()
-      , res.end
+      , -> res.send("done uploading")
 
   # update existing files
   app.on config.moduleName+':after:put', (req, res, file)->
-    title = file.getFieldValue "title"
+    title = file.get "title"
     saveFile = ->
       file.save ->
         req.io.broadcast 'updateModel', file._id, config.collectionName

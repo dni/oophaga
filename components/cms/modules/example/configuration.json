@@ -5,10 +5,15 @@
   "url": "/examples/",
   "dbTable": "examples",
   "navigation": true,
-  "fields": ["title"],
-  "columns": ["title"],
+  "fields": ["title", "population"],
+  "columns": ["title", "population", "date", "crdate"],
   "model": {
     "title" : {
+      "required": true,
+      "db": "String",
+      "type": "text"
+    },
+    "population" : {
       "required": true,
       "db": "String",
       "type": "text"

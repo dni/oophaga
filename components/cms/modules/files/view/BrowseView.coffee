@@ -32,7 +32,7 @@ define [
       @Config = JSON.parse Config
       @fieldrelation = args.fieldrelation
       @collection = Utilities.FilteredCollection App.Files
-      @collection.filter (file) -> !file.getValue('parent')?
+      @collection.filter (file) -> !file.parent?
       @collection.forEach (model) => model.set "multiple", @multiple
       if !@multiple then  @listenTo @collection, 'change', App.overlayRegion.currentView.ok
       @$el.prepend UploadTemplate
@@ -53,7 +53,7 @@ define [
         newfile.collectionName = @Config.collectionName
         newfile.set _.clone file.attributes
         delete newfile.attributes._id
-        newfile.setValue
+        newfile.set
           'parent': file.get "_id"
           'relation': @model.get "_id"
           'fieldrelation': @fieldrelation

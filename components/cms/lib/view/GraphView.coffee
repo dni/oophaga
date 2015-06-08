@@ -3,7 +3,9 @@ define [
   "cs!Router"
   'd3'
   'd3-tip'
-], (AbstractGraph, Router, d3, tip) ->
+  'dc'
+  'crossfilter'
+], (AbstractGraph, Router, d3, tip, dc, crossfilter) ->
 
   class GraphView extends AbstractGraph
     initChart:->
@@ -22,6 +24,8 @@ define [
       @changeFilter()
 
     showChart: (data)->
+
+
       that = @
       if @filter.type is "pie"
         @pieDom = @svg.selectAll(".arc").data(that.pie(data))
@@ -45,25 +49,25 @@ define [
           .attr("class", "line")
           .attr("d", that.line)
 
-      if @filter.type is "bar"
-        x = d3.scale.ordinal().rangeRoundBands([0, @width], .1)
-        x.domain d3.extent data, (d)-> d.date
-        xAxis = d3.svg.axis()
-          .scale(x)
-          .orient("bottom")
+      # if @filter.type is "bar"
+      x = d3.scale.ordinal().rangeRoundBands([0, @width], .1)
+      x.domain data.map (d)-> d.date
+      xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
 
-        @svg.selectAll(".bar")
-          .data(data)
-          .enter().append("rect")
-          .attr "fill", "grey"
-          .attr("class", "bar")
-          .attr "x", (d)-> x(d.date)
-          .attr("width", x.rangeBand())
-          .attr "y", (d)-> that.y(d.value)
-          .attr "height", (d)-> that.height - that.y(d.value)
+      @svg.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr "fill", "grey"
+        .attr("class", "bar")
+        .attr "x", (d)-> x(d.date)
+        .attr("width", x.rangeBand())
+        .attr "y", (d)-> that.y(d.value)
+        .attr "height", (d)-> that.height - that.y(d.value)
 
-        @yAxisDom.call(@yAxis)
-        @xAxisDom.call(xAxis)
+      @yAxisDom.call(@yAxis)
+      @xAxisDom.call(xAxis)
 
       hype = @svg.selectAll(".hype").data(data)
       hype.enter()
@@ -76,4 +80,29 @@ define [
       hype.transition()
         .attr "transform", (d)-> "translate(" + that.x(d.date) + "," + that.y(d.value) + ")"
       hype.exit().remove()
+
+      pie = dc.pieChart("#chart-test")
+      ndx = crossfilter data
+      runDimension = ndx.dimension (d)-> d.title
+      runGroup = runDimension.group()
+      pie
+        .width(240)
+        .height(240)
+        .radius(70)
+        .dimension(runDimension)
+        .group(runGroup)
+
+      # sel_stack = (i)-> (d)-> d.value[i]
+      # chart = dc.barChart("#barchart")
+      # chart
+      #   .width(768)
+      #   .height(480)
+      #   .x(d3.scale.linear().domain([1,21]))
+      #   .margins({left: 50, top: 10, right: 10, bottom: 20})
+      #   .brushOn(false)
+      #   .clipPadding(10)
+      #   .yAxisLabel("This is the Y Axis!")
+      #   .dimension(runDimension)
+      #   .group(runGroup, "1", sel_stack(1))
+      dc.renderAll()
 

@@ -10,7 +10,8 @@ define [
       @on "change", ->
         @changes.push @previousAttributes()
 
-    getHref: -> "##{@get('name')}/#{@get('_id')}"
+    getHref: -> "##{@moduleName}/show/#{@get('_id')}"
+    getEditHref: -> "##{@moduleName}/edit/#{@get('_id')}"
 
     getCalenderEvent: ->
       title: @get "title"

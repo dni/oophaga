@@ -21,28 +21,28 @@ module.exports = (app, setting)->
     # replace last dot in filename
     link.replace /\.(?=[^.]*$)/, '_'+text+'.'
 
-  isImage: (file)-> file.getFieldValue("type").split("/")[0] is "image"
+  isImage: (file)-> file.type.split("/")[0] is "image"
 
   deleteFile: (file, done)->
     return if file?
-    if fs.exists dir.file.getFieldValue("title")
-      fs.unlinkSync dir+file.getFieldValue("title")
+    if fs.exists dir+file.title
+      fs.unlinkSync dir+file.title
     if @isImage file
       for type in types
-        if fs.exists dir+file.getFieldValue(type)
-          fs.unlinkSync dir+file.getFieldValue(type)
+        if fs.exists dir+file[type]
+          fs.unlinkSync dir+file[type]
 
   createImages: (file, done)->
     that = @
-    filename = file.getFieldValue "title"
-    quality = parseInt setting.getFieldValue('quality')
+    filename = file.title
+    quality = parseInt app.settings.FileModule.fields.quality.value
     image = gm(dir+filename).size (err, size) ->
       return console.log("gm error, probably no gm and im installed") if err
       portrait = size.width < size.height
       async.each types, (type, cb)->
-        maxSize = parseInt setting.getFieldValue type
+        maxSize = parseInt app.settings.FileModule.fields[type].value
         targetName = that.prependFilename filename, type
-        file.setFieldValue type, targetName
+        file[type] = targetName
         image.quality quality
         if portrait then image.resize null, maxSize
         else image.resize maxSize
@@ -51,20 +51,20 @@ module.exports = (app, setting)->
 
 
   updateFile: (file, done)=>
-    title = file.getFieldValue "link"
-    link = file.getFieldValue "link"
+    title = file.link
+    link = file.link
     if title != link
       safe = @safeFilename link
-      file.setFieldValue title:safe
+      file.title = safe
       @moveFile file, done
 
   copyFile: (file, done)->
-    oldLink = file.getFieldValue "link"
+    oldLink = file.link
     newLink = @prependFilename oldLink, 'child'
     fs.writeFileSync dir+newLink, fs.readFileSync(dir+oldLink)
     if @isImage file
       for type in types
-        oldLink = file.getFieldValue type
+        oldLink = file[type]
         newLink = @prependFilename oldLink, 'child'
         fs.writeFileSync dir+newLink, fs.readFileSync(dir+oldLink)
     done()
@@ -72,18 +72,18 @@ module.exports = (app, setting)->
 
   # improveable
   moveFile: (file, done)->
-    oldLink = file.getFieldValue "link"
+    oldLink = file.link
     newLink = @prependFilename oldLink, 'child'
     fs.renameSync dir+oldLink, dir+newLink
     if @isImage file
       for type in types
-        oldLink = file.getFieldValue type
+        oldLink = file[type]
         newLink = @prependFilename oldLink, 'child'
         fs.renameSync dir+oldLink, dir+newLink
     done()
 
   cropImage: (file, done)->
-    gmImg = gm(dir+file.getFieldValue("title"))
+    gmImg = gm(dir+file.title)
     crop = file.get "crop"
     gmImg.size (err, size)->
       return if err
@@ -94,9 +94,9 @@ module.exports = (app, setting)->
 
   importCsv: (file, done)->
     importFailed = "import failed "
-    csvLink = dir+file.getFieldValue "link"
+    csvLink = dir+file.link
     input = fs.readFileSync(csvLink).toString()
-    collectionName = file.getFieldValue("link").split(".").shift().split('_').shift()
+    collectionName = file.link.split(".").shift().split('_').shift()
     config = app.collections[collectionName]
     return app.log importFailed+"collection: "+collectionName+" doesnt exist.", "error" unless config?
     csv.parse input, {delimiter: ";"}, (err, data)->
@@ -112,11 +112,11 @@ module.exports = (app, setting)->
             Collection.findOne("fields.title.value": row[j]).exec (err, submodel)->
               return app.log importFailed+field+" with title: " + row[j] + " doesnt exist.", "warn" unless submodel?
               value = submodel.get "id"
-              model.setFieldValue(field, value)
+              model[field] = value
               cb2()
           else
             value = row[j]
-            model.setFieldValue(field, value)
+            model[field] =  value
             cb2()
         , -> model.save cb
       , ->

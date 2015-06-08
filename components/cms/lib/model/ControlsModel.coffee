@@ -12,12 +12,13 @@ define [
       activeView: "list"
       filters: {}
       activeFilters: []
-      groups: true
+      groups: false
       activeGroups: []
       create:true
-      filter:true
-      group:true
-      sort:true
+      filter:false
+      group:false
+      deleteAble:true
+      importExport: false
 
 
     filterFunction: (model)=>

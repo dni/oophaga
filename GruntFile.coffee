@@ -143,12 +143,14 @@ module.exports = (grunt)->
         options:
           destPrefix: "components/cms/vendor"
         files:
-          "jquery.js": "jquery/dist/jquery.js"
+          "jquery.js": "jquery/jquery.js"
           "io.js": "socket.io-client/dist/socket.io.js"
           "require.js": "requirejs/require.js"
           "d3.js": 'd3/d3.js'
+          "dc.js": 'dcjs/dc.js'
           "fullcalendar.js": 'fullcalendar/dist/fullcalendar.js'
           "d3-tip.js": 'd3-tip/index.js'
+          "crossfilter.js": 'crossfilter/crossfilter.js'
           "jquery.ui.js": "jquery-ui/jquery-ui.js"
           "jquery.form.js": "jquery-form/jquery.form.js"
           "underscore.js": "underscore/underscore.js"
@@ -179,6 +181,9 @@ module.exports = (grunt)->
           "bootstrap-datetimepicker.js": "eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
           "moment.js": "moment/min/moment-with-locales.js"
           "FileSaver.js": "file-saver/FileSaver.js"
+          "backgrid.js": "backgrid/lib/backgrid.js"
+          "backgrid-filter.js": "backgrid-filter/backgrid-filter.js"
+          "backgrid-select-all.js": "backgrid-select-all/backgrid-select-all.js"
           # style
           "style": "bootstrap/less"
           "style/boostrap.css": "bootstrap/dist/css/bootstrap.css"
@@ -187,6 +192,10 @@ module.exports = (grunt)->
           "style/jquery.minicolors.css": "jquery-minicolors/jquery.minicolors.css"
           "style/jquery.minicolors.png": "jquery-minicolors/jquery.minicolors.png"
           "style/bootstrap-datetimepicker.less": "eonasdan-bootstrap-datetimepicker/src/less/bootstrap-datetimepicker.less"
+          "style/backgrid.css": "backgrid/lib/backgrid.css"
+          "style/backgrid-filter.css": "backgrid-filter/backgrid-filter.css"
+          "style/backgrid-select-all.css": "backgrid-select-all/backgrid-select-all.css"
+          "style/dc.css": "dcjs/dc.css"
 
     copy:
       tinymce:

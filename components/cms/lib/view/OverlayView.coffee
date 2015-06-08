@@ -16,23 +16,14 @@ define [
       childRegion: '.modal-content'
 
     initialize:->
-      @childRegion.on "show", ->
-        $(".modal").modal "show"
+      timeout = ""
+      @$el.on "hidden.bs.modal", =>
+        @childRegion.empty()
       @childRegion.on "empty", ->
         $(".modal").modal "hide"
+      @childRegion.on "show", ->
+        clearTimeout timeout
+        $(".modal").modal "show"
 
     show: (view)->
       @childRegion.show view
-
-    events:
-      "click .ok": "ok"
-      "click .cancel": "cancel"
-
-    ok:=>
-      @childRegion.currentView?.ok?()
-      @childRegion.empty()
-      $(".modal").modal "hide"
-
-    cancel:=>
-      @childRegion.empty()
-      $(".modal").modal "hide"

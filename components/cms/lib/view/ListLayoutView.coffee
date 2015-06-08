@@ -8,7 +8,7 @@ define [
     template: Template
 
     regions:
-      'detailRegion': '.details'
+      'filterRegion': '.list-filter'
       'relatedRegion': '.related'
 
     initialize:(args)->

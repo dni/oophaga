@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">Show <%= name %></h4>
+</div>
+<div class="modal-body clearfix">
+<div class="table-responsive">
+  <h4>Data</h4>
+  <table class="table table-striped">
+      <% vhs.foreachAttribute(obj, function(key, attribute){ %>
+        <tr>
+          <td><b><%= key %>:</b></td>
+          <td> <%= attribute.value %> </td>
+        </tr>
+      <% }); %>
+  </table>
+  <h4>Metadata</h4>
+  <table class="table table-striped">
+      <% vhs.foreachMetaAttribute(obj, function(key, attribute){ %>
+        <tr>
+          <td><b><%= key %>:</b></td>
+          <td> <%= attribute.value %> </td>
+        </tr>
+      <% }); %>
+  </table>
+</div>
+</div>
+<div class="modal-footer">
+  <!-- <a class="btn btn-primary" href="#<%= vhs.Config.moduleName %>/edit/<%= _id %>">Edit</a> -->
+  <a class="btn btn-default" href="/public/files/<%= title %>" target="_blank">Download</a>
+</div>
+
