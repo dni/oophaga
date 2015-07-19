@@ -9,6 +9,9 @@ define [
   App.map = ''
   class MapView extends Marionette.ItemView
     template: Template
+    events:
+      "click #tomyposition": "centermap"
+
     initialize:->
       @on "render", @afterRender
       # @on "destroy", -> clearInterval @interval
@@ -28,7 +31,7 @@ define [
         height: '100%'
         width: '100%'
       App.map = new App.google.Map el.get(0),
-        zoom:13
+        zoom:20
         mapTypeId: App.google.MapTypeId.HYBRID
         disableDefaultUI: true
         mapTypeControl: false
@@ -66,6 +69,10 @@ define [
           map: App.map,
           position: pos
       # , 5000
+
+    centermap: ->
+      pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
+      App.map.setCenter(pos)
 
     # initChildren:->
     #   @findView = new MapFindsView collection: App.Finds
