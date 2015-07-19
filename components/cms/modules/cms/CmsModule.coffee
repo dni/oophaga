@@ -13,23 +13,24 @@ define [
 ( google, App, Oophaga, i18n, Config, NavigationItem, Collection, Navbar)->
 
   App.google = google
+  App.position =
+    coords:
+      accuracy: 13976
+      altitude: null
+      altitudeAccuracy: null
+      heading: null
+      latitude: 48.579068299999996
+      longitude: 14.0396111
+      speed: null
+    timestamp: Date.now()
   App.getCurrentPosition = ->
-    App.position =
-      coords:
-        accuracy: 13976
-        altitude: null
-        altitudeAccuracy: null
-        heading: null
-        latitude: 48.579068299999996
-        longitude: 14.0396111
-        speed: null
-      timestamp: Date.now()
     if navigator.geolocation
       navigator.geolocation.getCurrentPosition (position)->
         App.position = position
-    App.vent.trigger 'newPosition'
 
-  App.getCurrentPosition()
+  setInterval ->
+    App.getCurrentPosition()
+  , 5000
 
   NavigationItems = new Collection
   SubNavigationItems = new Collection
