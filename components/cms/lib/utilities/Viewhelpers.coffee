@@ -52,6 +52,7 @@ define [
       return attribute.options
 
     foreachAttribute: (model, cb)->
+      fields = @Config.fields or model.fields # or fields are used for settings
       for key in @Config.fields
         field = @Config.model[key]
         field.value = model[key]
