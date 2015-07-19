@@ -168,7 +168,7 @@ module.exports = (grunt)->
           "notify.js": "notifyjs/dist/notify-combined.min.js"
           "bootstrap.js": "bootstrap/dist/js/bootstrap.js"
           "jquery.minicolors.js": "jquery-minicolors/jquery.minicolors.js"
-          "jquery.jcrop.js": "jcrop/js/jquery.Jcrop.js"
+          "jquery.jcrop.js": "jcrop/js/Jcrop.js"
           "tinymce": "tinymce-builded/js/tinymce"
           "less.js": "require-less/less.js"
           "less-builder.js": "require-less/less-builder.js"
