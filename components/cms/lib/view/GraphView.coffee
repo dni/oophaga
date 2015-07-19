@@ -82,14 +82,30 @@ define [
       hype.exit().remove()
 
       pie = dc.pieChart("#chart-test")
-      ndx = crossfilter data
-      runDimension = ndx.dimension (d)-> d.title
-      runGroup = runDimension.group()
+      stack = dc.barChart("#bar-test")
+      path = dc.lineChart("#line-test")
+      ndx = crossfilter @collection.models
+      userDimension = ndx.dimension (d)-> d.get "user"
+      weekDimension = ndx.dimension (d)-> d.get "date"
+      runGroup = weekDimension.group()
+      userGroup = userDimension.group()
       pie
         .width(240)
         .height(240)
         .radius(70)
-        .dimension(runDimension)
+        .dimension(userDimension)
+        .group(userGroup)
+      stack
+        .width(240)
+        .height(240)
+        .dimension(weekDimension)
+        .x(d3.scale.linear().domain([1997, 2012]))
+        .group(runGroup)
+      path
+        .width(240)
+        .height(240)
+        .dimension(weekDimension)
+        .x(d3.scale.linear().domain([1997, 2012]))
         .group(runGroup)
 
       # sel_stack = (i)-> (d)-> d.value[i]

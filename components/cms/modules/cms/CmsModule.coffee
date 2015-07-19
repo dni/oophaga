@@ -1,6 +1,6 @@
 define [
-  'cs!App'
   'googlemaps!'
+  'cs!App'
   'cs!Oophaga'
   'i18n!./nls/language'
   'text!./configuration.json'
@@ -10,7 +10,7 @@ define [
   "css!lib/style/main"
   # "less!lib/style/main"
 ],
-( App, google, Oophaga, i18n, Config, NavigationItem, Collection, Navbar)->
+( google, App, Oophaga, i18n, Config, NavigationItem, Collection, Navbar)->
 
   App.google = google
   App.getCurrentPosition = ->
