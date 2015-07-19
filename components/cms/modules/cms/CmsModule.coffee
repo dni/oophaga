@@ -23,14 +23,13 @@ define [
       longitude: 14.0396111
       speed: null
     timestamp: Date.now()
-  App.getCurrentPosition = ->
-    if navigator.geolocation
+
+  if navigator.geolocation
+    setInterval ->
       navigator.geolocation.getCurrentPosition (position)->
         App.position = position
-
-  setInterval ->
-    App.getCurrentPosition()
-  , 5000
+        App.vent.trigger "newPosition"
+    , 5000
 
   NavigationItems = new Collection
   SubNavigationItems = new Collection

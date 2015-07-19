@@ -28,7 +28,7 @@ define [
         height: '100%'
         width: '100%'
       App.map = new App.google.Map el.get(0),
-        zoom:7
+        zoom:13
         mapTypeId: App.google.MapTypeId.HYBRID
         disableDefaultUI: true
         mapTypeControl: false
@@ -56,12 +56,15 @@ define [
       , 1000
       # @interval = setInterval ->
       #   console.log "nterval"
-      #   marker?.setMap null
-      App.getCurrentPosition()
-      pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
       marker = new App.google.Marker
         map: App.map,
         position: pos
+      App.vent.on "newPosition", ->
+        pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
+        marker?.setMap null
+        marker = new App.google.Marker
+          map: App.map,
+          position: pos
       # , 5000
 
     # initChildren:->
