@@ -1,8 +1,8 @@
 define [
-  'cs!Oophaga'
+  'cs!lib/controller/Controller'
 ],
-(Oophaga) ->
-  class FilterController extends Oophaga.Controller.Controller
+(Controller) ->
+  class FilterController extends Controller
     routes:
       "addFilter/:id": "addfili"
 

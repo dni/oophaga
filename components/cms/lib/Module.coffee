@@ -9,13 +9,17 @@ define [
       @[key] = arg for key, arg of args
 
 
-    init:->
-      unless @Config? then return c.l "no module Config"
-      unless @i18n? then return c.l "no module i18n"
+    init:=>
+      return throw new Error "no module config" unless @Config?
+      return throw new Error "no module i18n" unless @i18n?
       unless @Controller? then @Controller = Controller
 
-      @Config = JSON.parse @Config
+      if typeof @Config is "string"
+        @Config = JSON.parse @Config
+
       config = @Config
+
+      App.modules[config.moduleName] = config
 
       @Controller = new @Controller
         i18n: @i18n

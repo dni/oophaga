@@ -1,14 +1,18 @@
 define [
-  'cs!Oophaga'
+  'cs!lib/controller/Controller'
   'cs!../view/ShowSettingView.coffee'
+  'cs!../view/EditSettingView.coffee'
   'jquery'
 ],
-( Oophaga, ShowSettingView, $) ->
-  class SettingsController extends Oophaga.Controller.Controller
+( Controller, ShowSettingView, EditSettingView, $) ->
+  class SettingsController extends Controller
 
     ShowView: ShowSettingView
+    EditView: EditSettingView
+
     routes:
       "clearCache": "clearCache"
+
     clearCache: ->
       $.get "/clearCache", ->
         window.location = "/"

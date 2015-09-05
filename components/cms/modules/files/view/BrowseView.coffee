@@ -1,6 +1,5 @@
 define [
   'cs!App'
-  'cs!Oophaga'
   'text!../configuration.json'
   'cs!utilities/Utilities'
   'cs!lib/model/Model'
@@ -9,7 +8,7 @@ define [
   'marionette'
   'tpl!../templates/browse-item.html'
   'tpl!../templates/upload.html'
-], (App, Oophaga, Config, Utilities, Model, $, _, Marionette, Template, UploadTemplate) ->
+], (App, Config, Utilities, Model, $, _, Marionette, Template, UploadTemplate) ->
 
   class BrowseItemView extends Marionette.ItemView
     template: Template

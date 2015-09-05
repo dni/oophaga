@@ -44,19 +44,22 @@ define [
           options[model.get("_id")] = model.get("title")
         return options
       if attribute.setting
-        setting = App.Settings.findSetting @Config.moduleName
-        values = setting.get(attribute.setting).split(',')
+        setting = App.Settings.findWhere title: @Config.moduleName
+        values = setting.get("fields")[attribute.setting].value.split(',')
         for option in values
           options[option.trim()] = option.trim()
         return options
       return attribute.options
 
     foreachAttribute: (model, cb)->
-      fields = @Config.fields or model.fields # or fields are used for settings
-      for key in @Config.fields
-        field = @Config.model[key]
-        field.value = model[key]
-        cb key, field
+      unless @Config.fields? # setting
+        for key of model.fields
+          cb key, model.fields[key]
+      else
+        for key in @Config.fields
+          field = @Config.model[key] or fields[key]
+          field.value = model[key]
+          cb key, field
 
     foreachMetaAttribute: (model, cb)->
       fields = JSON.parse metaAttributes

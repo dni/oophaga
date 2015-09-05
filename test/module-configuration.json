@@ -1,0 +1,17 @@
+{
+  "moduleName": "TestModule",
+  "modelName": "Test",
+  "collectionName": "Tests",
+  "url": "/tests/",
+  "dbTable": "tests",
+  "navigation": true,
+  "fields": ["title"],
+  "columns": ["title"],
+  "model": {
+    "title" : {
+      "required": true,
+      "db": "String",
+      "type": "text"
+    }
+  }
+}

@@ -16,14 +16,13 @@ define [
       columns: columns
     events:
       "click .ok": "selectItem"
+      "click .show": "showItem"
+      "click .edit": "editItem"
       "click .remove": "removeItem"
-      "click": "clicked"
-    clicked: (e)->
-      target = $(e.target)
-      return if target.hasClass("btn") or target.hasClass("glyphicon")
-      @trigger "newclick"
-      @$el.addClass 'success'
-      Router.navigate @model.get("name")+"/"+@model.get("_id"), trigger:true
+    editItem: ->
+      Router.navigate @model.getEditHref(), trigger: true
+    showItem: ->
+      Router.navigate @model.getHref(), trigger: true
     selectItem:->
       @$el.toggleClass 'info'
     removeItem:->

@@ -1,5 +1,5 @@
 {
-    "port": "2000",
-    "dbname": "oophaga",
-    "adminroute": "/"
+  "port": 2010,
+  "dbname": "oophaga-test",
+  "adminroute": "/"
 }

@@ -16,7 +16,6 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
   grunt.loadNpmTasks 'grunt-jsonlint'
-  grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-mkdir'
   grunt.loadNpmTasks 'grunt-bower-task'
@@ -66,42 +65,6 @@ module.exports = (grunt)->
     jsonlint:
       all:
         src:  ['components/**/*.json']
-
-    jasmine:
-      cms:
-        options:
-          specs: 'spec/cms/spec.js'
-          # helpers: 'components/cms/**/spec/*Helper.js'
-          # host : 'http://localhost:1666/'
-          template: require 'grunt-template-jasmine-requirejs'
-          templateOptions:
-            requireConfig:
-              i18n: locale: "de"
-              appDir: 'components/cms'
-              baseUrl: 'components/cms/vendor'
-              stubModules: ['less', 'css', 'cs', 'coffee-script'],
-              modules: [{
-                name: 'config'
-                include: backend_modules
-                exclude: ['coffee-script', 'css', 'less']
-              }]
-              shim:
-                'jquery.tinymce':['jquery', 'tinymce']
-                'jquery.ui':['jquery']
-                'jquery.minicolors':['jquery']
-              paths:
-                config: '../config'
-                configuration: '../configuration.json'
-                lib: '../lib'
-                utilities: '../lib/utilities'
-                modules: '../modules'
-                App: "../lib/utilities/App"
-                Oophaga: "../lib/Oophaga"
-                Router: '../lib/utilities/Router'
-                Utils: '../lib/utilities/Utilities'
-                tinymce: 'tinymce/tinymce',
-                plugins: 'tinymce/tinymce/plugins',
-                'jquery.tinymce': 'tinymce/jquery.tinymce.min',
 
     clean:
       everything: src: [
@@ -181,9 +144,11 @@ module.exports = (grunt)->
           "bootstrap-datetimepicker.js": "eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
           "moment.js": "moment/min/moment-with-locales.js"
           "FileSaver.js": "file-saver/FileSaver.js"
-          "backgrid.js": "backgrid/lib/backgrid.js"
-          "backgrid-filter.js": "backgrid-filter/backgrid-filter.js"
-          "backgrid-select-all.js": "backgrid-select-all/backgrid-select-all.js"
+          "mocha.js": 'mocha/mocha.js'
+          "chai.js": 'chai/chai.js'
+          # "backgrid.js": "backgrid/lib/backgrid.js"
+          # "backgrid-filter.js": "backgrid-filter/backgrid-filter.js"
+          # "backgrid-select-all.js": "backgrid-select-all/backgrid-select-all.js"
           # style
           "style": "bootstrap/less"
           "style/boostrap.css": "bootstrap/dist/css/bootstrap.css"
@@ -192,10 +157,11 @@ module.exports = (grunt)->
           "style/jquery.minicolors.css": "jquery-minicolors/jquery.minicolors.css"
           "style/jquery.minicolors.png": "jquery-minicolors/jquery.minicolors.png"
           "style/bootstrap-datetimepicker.less": "eonasdan-bootstrap-datetimepicker/src/less/bootstrap-datetimepicker.less"
-          "style/backgrid.css": "backgrid/lib/backgrid.css"
-          "style/backgrid-filter.css": "backgrid-filter/backgrid-filter.css"
-          "style/backgrid-select-all.css": "backgrid-select-all/backgrid-select-all.css"
+          # "style/backgrid.css": "backgrid/lib/backgrid.css"
+          # "style/backgrid-filter.css": "backgrid-filter/backgrid-filter.css"
+          # "style/backgrid-select-all.css": "backgrid-select-all/backgrid-select-all.css"
           "style/dc.css": "dcjs/dc.css"
+          "mocha.css": 'mocha/mocha.css'
 
     copy:
       tinymce:

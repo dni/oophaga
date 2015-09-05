@@ -1,14 +1,14 @@
 define [
   'cs!App'
-  'cs!Oophaga'
+  'cs!lib/controller/Controller'
   'cs!Router'
   'cs!../view/BrowseView'
   'cs!../view/ShowFileView'
   'cs!../view/EditFileView'
   'cs!../view/PreviewView'
-], ( App, Oophaga, Router, BrowseView, ShowFileView, EditFileView, PreviewView) ->
+], ( App, Controller, Router, BrowseView, ShowFileView, EditFileView, PreviewView) ->
 
-  class FileController extends Oophaga.Controller.Controller
+  class FileController extends Controller
 
     RelatedViews:
       preview: PreviewView
@@ -17,7 +17,7 @@ define [
       !file.parent?
 
     show: (id) ->
-      App.overlayRegion.currentView.childRegion.show new ShowFileView
+      App.view.overlayRegion.currentView.childRegion.show new ShowFileView
         moduleName: @Config.moduleName
         model: App.Files.findWhere _id: id
 

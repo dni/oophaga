@@ -6,8 +6,8 @@
   "urlRoot": "simples",
   "dbTable": "simples",
   "navigation": true,
-  "fields": ["title", "password", "range", "checkboxvalue", "textarea", "colorpicker", "datepicker", "wysiwyg", "selectmodel", "button"],
-  "columns": ["title", "range", "checkboxvalue", "colorpicker", "datepicker", "selectmodel"],
+  "fields": ["title", "password", "range", "checkboxvalue", "textarea", "colorpicker", "datepicker", "wysiwyg", "selectsetting", "selectmodel", "button"],
+  "columns": ["title", "range", "checkboxvalue", "colorpicker", "datepicker", "selectmodel", "selectsetting"],
   "model": {
     "title" : {
       "type": "text"
@@ -35,6 +35,10 @@
     },
     "wysiwyg" : {
       "type": "wysiwyg"
+    },
+    "selectsetting" : {
+      "type": "select",
+      "setting": "options"
     },
     "selectmodel" : {
       "type": "select",

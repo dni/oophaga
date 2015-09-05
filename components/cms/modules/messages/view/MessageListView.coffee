@@ -1,11 +1,11 @@
 define [
   'cs!App'
-  'cs!Oophaga'
+  'cs!lib/model/Model'
   'text!../configuration.json'
   'marionette'
   'tpl!../templates/list.html'
   'i18n!../nls/language.js'
-], (App, Oophaga, Config, Marionette, Template, i18n) ->
+], (App, Model, Config, Marionette, Template, i18n) ->
 
   config = JSON.parse Config
 
@@ -44,7 +44,7 @@ define [
       config.model.name.value = App.User.getValue "title"
       config.model.type.value = 'message'
 
-      message = new Oophaga.Model
+      message = new Model
       message.set "name", config.modelName
       message.set "date", Date.now()
       message.set "fields", config.model

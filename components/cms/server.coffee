@@ -9,6 +9,7 @@ module.exports.setup = (app)->
 
   app.modules = {}
   app.collections = {}
+
   app.createModel = (moduleName, fields)->
     config = app.modules[moduleName].config
     Schema = require('./lib/model/Schema')(config.dbTable)
@@ -50,6 +51,6 @@ module.exports.setup = (app)->
           config = require module+'/configuration.json'
           if config.collectionName
             app.collections[config.collectionName] = config # important for import
-            crud app, config
+            crud config
           app.modules[config.moduleName] = config: config
           module_server.setup app, config

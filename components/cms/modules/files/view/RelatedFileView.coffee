@@ -1,6 +1,5 @@
 define [
   'cs!App'
-  'cs!Oophaga'
   'cs!utilities/Utilities'
   'cs!lib/model/Collection'
   'cs!Router'
@@ -10,7 +9,7 @@ define [
   'tpl!../templates/related-item.html'
   'cs!./BrowseView'
   'cs!./ShowFileView'
-], (App, Oophaga, Utilities, Collection, Router, i18n, Marionette, Template, ItemTemplate, BrowseView, ShowFileView) ->
+], (App, Utilities, Collection, Router, i18n, Marionette, Template, ItemTemplate, BrowseView, ShowFileView) ->
 
   class ItemView extends Marionette.ItemView
     template: ItemTemplate

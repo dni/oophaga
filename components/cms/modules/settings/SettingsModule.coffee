@@ -1,12 +1,12 @@
 define [
   'cs!App'
-  'cs!Oophaga'
+  'cs!lib/Module'
   "text!./configuration.json"
   "i18n!./nls/language.js"
   'cs!./controller/SettingsController'
-], ( App, Oophaga, Config, i18n, Controller ) ->
+], ( App, Module, Config, i18n, Controller ) ->
 
-  module = new Oophaga.Module
+  module = new Module
     Controller: Controller
     Config: Config
     i18n: i18n

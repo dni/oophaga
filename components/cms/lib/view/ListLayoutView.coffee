@@ -1,8 +1,7 @@
 define [
-  'cs!lib/Oophaga'
   'marionette'
   'tpl!../templates/layout.html'
-], (Oophaga, Marionette, Template) ->
+], (Marionette, Template) ->
   class LayoutView extends Marionette.LayoutView
 
     template: Template

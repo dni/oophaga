@@ -1,6 +1,5 @@
 define [
   'cs!App'
-  'cs!Oophaga'
   'i18n!lib/nls/language'
   'cs!lib/model/Collection'
   'cs!Utils'
@@ -12,7 +11,7 @@ define [
   'jquery.tinymce'
   'jquery.minicolors'
   'bootstrap'
-], (App, Oophaga, i18n, Collection, Utils, Router, Marionette, Template, RelatedFileView, datetimepicker, tinymce, minicolors, bootstrap) ->
+], (App, i18n, Collection, Utils, Router, Marionette, Template, RelatedFileView, datetimepicker, tinymce, minicolors, bootstrap) ->
 
   #important for build
   tinyMCE.baseURL = "/vendor/tinymce"
@@ -25,9 +24,7 @@ define [
     initialize:(args)->
       @model = args.model
       @relatedView = args.relatedView
-      @ui = published: "[name=published]"
-      @ui[key] = "[name="+key+"]" for key, arg of args.Config.model
-      @bindUIElements()
+      @initUi()
       @on "render", @afterRender, @
 
     afterRender:->
@@ -35,10 +32,20 @@ define [
       @initFields()
 
     templateHelpers: ->
-      vhs: _.extend Utils.Viewhelpers, Config: @options.Config, t: attributes: _.extend @options.i18n.attributes, i18n.attributes
+      vhs: _.extend Utils.Viewhelpers,
+        Config: @options.Config,
+        t: attributes: _.extend @options.i18n.attributes, i18n.attributes
+
+    getFields:->
+      @options.Config.model
+
+    initUi: ->
+      @ui = published: "[name=published]"
+      @ui[key] = "[name="+key+"]" for key, arg of @getFields()
+      @bindUIElements()
 
     setValuesFromUi: ()->
-      fields = @options.Config.model
+      fields = @getFields()
       Object.keys(fields).forEach (key)=>
         field = fields[key]
         return unless @ui[key]?
@@ -76,39 +83,23 @@ define [
 
     events:
       "click .save": "save"
-      "click .saveclose": "saveClose"
-      "click .savenew": "saveNew"
       "click .cancel": "cancel"
       "click .delete": "deleteModel"
-
-    saveNew: =>
-      @save()
-      Router.navigate @options.Config.moduleName+"/new/", trigger:true
-
-    saveClose: =>
-      @save()
-      @cancel()
-
-    cancel: =>
-      App.detailRegion.empty()
-      Router.navigate @options.Config.moduleName, trigger: !App.contentRegion.currentView?
 
     save: (done)->
       @setValuesFromUi()
       #set geolocation
-      App.getCurrentPosition()
       @model.setLocation [App.position.coords.latitude, App.position.coords.longitude]
       @model.set "published", @ui.published.prop("checked")
       if @model.isNew()
         App[@options.Config.collectionName].create @model,
           wait: true # related views
-          success: (res) ->
-            App.overlayRegion.currentView.childRegion.empty()
+          success: (res) =>
+            Router.navigate @model.getHref(), trigger:true
 
       else
         @model.save()
-        App.overlayRegion.currentView.childRegion.empty()
-        Router.navigate @options.Config.moduleName, trigger:true
+        Router.navigate @model.getHref(), trigger:true
 
     deleteModel: ->
       App.overlayRegion.currentView.childRegion.empty()

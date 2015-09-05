@@ -1,15 +1,15 @@
 define [
   'cs!App'
-  'cs!Oophaga'
+  'cs!lib/Module'
   'cs!./controller/UserController'
   'text!./configuration.json'
   'i18n!./nls/language.js'
-], ( App, Oophaga, Controller, Config, i18n ) ->
+], ( App, Module, Controller, Config, i18n ) ->
 
   # $.get "/user", (user)->
   #   App.User = user
 
-  new Oophaga.Module
+  new Module
     Controller: Controller
     Config: Config
     i18n: i18n

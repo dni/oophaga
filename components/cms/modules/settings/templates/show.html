@@ -6,7 +6,6 @@
 <div class="table-responsive">
   <h4>Data</h4>
   <table class="table table-striped">
-      <% console.log(fields); %>
     <% Object.keys(fields).forEach(function(key) { %>
         <tr>
           <td><b><%= key %>:</b></td>
@@ -26,7 +25,6 @@
 </div>
 </div>
 <div class="modal-footer">
-  <!-- <a class="btn btn-primary" href="#<%= vhs.Config.moduleName %>/edit/<%= _id %>">Edit</a> -->
-  <a class="btn btn-default" href="/public/files/<%= title %>" target="_blank">Download</a>
+  <a class="btn btn-primary" href="#<%= vhs.Config.moduleName %>/edit/<%= _id %>">Edit</a>
 </div>
 

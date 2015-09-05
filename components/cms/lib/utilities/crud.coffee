@@ -1,9 +1,9 @@
 auth = require "./auth"
-through = require "through"
+app = require "./appserver"
 csv = require "csv"
 _ = require "underscore"
 
-module.exports = (app, config)->
+module.exports = (config)->
   Schema = require('./../model/Schema')(config)
 
   # public data
@@ -33,8 +33,6 @@ module.exports = (app, config)->
         csv.stringify data, {header:true, columns:columns}, (err, csvData)->
           console.log csvData
           res.send csvData
-
-
     else
       Schema.findById req.params.id, (e, schema)->
         res.send schema
@@ -61,6 +59,7 @@ module.exports = (app, config)->
       schema.remove ->
         app.emit config.moduleName+':after:delete', req, res, schema
         schema.name = config.moduleName
-        app.log schema, "delete"
+        if config.moduleName isnt "MessagesModule"
+          app.log schema, "delete"
         req.io.broadcast "destroyModel", schema._id, config.collectionName
         res.send 'deleted'

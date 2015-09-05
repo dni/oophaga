@@ -57,13 +57,12 @@ define [
           App.google.event.trigger(App.map, 'resize')
         , 1000
       , 1000
-      # @interval = setInterval ->
-      #   console.log "nterval"
       marker = new App.google.Marker
         map: App.map,
         position: pos
       App.vent.on "newPosition", ->
-        pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
+        pos = new App.google.LatLng App.position.coords.latitude,
+          App.position.coords.longitude
         marker?.setMap null
         marker = new App.google.Marker
           map: App.map,
@@ -71,15 +70,11 @@ define [
       # , 5000
 
     centermap: ->
-      pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
+      pos = new App.google.LatLng App.position.coords.latitude,
+        App.position.coords.longitude
+
       App.map.setCenter(pos)
 
-    # initChildren:->
-    #   @findView = new MapFindsView collection: App.Finds
-    #   @$el.append @findView.render().el
-    #   @findsiteView = new MapFindsiteView collection: App.Findsites
-    #   @$el.append @findsiteView.render().el
-    #   @trackView = new MapTrackView collection: App.Tracks
     #   @$el.append @trackView.render().el
 
   return MapView

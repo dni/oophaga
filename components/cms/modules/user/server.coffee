@@ -13,8 +13,10 @@ module.exports.setup = (app, config)->
   app.get '/login', (req, res)->
     res.sendfile process.cwd()+'/components/cms/login.html'
 
-  app.post '/login', passport.authenticate('local', failureRedirect: '/login'), (req, res)->
-    res.redirect app.config.adminroute
+  app.post '/login',
+    passport.authenticate('local', failureRedirect: '/login'),
+    (req, res)->
+      res.redirect app.config.adminroute
 
   app.get '/logout', (req, res)->
     req.logout()
@@ -37,8 +39,8 @@ module.exports.localstrategy = (username, password, done) ->
   User.findOne(
     username: username
     password: password
-  ).execFind (err, user)->
-    done err, user[0]
+  ).exec (err, user)->
+    done err, user
 
 module.exports.deserialize = (_id, done)->
   User.findById _id, (err, user)->

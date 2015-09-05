@@ -1,5 +1,4 @@
 define [
-  'backgrid'
   'cs!App'
   'cs!Utils'
   'cs!Router'
@@ -15,11 +14,7 @@ define [
   "cs!../view/GraphView"
   "cs!../view/CalendarView"
   "cs!../view/MapView"
-  "cs!../view/cells/ActionCell"
-  "cs!../view/cells/ThumbnailCell"
-  'backgrid-select-all'
-  'backgrid-filter'
-], ( Backgrid, App, Utilities, Router, Marionette, _, Model, Collection, EmptyView, TopView, ListView, EditView, ShowView, GraphView, CalendarView, MapView, ActionCell, ThumbnailCell) ->
+], ( App, Utilities, Router, Marionette, _, Model, Collection, EmptyView, TopView, ListView, EditView, ShowView, GraphView, CalendarView, MapView) ->
 
 
   class Controller extends Marionette.Controller
@@ -46,27 +41,6 @@ define [
         @FilteredCollection = Utilities.FilteredCollection App[@Config.collectionName]
         @FilteredCollection.filter @filterFunction
       @FilteredCollection
-    getColumns: ->
-      columns = [{
-        name: ""
-        cell: "select-row"
-        headerCell: "select-all"
-      }, {
-        name: ""
-        editable: false
-        width: 15
-        cell: ActionCell.extend moduleName: @Config.moduleName
-      }]
-      @Config.columns.forEach (key)=>
-        cell = @Config.model[key]?.db or "string"
-        if key is "thumbnail"
-          cell = ThumbnailCell.extend moduleName: @Config.moduleName
-        columns.push
-          name: key
-          editable: false
-          label: @i18n.attributes[key]
-          cell: cell
-      columns
 
     filter: (filterId)->
       activeFilters = @controls.get "activeFilters"
@@ -87,8 +61,8 @@ define [
         moduleName: @Config.moduleName
         model: @controls
       @topview.on "export", @exportSelected, @
-      @topview.on "removeSelected", @removeSelected, @
-      App.listTopRegion.show @topview
+      # @topview.on "removeSelected", @removeSelected, @
+      App.view.listTopRegion.show @topview
 
     newEditView:(model)->
       @detailView = new @EditView
@@ -113,25 +87,22 @@ define [
         published: false
         date: date
         crdate: date
-        user: App.User.get "_id"
-        cruser: App.User.get "_id"
         fieldorder: @Config.fields
       model.set fields
-      console.log model
       return model
 
     edit: (id) ->
-      @renderTopView() unless App.listTopRegion.currentView?
+      @renderTopView() unless App.view.listTopRegion.currentView?
       model = App[@Config.collectionName].findWhere _id: id
       if model
         view = @getContentView model
       else
         view = new @EmptyView message: @i18n.emptyMessage
       view.i18n = @i18n
-      App.overlayRegion.currentView.childRegion.show view
+      App.view.overlayRegion.currentView.childRegion.show view
 
     show: (id) ->
-      @renderTopView() unless App.listTopRegion.currentView?
+      @renderTopView() unless App.view.listTopRegion.currentView?
       model = App[@Config.collectionName].findWhere _id: id
       if model
         view = new @ShowView
@@ -141,16 +112,16 @@ define [
       else
         view = new @EmptyView message: @i18n.emptyMessage
       view.i18n = @i18n
-      App.overlayRegion.currentView.childRegion.show view
+      App.view.overlayRegion.currentView.childRegion.show view
 
     add: (relation)->
       model = @createNewModel relation
-      App.overlayRegion.currentView.childRegion.show @getContentView model
+      App.view.overlayRegion.currentView.childRegion.show @getContentView model
 
     graph:->
       @controls.set "activeView", "graph"
-      @renderTopView() unless App.listTopRegion.currentView?
-      App.contentRegion.show new @GraphView
+      @renderTopView() unless App.view.listTopRegion.currentView?
+      App.view.contentRegion.show new @GraphView
         config: @Config
         i18n: @i18n
         className: "container"
@@ -158,8 +129,8 @@ define [
 
     calendar:->
       @controls.set "activeView", "calendar"
-      @renderTopView() unless App.listTopRegion.currentView?
-      App.contentRegion.show new @CalendarView
+      @renderTopView() unless App.view.listTopRegion.currentView?
+      App.view.contentRegion.show new @CalendarView
         config: @Config
         i18n: @i18n
         className: "container"
@@ -167,34 +138,38 @@ define [
 
     map:->
       @controls.set "activeView", "map"
-      @renderTopView() unless App.listTopRegion.currentView?
-      App.contentRegion.show new @MapView
+      @renderTopView() unless App.view.listTopRegion.currentView?
+      App.view.contentRegion.show new @MapView
         config: @Config
         i18n: @i18n
         className: "container"
         collection: @getCollection()
 
     init: ->
-      App.detailRegion.empty()
+      App.view.detailRegion.empty()
       @list()
 
     removeSelected: (e)->
-      @grid.getSelectedModels().forEach (model)->
-        model.destroy()
+      # @grid.getSelectedModels().forEach (model)->
+      #   model.destroy()
     exportSelected: ->
-      c.l "export", @grid.getSelectedModels()
+      # c.l "export", @grid.getSelectedModels()
 
     list: ->
       @controls.set "activeView", "list"
-      @renderTopView() unless App.listTopRegion.currentView?
+      @renderTopView() unless App.view.listTopRegion.currentView?
       collection = @getCollection()
-      @grid = new Backgrid.Grid
+      App.view.contentRegion.show new @ListView
         collection: collection
-        columns: @getColumns()
-      App.contentRegion.show @grid
-      filter = new Backgrid.Extension.ClientSideFilter
-        collection: collection
-        fields: ['title']
+        columns: @Config.columns
+        i18n: @i18n
+      # @grid = new Backgrid.Grid
+      #   collection: collection
+      #   columns: @getColumns()
+      # App.contentRegion.show @grid
+      # filter = new Backgrid.Extension.ClientSideFilter
+      #   collection: collection
+      #   fields: ['title']
 
-      # add backgrid filter
-      App.contentRegion.currentView.$el.before filter.render().el
+      # # add backgrid filter
+      # App.contentRegion.currentView.$el.before filter.render().el

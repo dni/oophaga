@@ -1,6 +1,7 @@
 require.config({
   baseUrl: 'vendor',
   paths: {
+    spec: '../spec',
     lib: '../lib',
     utilities: '../lib/utilities',
     modules: '../modules',
@@ -27,12 +28,13 @@ require.config({
     'backgrid-filter': { deps: ['backbone', 'backgrid']},
   }
 });
-require(['cs!App', 'backbone', 'jquery'], function(App, Backbone, $){
-    $(document).off('.data-api');
-    App.init()
-    App.vent.on('ready', function(){
-      App.isReady = true
-      console.log("App is now ready");
-      Backbone.history.start();
-    });
-});
+require([
+    // tests
+     'cs!spec/AppSpec',
+     'cs!spec/InitAppSpec',
+     'cs!spec/ModuleSpec'
+     ], function() {
+       if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+       else { mocha.run(); }
+     }
+);

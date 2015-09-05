@@ -1,7 +1,7 @@
 define [
-  'cs!Oophaga'
-], (Oophaga) ->
-  class UserController extends Oophaga.Controller.Controller
+  'cs!lib/controller/Controller'
+], (Controller) ->
+  class UserController extends Controller
 
     routes:
       "General": "logout"

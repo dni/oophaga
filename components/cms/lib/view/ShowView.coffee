@@ -1,13 +1,12 @@
 define [
   'cs!App'
-  'cs!Oophaga'
   'i18n!lib/nls/language'
   'cs!Utils'
   'cs!Router'
   'marionette'
   'tpl!lib/templates/show.html'
   'cs!modules/files/view/RelatedFileView'
-], (App, Oophaga, i18n, Utils, Router, Marionette, Template, RelatedFileView) ->
+], (App, i18n, Utils, Router, Marionette, Template, RelatedFileView) ->
 
   class ShowView extends Marionette.LayoutView
     template: Template

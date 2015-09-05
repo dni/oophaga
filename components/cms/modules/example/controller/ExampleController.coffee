@@ -1,17 +1,18 @@
 define [
-  'cs!Oophaga'
+  'cs!lib/view/ListView'
+  'cs!lib/controller/LayoutController'
   'cs!modules/files/view/RelatedFileView'
 ],
-( Oophaga, RelatedFileView) ->
+( ListView, LayoutController, RelatedFileView) ->
 
-  class SimpleView extends Oophaga.View.ListView
+  class SimpleView extends ListView
     relatedView: true
     collectionName: "Simples"
     i18n: attributes: title: "Text"
     fieldName: "selectmodel"
     columns: ["title"]
 
-  class SettingsController extends Oophaga.Controller.LayoutController
+  class SettingsController extends LayoutController
     RelatedViews:
       fileView: RelatedFileView
       simpleView: SimpleView
