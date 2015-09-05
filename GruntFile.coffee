@@ -196,8 +196,7 @@ module.exports = (grunt)->
             lib: '../lib'
             utilities: '../lib/utilities'
             modules: '../modules'
-            App: "../lib/utilities/App"
-            Oophaga: "../lib/Oophaga"
+            App: "../lib/App"
             Router: '../lib/utilities/Router'
             Utils: '../lib/utilities/Utilities'
             tinymce: 'tinymce/tinymce',
