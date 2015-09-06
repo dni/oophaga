@@ -30,6 +30,7 @@ define [
       unless @MapView? then @MapView = MapView
       unless @TopView? then @TopView = TopView
       unless @EmptyView? then @EmptyView = EmptyView
+      @after?()
 
     defaultView: ->
       @renderTopView()
@@ -60,9 +61,8 @@ define [
         i18n: @i18n
         moduleName: @Config.moduleName
         model: @controls
-      @topview.on "export", @exportSelected, @
-      # @topview.on "removeSelected", @removeSelected, @
       App.view.listTopRegion.show @topview
+      @trigger "afterRenderTopView"
 
     newEditView:(model)->
       @detailView = new @EditView
@@ -91,6 +91,14 @@ define [
       model.set fields
       return model
 
+    action: (action) ->
+      @[action]?()
+
+    add: (relation)->
+      model = @createNewModel relation
+      App.view.overlayRegion.currentView.childRegion.show @getContentView model
+
+
     edit: (id) ->
       @renderTopView() unless App.view.listTopRegion.currentView?
       model = App[@Config.collectionName].findWhere _id: id
@@ -113,13 +121,6 @@ define [
         view = new @EmptyView message: @i18n.emptyMessage
       view.i18n = @i18n
       App.view.overlayRegion.currentView.childRegion.show view
-
-    action: (action) ->
-      @[action]?()
-
-    add: (relation)->
-      model = @createNewModel relation
-      App.view.overlayRegion.currentView.childRegion.show @getContentView model
 
     graph:->
       @controls.set "activeView", "graph"
@@ -152,12 +153,6 @@ define [
       App.view.detailRegion.empty()
       @list()
 
-    removeSelected: (e)->
-      # @grid.getSelectedModels().forEach (model)->
-      #   model.destroy()
-    exportSelected: ->
-      # c.l "export", @grid.getSelectedModels()
-
     list: ->
       @controls.set "activeView", "list"
       @renderTopView() unless App.view.listTopRegion.currentView?
@@ -166,13 +161,3 @@ define [
         collection: collection
         columns: @Config.columns
         i18n: @i18n
-      # @grid = new Backgrid.Grid
-      #   collection: collection
-      #   columns: @getColumns()
-      # App.contentRegion.show @grid
-      # filter = new Backgrid.Extension.ClientSideFilter
-      #   collection: collection
-      #   fields: ['title']
-
-      # # add backgrid filter
-      # App.contentRegion.currentView.$el.before filter.render().el
