@@ -37,8 +37,8 @@ define [
         altitude: null
         altitudeAccuracy: null
         heading: null
-        latitude: 0
-        longitude: 0
+        latitude: 48.2311483
+        longitude: 13.939873299999999
         speed: null
       timestamp: Date.now()
 

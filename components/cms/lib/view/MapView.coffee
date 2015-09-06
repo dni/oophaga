@@ -48,15 +48,17 @@ define [
         streetViewControl: false
 
     startPositionTracking:->
-      pos = new App.google.LatLng App.position.coords.latitude, App.position.coords.longitude
+      pos = new App.google.LatLng App.position.coords.latitude,
+        App.position.coords.longitude
+
       setTimeout -> # ;D hacky otherwise map woulnd be correct after 2nd load
         App.map.setCenter(pos)
         App.google.event.trigger(App.map, 'resize')
         setTimeout ->
           App.map.setCenter(pos)
           App.google.event.trigger(App.map, 'resize')
-        , 1000
-      , 1000
+        , 400
+      , 400
       marker = new App.google.Marker
         map: App.map,
         position: pos
