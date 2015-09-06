@@ -6,6 +6,7 @@ define({
     "title": "Titel",
     "population": "Population"
   },
+  "customaction": "Custom Aktion",
 	"newModel": "hat ein neues Beispiel erstellt",
   "updateModel": "hat ein Beispiel aktualisiert",
   "emptyMessage": "Das Beispiel existiert nicht mehr",

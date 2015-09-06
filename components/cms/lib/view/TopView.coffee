@@ -8,6 +8,10 @@ define [
 
   class TopView extends Marionette.ItemView
     template: Template
+
+    templateHelpers: =>
+      i18n: @options.i18n
+
     className: "container"
     events:
       "click .view": "setActive"

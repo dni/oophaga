@@ -5,6 +5,9 @@
   "url": "/examples/",
   "dbTable": "examples",
   "navigation": true,
+  "controls": {
+    "buttons":[ "customaction" ]
+  },
   "fields": ["title", "population"],
   "columns": ["title", "population", "date", "crdate"],
   "model": {

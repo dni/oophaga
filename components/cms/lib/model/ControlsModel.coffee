@@ -9,6 +9,7 @@ define [
         graph: "stats"
         map: "map-marker"
         calendar: "calendar"
+      buttons: []
       activeView: "list"
       filters: {}
       activeFilters: []

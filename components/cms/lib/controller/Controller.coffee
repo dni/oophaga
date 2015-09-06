@@ -57,7 +57,7 @@ define [
       @controls.set "filters", App.Filters.where relation: @Config.moduleName
       @controls.on "change", @filterCollection
       @topview = new @TopView
-        navigation: @i18n.navigation
+        i18n: @i18n
         moduleName: @Config.moduleName
         model: @controls
       @topview.on "export", @exportSelected, @
@@ -113,6 +113,9 @@ define [
         view = new @EmptyView message: @i18n.emptyMessage
       view.i18n = @i18n
       App.view.overlayRegion.currentView.childRegion.show view
+
+    action: (action) ->
+      @[action]?()
 
     add: (relation)->
       model = @createNewModel relation

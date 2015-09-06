@@ -52,3 +52,8 @@
 <% if (create) { %>
     <a class="create btn btn-default" href="#<%= moduleName %>/new/"><span class="glyphicon glyphicon-plus"></span></a>
 <% } %>
+<% if (buttons.length > 0) { %>
+    <% buttons.forEach(function(button){  %>
+      <a class="btn btn-default" href="#<%= moduleName %>/action/<%= button %>"><%= i18n[button] %></span></a>
+    <% }); %>
+<% } %>

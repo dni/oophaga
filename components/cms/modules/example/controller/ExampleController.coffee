@@ -12,7 +12,10 @@ define [
     fieldName: "selectmodel"
     columns: ["title"]
 
-  class SettingsController extends LayoutController
+  class ExampleController extends LayoutController
+    customaction: ->
+      alert "custom action"
+
     RelatedViews:
       fileView: RelatedFileView
       simpleView: SimpleView
