@@ -2,8 +2,8 @@ define [
   'cs!App'
   'marionette'
   'tpl!../templates/map.html'
-  'cs!./MapItemView'
-], (App, Marionette, Template, MapItemView) ->
+  'cs!./MapListView'
+], (App, Marionette, Template, MapListView) ->
 
 
   App.map = ''
@@ -21,7 +21,7 @@ define [
       # console.log "lol"
       @startPositionTracking()
       # @initChildren()
-      @childView = new MapItemView collection:@collection
+      @childView = new MapListView collection:@collection
       @$el.append @childView.render().el
 
 
