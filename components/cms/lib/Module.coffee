@@ -43,8 +43,6 @@ define [
       routes[@Config.moduleName+'/edit/:id'] = "edit"
       routes[@Config.moduleName+'/show/:id'] = "show"
       routes[@Config.moduleName+'/action/:action'] = "action"
-      routes[@Config.moduleName+'/remove/'] = "removeSelected"
-      routes[@Config.moduleName+'/export/'] = "exportSelected"
 
       views = @Controller.controls.get "views"
       Object.keys(views).forEach (key)=>
