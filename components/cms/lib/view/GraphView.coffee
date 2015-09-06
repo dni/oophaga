@@ -1,124 +1,103 @@
 define [
-  'cs!./AbstractGraph'
-  "cs!Router"
+  'cs!App'
+  'jquery'
+  'marionette'
+  'tpl!../templates/report.html'
   'd3'
-  'd3-tip'
   'dc'
   'crossfilter'
-], (AbstractGraph, Router, d3, tip, dc, crossfilter) ->
+  # 'less!../style/viz.less'
+], (App, $, Marionette, Template, d3, dc, crossfilter) ->
+  class ReportView extends Marionette.ItemView
 
-  class GraphView extends AbstractGraph
-    initChart:->
-      that = @
-      @line = d3.svg.line()
-        .x (d)-> that.x(d.date)
-        .y (d)-> that.y(d.value)
-      @tip = tip()
-        .attr 'class', 'd3-tip'
-        .offset [-10,0]
-        .html (d)-> "<span>#{d.title}</span>"
-      @svg.call @tip
-      @path = @svg.append('g').append('path').style("fill", "none").style("stroke", "grey")
-      @arc = d3.svg.arc().outerRadius(200 - 10).innerRadius 100
-      @pie = d3.layout.pie().sort(null).value (d)-> d.value
-      @changeFilter()
+    width: 1200
+    height: 280
+    legendwidth: 130
+    innerradius: 24
 
-    showChart: (data)->
+    margins:
+      top: 20
+      right: 60
+      bottom: 30
+      left: 46
+
+    template: Template
+    events:
+      "resize": "resize"
+      "click #download": "downloadSvg"
+
+    getDateRange: ->
+      date = new Date()
+      return [
+        new Date date.getFullYear(), 1, 1
+        new Date date.getFullYear()+1, 1, 1
+      ]
 
 
-      that = @
-      if @filter.type is "pie"
-        @pieDom = @svg.selectAll(".arc").data(that.pie(data))
-        @pieDom.exit().remove()
-        pieEnter = @pieDom.enter().append("g")
-          .attr("class","arc")
-          .attr "transform", "translate(200, 200)"
-        pieEnter.append("path")
-          .attr "fill", (d,i)-> that.color i
-          .attr("d", @arc)
-        pieEnter.append("text")
-          .attr "transform", (d)-> "translate(" + that.arc.centroid(d) + ")"
-          .text (d)-> d.data.title.slice(0, -5)
+    initialize:->
+      @ndx = crossfilter @collection.models
+      @userDimension = @ndx.dimension (d)-> d.get 'user'
+      @dateDimension = @ndx.dimension (d)-> new Date d.get 'date'
+      @dateByWeekDimension = @ndx.dimension (d)-> d3.time.week new Date d.get 'date'
+      @dateByMonthDimension = @ndx.dimension (d)-> d3.time.month new Date d.get 'date'
+      @dateByDayDimension = @ndx.dimension (d)-> d3.time.day new Date d.get 'date'
+      @on 'render', @afterRender
+      @listenTo @collection, 'reset', @updateData
 
-      if @filter.type is "path"
-        @x.domain d3.extent data, (d)-> d.date
-        @y.domain [0, d3.max data, (d)-> d.value]
-        @yAxisDom.call(@yAxis)
-        @xAxisDom.call(@xAxis)
-        @path.datum(data).transition()
-          .attr("class", "line")
-          .attr("d", that.line)
 
-      # if @filter.type is "bar"
-      x = d3.scale.ordinal().rangeRoundBands([0, @width], .1)
-      x.domain data.map (d)-> d.date
-      xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom")
+    downloadSvg: ->
+      svg = @svg[0][0].parentNode.outerHTML
+      doctype = '<?xml version="1.0" standalone="no"?> \
+      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">'
+      html = doctype+svg
+      blob = new Blob([html], {type: "image/svg+xml;charset=utf-8"})
+      saveAs blob, "graph.svg"
 
-      @svg.selectAll(".bar")
-        .data(data)
-        .enter().append("rect")
-        .attr "fill", "grey"
-        .attr("class", "bar")
-        .attr "x", (d)-> x(d.date)
-        .attr("width", x.rangeBand())
-        .attr "y", (d)-> that.y(d.value)
-        .attr "height", (d)-> that.height - that.y(d.value)
-
-      @yAxisDom.call(@yAxis)
-      @xAxisDom.call(xAxis)
-
-      hype = @svg.selectAll(".hype").data(data)
-      hype.enter()
-        .append("circle").attr("class", "hype")
-        .attr("r", 6)
-        .style("fill", "grey")
-        .on("mouseover", that.tip.show)
-        .on("mouseout", that.tip.hide)
-        .on "click", (d)-> Router.navigate d.href, trigger:true
-      hype.transition()
-        .attr "transform", (d)-> "translate(" + that.x(d.date) + "," + that.y(d.value) + ")"
-      hype.exit().remove()
-
-      pie = dc.pieChart("#chart-test")
-      stack = dc.barChart("#bar-test")
-      path = dc.lineChart("#line-test")
-      ndx = crossfilter @collection.models
-      userDimension = ndx.dimension (d)-> d.get "user"
-      weekDimension = ndx.dimension (d)-> d.get "date"
-      runGroup = weekDimension.group()
-      userGroup = userDimension.group()
-      pie
-        .width(240)
-        .height(240)
-        .radius(70)
-        .dimension(userDimension)
-        .group(userGroup)
-      stack
-        .width(240)
-        .height(240)
-        .dimension(weekDimension)
-        .x(d3.scale.linear().domain([1997, 2012]))
-        .group(runGroup)
-      path
-        .width(240)
-        .height(240)
-        .dimension(weekDimension)
-        .x(d3.scale.linear().domain([1997, 2012]))
-        .group(runGroup)
-
-      # sel_stack = (i)-> (d)-> d.value[i]
-      # chart = dc.barChart("#barchart")
-      # chart
-      #   .width(768)
-      #   .height(480)
-      #   .x(d3.scale.linear().domain([1,21]))
-      #   .margins({left: 50, top: 10, right: 10, bottom: 20})
-      #   .brushOn(false)
-      #   .clipPadding(10)
-      #   .yAxisLabel("This is the Y Axis!")
-      #   .dimension(runDimension)
-      #   .group(runGroup, "1", sel_stack(1))
+    afterRender:->
+      $(window).one "resize", => @afterRender()
+      @width = @$el.parent().width() or @width
+      @initLegend()
+      @initChart()
       dc.renderAll()
 
+    initChart: ->
+      console.log "no Chart defined"
+
+    getElement: (selector)->
+      @$el.find(selector)[0]
+
+    initLegend: ->
+      @userlegend = dc.pieChart @getElement "#userlegend"
+      @userlegend
+        .width @legendwidth
+        .height @legendwidth
+        .slicesCap 4
+        .innerRadius @innerradius
+        .dimension @userDimension
+        .group @userDimension.group().reduceCount()
+        .label (d)-> App.Users.findWhere(_id: d.data.key).get("title")
+        .legend dc.legend()
+
+    initChart:->
+      # pie = dc.pieChart("#chart-test")
+      # stack = dc.barChart("#bar-test")
+      path = dc.lineChart @getElement "#chart"
+      path
+        .width @width
+        .height @height
+        .margins @margins
+        # .rangeChart(volumeChart)
+        .brushOn false
+        .x d3.time.scale().domain @getDateRange()
+        .renderArea true
+        .clipPadding 10
+        .renderHorizontalGridLines true
+        # .title (d)-> "#{d.data.key}, Amount: #{d.data.value}"
+        # .xUnits(d3.time.month)
+        # .round(d3.time.month.round)
+        # .interpolate('step-before')
+        .yAxisLabel("Count")
+        .renderHorizontalGridLines(true)
+        .mouseZoomable true
+        .dimension @userDimension
+        .group @dateByWeekDimension.group().reduceCount()
