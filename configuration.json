@@ -1,5 +1,6 @@
 {
   "port": 2010,
-  "dbname": "oophaga-test",
+  "dbname": "oophaga",
+  "production": false,
   "adminroute": "/"
 }

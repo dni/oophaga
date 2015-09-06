@@ -12,7 +12,7 @@ module.exports = (config, cb)->
   app.get app.config.adminroute, auth, (req, res)->
     app.user = req.user
     dir = '/components/cms/'
-    # dir = '/cache/build/cms/' if port is config.port
+    dir = '/cache/build/cms/' if config.production
     app.use '/', express.static process.cwd()+dir
     res.sendfile process.cwd()+dir+'/index.html'
 
