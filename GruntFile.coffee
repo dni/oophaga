@@ -106,7 +106,7 @@ module.exports = (grunt)->
         options:
           destPrefix: "components/cms/vendor"
         files:
-          "jquery.js": "jquery/jquery.js"
+          "jquery.js": "jquery/dist/jquery.js"
           "io.js": "socket.io-client/dist/socket.io.js"
           "require.js": "requirejs/require.js"
           "d3.js": 'd3/d3.js'
