@@ -12,6 +12,9 @@ require.config({
     'jquery.tinymce': 'tinymce/jquery.tinymce.min',
   },
   shim: {
+    bootstrap: {
+      deps: ['jquery']
+    },
     'crossfilter': {
       deps: [],
       exports: 'crossfilter'
@@ -27,8 +30,7 @@ require.config({
     'backgrid-filter': { deps: ['backbone', 'backgrid']},
   }
 });
-require(['cs!App', 'backbone', 'jquery'], function(App, Backbone, $){
-    $(document).off('.data-api');
+require(['cs!App', 'backbone', 'jquery', 'bootstrap'], function(App, Backbone, $){
     App.init()
     App.vent.on('ready', function(){
       App.isReady = true

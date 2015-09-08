@@ -10,8 +10,8 @@ define [
   'bootstrap-datetimepicker'
   'jquery.tinymce'
   'jquery.minicolors'
-  'bootstrap'
-], (App, i18n, Collection, Utils, Router, Marionette, Template, RelatedFileView, datetimepicker, tinymce, minicolors, bootstrap) ->
+], (App, i18n, Collection, Utils, Router, Marionette, Template, RelatedFileView, datetimepicker, tinymce, minicolors) ->
+
 
   #important for build
   tinyMCE.baseURL = "/vendor/tinymce"
