@@ -3,9 +3,10 @@ define [
   'marionette'
   'cs!lib/view/AppLayoutView'
   'text!configuration'
+  'io'
   'jquery'
   'jquery.form'
-], (google, Marionette, AppLayout, configuration, $) ->
+], (google, Marionette, AppLayout, configuration, io, $) ->
   modules = JSON.parse(configuration).backend_modules
   count = Object.keys(JSON.parse(configuration).backend_modules)
 
@@ -28,6 +29,7 @@ define [
       if !count.length
         @startGeoTracking()
         @initUpload()
+        @initSocket()
         @vent.trigger "ready"
 
     google: google
@@ -57,3 +59,37 @@ define [
         upload = $("#uploadFile")
         upload.ajaxForm (response) ->
         upload.submit()
+    initSocket: ->
+
+      @socket = io.connect()
+
+      @socket.on "message", (msg, type)->
+        msgType = "success"
+        msgType = "info" if type is "message"
+        msgType = "warn" if type is "delete"
+        $.notify msg,
+          className: msgType
+          position:"right bottom"
+
+      @socket.on "updateModel", (id, collectionName)=>
+        model = @[collectionName].get id
+        model.fetch() unless model.hasChanged()
+
+      @socket.on "createModel", (model, collectionName)=>
+        @[collectionName].add model
+
+      @socket.on "destroyModel", (id, collectionName)=>
+        model = @[collectionName].remove id
+
+      @socket.on "disconnect", ->
+        # reload page for new login after server restarts/crashed
+        reload = -> document.location.reload()
+        setTimeout reload, 3000
+
+      @socket.on "connect", ->
+        console.log "socket connected"
+        # $.get "/user", (user)->
+        #   App.User = new Model user
+
+      @socket.on "error", (err)->
+        Utils.Log "SOCKET ERROR: " + err
