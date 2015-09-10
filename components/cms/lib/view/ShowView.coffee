@@ -19,4 +19,4 @@ define [
       @on "render", @afterRender, @
 
     templateHelpers: ->
-      vhs: _.extend Utils.Viewhelpers, Config: @options.Config, t: attributes: _.extend @options.i18n.attributes, i18n.attributes
+      vhs: _.extend Utils.Viewhelpers, config: @options.Config, Config: @options.Config, t: attributes: _.extend @options.i18n.attributes, i18n.attributes

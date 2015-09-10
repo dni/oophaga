@@ -3,9 +3,10 @@ define [
   'underscore'
   'i18n!lib/nls/language'
   'text!lib/templates/buttons.html'
+  'text!lib/templates/value.html'
   'text!lib/templates/field.html'
   'text!./meta-attributes.json'
-], (App, _, i18n, buttonTemplate, fieldTemplate, metaAttributes) ->
+], (App, _, i18n, buttonTemplate, valueTemplate, fieldTemplate, metaAttributes) ->
 
   Viewhelpers =
     getModel: (field)->
@@ -23,6 +24,10 @@ define [
       compiled = _.template """
       """
       compiled _.extend i18n, moduleName: @Config.moduleName, id: id
+
+    renderValue: (column, attributes)->
+      compiled = _.template valueTemplate
+      compiled _.extend @, i18n: i18n, column:column, attributes: attributes, config: @config, App: App, metaAttributes: JSON.parse metaAttributes
 
     renderField: (key, attribute)->
       compiled = _.template fieldTemplate

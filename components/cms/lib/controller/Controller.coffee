@@ -161,3 +161,4 @@ define [
         collection: collection
         columns: @Config.columns
         i18n: @i18n
+        config: @Config

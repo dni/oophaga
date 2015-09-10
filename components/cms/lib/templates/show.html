@@ -9,7 +9,7 @@
       <% vhs.foreachAttribute(obj, function(key, attribute){ %>
         <tr>
           <td><b><%= key %>:</b></td>
-          <td> <%= attribute.value %> </td>
+          <td> <%= vhs.renderValue(key, obj) %> </td>
         </tr>
       <% }); %>
   </table>
@@ -18,7 +18,7 @@
       <% vhs.foreachMetaAttribute(obj, function(key, attribute){ %>
         <tr>
           <td><b><%= key %>:</b></td>
-          <td> <%= attribute.value %> </td>
+          <td> <%= vhs.renderValue(key, obj) %> </td>
         </tr>
       <% }); %>
   </table>
