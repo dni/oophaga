@@ -108,7 +108,7 @@ define [
         success: ->
 
     initFields: ->
-      @$el.find(".datepicker").datetimepicker showToday:true
+      @$el.find(".datepicker").datetimepicker()
       @$el.find('[data-toggle=tooltip]').tooltip
         placement: 'right'
         container: 'body'

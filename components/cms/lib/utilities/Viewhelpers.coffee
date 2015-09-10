@@ -46,7 +46,7 @@ define [
       options = {}
       if attribute.collection
         App[attribute.collection].forEach (model)->
-          options[model.get("_id")] = model.get("title")
+          options[model.get("_id")] = model.get attribute.label
         return options
       if attribute.setting
         setting = App.Settings.findWhere title: @Config.moduleName
