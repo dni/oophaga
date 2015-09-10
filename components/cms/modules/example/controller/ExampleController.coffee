@@ -13,6 +13,7 @@ define [
     columns: ["title"]
 
   class ExampleController extends LayoutController
+
     customaction: ->
       alert "custom action"
 

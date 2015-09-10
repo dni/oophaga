@@ -6,12 +6,13 @@ define [
   'jquery'
   'underscore'
   'marionette'
+  'tpl!../templates/browse.html'
   'tpl!../templates/browse-item.html'
   'tpl!../templates/upload.html'
-], (App, Config, Utilities, Model, $, _, Marionette, Template, UploadTemplate) ->
+], (App, Config, Utilities, Model, $, _, Marionette, Template, ItemTemplate, UploadTemplate) ->
 
   class BrowseItemView extends Marionette.ItemView
-    template: Template
+    template: ItemTemplate
     ui:
       item: '.browse-item'
     events:
@@ -23,8 +24,10 @@ define [
       @ui.item.toggleClass? 'selected'
 
 
-  class BrowseView extends Marionette.CollectionView
+  class BrowseView extends Marionette.CompositeView
+    template: Template
     childView: BrowseItemView
+    childViewContainer: "#browse-body"
     initialize: (args)->
       @model = args.model
       @multiple = args.multiple
@@ -33,11 +36,12 @@ define [
       @collection = Utilities.FilteredCollection App.Files
       @collection.filter (file) -> !file.parent?
       @collection.forEach (model) => model.set "multiple", @multiple
-      if !@multiple then  @listenTo @collection, 'change', App.overlayRegion.currentView.ok
+      if !@multiple then  @listenTo @collection, 'change', App.view.overlayRegion.currentView.ok
       @$el.prepend UploadTemplate
 
     events:
       "change #upload": "uploadFile"
+      "click #ok": "ok"
 
     uploadFile: ->
       @$el.find("#uploadFile").ajaxForm (response) -> true
