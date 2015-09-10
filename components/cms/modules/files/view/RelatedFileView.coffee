@@ -17,7 +17,7 @@ define [
     events:
       "click img": "showFile"
     showFile: ->
-      App.overlayRegion.currentView.childRegion.show new ShowFileView
+      App.view.overlayRegion.currentView.childRegion.show new ShowFileView
         model: @model
 
   class RelatedFileView extends Marionette.CompositeView
@@ -34,7 +34,7 @@ define [
       "click @ui.addFile": "add"
 
     add:->
-      App.overlayRegion.currentView.childRegion.show new BrowseView
+      App.view.overlayRegion.currentView.childRegion.show new BrowseView
         model: @model
         fieldrelation: @fieldrelation
         multiple: @multiple

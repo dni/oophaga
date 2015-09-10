@@ -11,10 +11,9 @@ module.exports = (config, cb)->
   #admin route
   app.get app.config.adminroute, auth, (req, res)->
     app.user = req.user
-    dir = '/components/cms/'
-    dir = '/cache/build/cms/' if config.production
+    dir = if config.production then '/cache/build/cms/' else '/components/cms/'
     app.use '/', express.static process.cwd()+dir
-    res.sendfile process.cwd()+dir+'/index.html'
+    res.sendfile "#{process.cwd()}#{dir}/index.html"
 
   #load/setup components
   componentsDir = __dirname+'/components/'
@@ -28,9 +27,9 @@ module.exports = (config, cb)->
               component = require componentsDir+file+'/server.coffee'
               component.setup app, config
 
-  port = process.argv[2] || config.port
+  # start the server
   server = app.listen config.port, ->
-    mongoose.connect 'mongodb://localhost/'+config.db
+    mongoose.connect "mongodb://localhost/#{config.db}"
     server.on "close", ->
       mongoose.connection.close()
     mongoose.connection.once "open", ->
