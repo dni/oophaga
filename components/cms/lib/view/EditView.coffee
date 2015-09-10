@@ -6,7 +6,7 @@ define [
   'cs!Router'
   'marionette'
   'tpl!lib/templates/edit.html'
-  'cs!modules/files/view/RelatedFileView'
+  'cs!sysmodules/files/view/RelatedFileView'
   'bootstrap-datetimepicker'
   'jquery.tinymce'
   'jquery.minicolors'

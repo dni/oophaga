@@ -196,6 +196,7 @@ module.exports = (grunt)->
             lib: '../lib'
             utilities: '../lib/utilities'
             modules: '../modules'
+            sysmodules: '../sysmodules'
             App: "../lib/App"
             Router: '../lib/utilities/Router'
             Utils: '../lib/utilities/Utilities'

@@ -4,6 +4,7 @@ require.config({
     lib: '../lib',
     utilities: '../lib/utilities',
     modules: '../modules',
+    sysmodules: '../sysmodules',
     configuration: '../configuration.json',
     App: "../lib/App",
     Router: '../lib/utilities/Router',

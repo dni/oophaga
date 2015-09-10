@@ -1,9 +1,9 @@
 fs = require 'fs'
 crud = require './lib/utilities/crud'
-dir =  __dirname+'/modules/'
+SettingsModule = require "./sysmodules/settings/server.coffee"
 configuration = require("./configuration.json")
-modules = configuration.backend_modules.map (moduleString)-> dir+moduleString.split("/")[1]
-SettingsModule = require "./modules/settings/server.coffee"
+modules = configuration.backend_modules.map (moduleString)->
+  "#{__dirname}/#{moduleString.split("/")[0].split("!")[1]}/#{moduleString.split("/")[1]}/"
 
 module.exports.setup = (app)->
 

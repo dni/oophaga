@@ -2,7 +2,7 @@ define [
   'jquery'
   'cs!App'
   'marionette'
-  'i18n!modules/cms/nls/language'
+  'i18n!sysmodules/cms/nls/language'
   'tpl!lib/templates/overlay.html'
 ], ($, App, Marionette, i18n, Template) ->
   class OverlayView extends Marionette.LayoutView

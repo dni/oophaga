@@ -2,8 +2,8 @@ async = require "async"
 auth = require './../../lib/utilities/auth'
 Setting = {}
 configuration = require("../../configuration.json")
-dir =  '../'
-modules = configuration.backend_modules.map (moduleString)-> dir+moduleString.split("/")[1]
+modules = configuration.backend_modules.map (moduleString)->
+  "#{process.cwd()}/components/cms/#{moduleString.split("/")[0].split("!")[1]}/#{moduleString.split("/")[1]}"
 
 module.exports.setup = (app, config)->
   app.settings = {}

@@ -5,7 +5,7 @@ define [
   'cs!Router'
   'marionette'
   'tpl!lib/templates/show.html'
-  'cs!modules/files/view/RelatedFileView'
+  'cs!sysmodules/files/view/RelatedFileView'
 ], (App, i18n, Utils, Router, Marionette, Template, RelatedFileView) ->
 
   class ShowView extends Marionette.LayoutView

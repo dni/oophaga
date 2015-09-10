@@ -1,7 +1,7 @@
 define [
   'require'
   'cs!lib/model/Model'
-  'text!modules/messages/configuration.json'
+  'text!sysmodules/messages/configuration.json'
   'notify'
   'jquery'
 ], (require, Model, Config, notify, $) ->

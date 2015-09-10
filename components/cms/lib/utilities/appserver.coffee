@@ -1,7 +1,7 @@
 express = require 'express.io'
 passport = require "passport"
 LocalStrategy = require('passport-local').Strategy
-UserModule = require "../../modules/user/server.coffee"
+UserModule = require "../../sysmodules/user/server.coffee"
 app = express()
 app.http().io()
 app.configure ->
