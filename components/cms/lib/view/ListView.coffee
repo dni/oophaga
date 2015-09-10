@@ -12,7 +12,7 @@ define [
     tagName: "tr"
     template: Template
     templateHelpers:->
-      vhs: Utils.Viewhelpers
+      vhs: _.extend Utils.Viewhelpers, config: @options.config
       columns: columns
     events:
       "click .ok": "selectItem"
@@ -34,6 +34,8 @@ define [
     events:
       "click th": "clickSort"
     childViewContainer: 'tbody'
+    childViewOptions: ->
+      config: @options.config
     childEvents:
       newclick: ->
         @children.forEach (child)->

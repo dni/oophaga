@@ -42,6 +42,7 @@
     },
     "selectmodel" : {
       "type": "select",
+      "label": "title",
       "collection": "Examples"
     },
     "button": {

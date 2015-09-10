@@ -16,12 +16,14 @@
   "user" : {
     "db": "String",
     "type": "select",
+    "label": "username",
     "disabled": "true",
     "collection": "Users"
   },
   "cruser" : {
     "db": "String",
     "type": "select",
+    "label": "username",
     "disabled": "true",
     "collection": "Users"
   },
