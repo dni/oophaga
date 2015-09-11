@@ -27,7 +27,7 @@
     <% } %>
 
     <% if (attribute.type === "range") { %>
-    <input<%= elAttr(attribute) %>  type="range" class="form-control range" step="<%= attribute.step %>" min="<%= attribute.min %>" max="<%= attribute.max %>" name="<%= attribute.key %>" value="<%= attribute.value %>">
+    <input<%= elAttr(attribute) %>  type="range" class="form-control range" step="<%= attribute.step %>" min="<%= attribute.min %>" max="<%= attribute.max %>" name="<%= key %>" value="<%= attribute.value %>">
     <% } %>
 
     <% if (attribute.type === "file") { %>
