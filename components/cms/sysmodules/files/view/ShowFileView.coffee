@@ -17,4 +17,4 @@ define [
         success:->
 
     editFile: ->
-      Router.navigate "##{@options.moduleName}/edit/#{@model.get("_id")}", trigger:true
+      Router.navigate @model.getEditHref(), trigger:true

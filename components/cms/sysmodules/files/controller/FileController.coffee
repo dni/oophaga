@@ -14,7 +14,7 @@ define [
       preview: PreviewView
 
     filterFunction: (file)->
-      !file.parent?
+      !file.get("parent")?
 
     show: (id) ->
       App.view.overlayRegion.currentView.childRegion.show new ShowFileView

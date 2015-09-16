@@ -19,4 +19,4 @@ define [
 
     RelatedViews:
       fileView: RelatedFileView
-      simpleView: SimpleView
+      # simpleView: SimpleView

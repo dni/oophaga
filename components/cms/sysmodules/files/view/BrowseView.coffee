@@ -1,5 +1,6 @@
 define [
   'cs!App'
+  'cs!Router'
   'text!../configuration.json'
   'cs!utilities/Utilities'
   'cs!lib/model/Model'
@@ -8,8 +9,7 @@ define [
   'marionette'
   'tpl!../templates/browse.html'
   'tpl!../templates/browse-item.html'
-  'tpl!../templates/upload.html'
-], (App, Config, Utilities, Model, $, _, Marionette, Template, ItemTemplate, UploadTemplate) ->
+], (App, Router, Config, Utilities, Model, $, _, Marionette, Template, ItemTemplate) ->
 
   class BrowseItemView extends Marionette.ItemView
     template: ItemTemplate
@@ -34,10 +34,9 @@ define [
       @Config = JSON.parse Config
       @fieldrelation = args.fieldrelation
       @collection = Utilities.FilteredCollection App.Files
-      @collection.filter (file) -> !file.parent?
+      @collection.filter (file) -> !file.get("parent")?
       @collection.forEach (model) => model.set "multiple", @multiple
       if !@multiple then  @listenTo @collection, 'change', App.view.overlayRegion.currentView.ok
-      @$el.prepend UploadTemplate
 
     events:
       "change #upload": "uploadFile"
@@ -61,3 +60,4 @@ define [
           'relation': @model.get "_id"
           'fieldrelation': @fieldrelation
         App.Files.create newfile
+        Router.navigate @model.getEditHref(), trigger:true

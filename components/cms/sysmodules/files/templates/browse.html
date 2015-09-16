@@ -4,5 +4,13 @@
 </div>
 <div id="browse-body" class="modal-body clearfix"></div>
 <div class="modal-footer">
+  <form style="display:inline;" class="form-inline form-plugin" action="/uploadFile" method="POST" id="uploadFile" enctype="multipart/form-data">
+    <div class="btn btn-default fileinput-button">
+      <span class="glyphicon glyphicon-cloud-upload"></span>
+      Upload
+      <input id="upload" type="file" name="files[]" capture="camera" multiple="multiple">
+    </div>
+  </form>
+
   <button id="ok" class="ok btn btn-primary">Auswählen</button>
 </div>

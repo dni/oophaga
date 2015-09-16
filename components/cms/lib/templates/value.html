@@ -11,7 +11,10 @@
 <% } else if (model.type == "checkbox") { %>
   <input disabled type="checkbox" value="1" <% if (value) { %> checked="checked" <% } %>>
 <% } else if (model.type == "select" && model.collection) { %>
-  <%= App[model.collection].findWhere({_id: value}).get(model.label) %>
+  <% var relatedmodel = App[model.collection].findWhere({_id: value}); %>
+  <% if (relatedmodel) { %>
+    <%= relatedmodel.get(model.label) %>
+  <% } %>
 <% } else { %>
   <%= value %>
 <% } %>
