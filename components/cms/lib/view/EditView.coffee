@@ -100,7 +100,7 @@ define [
         Router.navigate @model.getHref(), trigger:true
 
     deleteModel: ->
-      App.overlayRegion.currentView.childRegion.empty()
+      App.view.overlayRegion.currentView.childRegion.empty()
       Router.navigate @options.Config.moduleName, trigger:true
       @model.destroy
         success: ->
