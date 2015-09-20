@@ -29,7 +29,7 @@ module.exports = (config, cb)->
 
   # start the server
   server = app.listen config.port, ->
-    mongoose.connect "mongodb://localhost/#{config.db}"
+    mongoose.connect "mongodb://localhost/#{config.dbname}"
     server.on "close", ->
       mongoose.connection.close()
     mongoose.connection.once "open", ->
