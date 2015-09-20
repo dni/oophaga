@@ -1,27 +1,18 @@
 define [
-  'require'
-  'cs!lib/model/Model'
-  'text!sysmodules/messages/configuration.json'
+  'cs!App'
   'notify'
   'jquery'
-], (require, Model, Config, notify, $) ->
-  config = JSON.parse Config
+], (App, Config, notify, $) ->
+
   (log, type, additionalinfo)->
     if !additionalinfo? then additionalinfo = ''
     if !type? then type = 'log'
 
-    App = require "cs!App"
-    username = App.User.get "_id"
-
-    config.model.message.value =  log
-    config.model.user.value = username
-    config.model.type.value = type
-    config.model.additionalinfo.value = additionalinfo
-
-    message = new Model
-    message.set "name", "MessageModel"
-    message.set "fields", config.model
-    App.Messages.create message,
+    App.Messages.create [
+      message: log
+      type: type
+      additionalinfo: additionalinfo
+    ],
+      wait:true
       success: ->
-
-    message
+        console.log "created message", arguments
