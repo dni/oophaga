@@ -92,4 +92,4 @@ define [
         #   App.User = new Model user
 
       @socket.on "error", (err)->
-        Utils.Log "SOCKET ERROR: " + err
+        console.log "SOCKET ERROR: " + err

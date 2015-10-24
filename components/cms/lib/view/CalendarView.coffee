@@ -12,6 +12,11 @@ define [
     className: "container"
     render: ->
       setTimeout => # wait i little bit ;) for calendar else it wont render correctly
-        @$el.fullCalendar events: @collection.getCalendarEvents()
+        @$el.fullCalendar
+          events: @collection.getCalendarEvents()
+          header:
+            left: 'prev,next today'
+            center: 'title'
+            right: 'month,basicWeek,basicDay'
       , 50
 

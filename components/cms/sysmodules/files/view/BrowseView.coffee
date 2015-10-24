@@ -59,5 +59,7 @@ define [
           'parent': file.get "_id"
           'relation': @model.get "_id"
           'fieldrelation': @fieldrelation
-        App.Files.create newfile
-        Router.navigate @model.getEditHref(), trigger:true
+        App.Files.create newfile,
+          wait:true
+          success: =>
+            Router.navigate @model.getEditHref(), trigger:true

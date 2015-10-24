@@ -23,7 +23,7 @@ define({
     "unpublish": "Unpublish",
     "navigation": "General",
     "date": "Date",
-    "dateformat": "%d.%m.%y %H:%m:%S",
+    "dateformat": "%d.%m.%y %H:%M:%S",
     "sunday": "Sunday",
     "monday": "Monday",
     "tuesday": "Tuesday",

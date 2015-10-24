@@ -22,7 +22,7 @@ define({
   "date": "Datum",
   "publish": "Veröffentlichen",
   "unpublish": "Unveröffentlichen",
-  "dateformat": "%d.%m.%Y %H:%m",
+  "dateformat": "%d.%m.%Y %H:%M",
   "sunday": "Sonntag",
   "monday": "Montag",
   "tuesday": "Dienstag",
