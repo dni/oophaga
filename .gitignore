@@ -5,6 +5,8 @@ vendor
 public/files
 public/books
 
+components/cms_mobile/www/lib
+
 .project
 .DS_Store
 

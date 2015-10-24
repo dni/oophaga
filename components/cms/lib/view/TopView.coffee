@@ -16,12 +16,16 @@ define [
     events:
       "click .view": "setActive"
       "click .filter": "filter"
-      "click .import": "import"
+      "change .import": "import"
       "click .remove": "remove"
       "click .export": "export"
 
     filter: (e)->
       $(e.currentTarget).parent().toggleClass "active"
+
+    import:=>
+      @$el.find(".import").ajaxForm (response) -> true
+      @$el.find(".import").submit()
 
     export:-> @trigger "export"
     remove: -> @trigger "removeSelected"

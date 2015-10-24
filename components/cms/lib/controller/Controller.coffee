@@ -62,7 +62,12 @@ define [
         moduleName: @Config.moduleName
         model: @controls
       App.view.listTopRegion.show @topview
+      @topview.on "export", @export
       @trigger "afterRenderTopView"
+
+    export: =>
+      collection = @getCollection()
+      collection.saveToCSV @Config.collectionName
 
     newEditView:(model)->
       @detailView = new @EditView

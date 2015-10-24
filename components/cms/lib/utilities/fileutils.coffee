@@ -92,11 +92,10 @@ module.exports = (app, setting)->
       gmImg.write dir+title, done
 
 
-  importCsv: (file, done)->
+  importCsv: (collectionName, file, done)->
     importFailed = "import failed "
     csvLink = dir+file.link
     input = fs.readFileSync(csvLink).toString()
-    collectionName = file.link.split(".").shift().split('_').shift()
     config = app.collections[collectionName]
     return app.log importFailed+"collection: "+collectionName+" doesnt exist.", "error" unless config?
     csv.parse input, {delimiter: ";"}, (err, data)->
@@ -106,7 +105,7 @@ module.exports = (app, setting)->
         async.eachSeries fields, (field, cb2)->
           j = fields.indexOf(field)
           modelField = config.model[field]
-          return app.log importFailed+field+" doesnt exist in config.", "error" unless modelField?
+          # return app.log importFailed+field+" doesnt exist in config.", "error" unless modelField?
           if modelField.collection?
             Collection = require("../lib/model/Schema")(modelField.collection)
             Collection.findOne("fields.title.value": row[j]).exec (err, submodel)->

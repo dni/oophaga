@@ -43,12 +43,6 @@
 <% if (deleteAble) { %>
 <!-- <button class="remove btn btn-default"><span class="glyphicon glyphicon-trash"></span></button> -->
 <% } %>
-<% if (importExport) { %>
-<div class="btn-group">
-  <button class="import btn btn-default">Import</button>
-  <button class="export btn btn-default" >Export</button>
-</div>
-<% } %>
 <% if (create) { %>
     <a class="create btn btn-default" href="#<%= moduleName %>/new/"><span class="glyphicon glyphicon-plus"></span></a>
 <% } %>
@@ -56,4 +50,17 @@
     <% buttons.forEach(function(button){  %>
       <a class="btn btn-default" href="#<%= moduleName %>/action/<%= button %>"><%= i18n[button] %></span></a>
     <% }); %>
+<% } %>
+<% if (importExport) { %>
+  <button class="export btn btn-default" >
+    <span class="glyphicon glyphicon-cloud-download"></span>
+     Export
+  </button>
+  <form style="display:inline;" class="form-inline form-plugin" action="/uploadFile" method="POST" id="uploadFile" enctype="multipart/form-data">
+    <div class="btn btn-default fileinput-button">
+      <span class="glyphicon glyphicon-cloud-upload"></span>
+      Import
+      <input class="import" type="file" name="files[]" capture="camera" multiple="multiple">
+    </div>
+  </form>
 <% } %>

@@ -7,6 +7,18 @@ dir = "./public/files/"
 module.exports.setup = (app, config, setting)->
   utils = require("../../lib/utilities/fileutils.coffee")(app, setting)
 
+  # import collection
+  app.post "/import/:collectionName", auth, (req,res)->
+    return "no collection name" unless req.params.collectionName?
+    form = new multiparty.Form uploadDir: dir
+    form.parse req, (err, fields, files)->
+      if err then return console.log 'formparse error', err
+      async.eachSeries files['files[]'], (srcFile, done)->
+        fs.unlink srcFile.path
+        if srcFile.headers['content-type'] is "text/csv"
+          utils.importCsv collectionName, file
+      , -> res.send("done uploading")
+
   # upload file
   app.post "/uploadFile", auth, (req,res)->
     form = new multiparty.Form uploadDir: dir
@@ -25,9 +37,6 @@ module.exports.setup = (app, config, setting)->
             done()
         if srcFile.headers['content-type'].split("/")[0] is "image"
           utils.createImages file, saveFile
-        # else if srcFile.headers['content-type'] is "text/csv"
-          # utils.importCsv file, saveFile
-          # console.log "import disabled"
         else
           saveFile()
       , -> res.send("done uploading")

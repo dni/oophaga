@@ -83,6 +83,7 @@ module.exports = (grunt)->
         'public/files'
       ]
       lib: src: [ 'lib' ]
+      mobile: src: [ 'components/cms_mobile/www/lib' ]
       build: src: [ 'cache/build' ]
       buildBackend: src: [ 'cache/build/cms' ]
       vendorBackend: src: [ 'components/cms/vendor' ]
@@ -164,6 +165,11 @@ module.exports = (grunt)->
           "mocha.css": 'mocha/mocha.css'
 
     copy:
+      cms_mobile:
+        cwd: 'components/cms/'
+        src: '*'
+        dest: 'components/cms_mobile/www/lib'
+        expand: true
       tinymce:
         cwd: 'components/cms/modules/publish/nls/langs-tinymce'
         src: '*'
@@ -237,6 +243,7 @@ module.exports = (grunt)->
     'mkdir:all'
     'bowercopy'
     'copy:tinymce' # translations for tinymce
+    'copy:cms_mobile'
     'clean:lib' #workaround ;()
     'less:development' # precompile less ;D
     'build'
@@ -250,6 +257,11 @@ module.exports = (grunt)->
   grunt.registerTask 'reset', 'Reinstalling the App', [
     'dropDatabase'
     'clean:everything'
+  ]
+
+  grunt.registerTask 'build_mobile', 'refreshes the app in the phonegap dir', [
+    'clean:mobile'
+    'copy:cms_mobile'
   ]
 
   grunt.registerTask 'build', 'Compiles all of the assets and copies the files to the build directory.', [

@@ -19,7 +19,7 @@ define [
       filter:false
       group:false
       deleteAble:true
-      importExport: false
+      importExport: true
 
 
     filterFunction: (model)=>

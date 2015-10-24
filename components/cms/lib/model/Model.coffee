@@ -48,3 +48,6 @@ define [
     redo: ->
       return unless undo = @undone.pop()
       @set undo
+
+    csvData: (str)->
+      this.toJSON()

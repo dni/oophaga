@@ -73,7 +73,7 @@ define [
 
       @socket.on "updateModel", (id, collectionName)=>
         model = @[collectionName].get id
-        model.fetch() unless model.hasChanged()
+        model.fetch dataType: "jsonp" unless model.hasChanged()
 
       @socket.on "createModel", (model, collectionName)=>
         @[collectionName].add model
