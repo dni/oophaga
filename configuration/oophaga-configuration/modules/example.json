@@ -1,0 +1,34 @@
+{
+  "moduleName": "ExampleModule",
+  "nameOfModel": "Example",
+  "collectionName": "Examples",
+  "path": "cs!modules/example/ExampleModule",
+  "namespace": "example",
+  "url": "/api/example/",
+  "dbTable": "examples",
+  "navigation": {
+    "icon": "",
+    "sub": false
+  },
+  "modelconfig": {
+    "title" : {
+      "type": "text",
+      "db": {
+        "type": "String",
+        "default": ""
+      }
+    },
+    "population" : {
+      "type": "text",
+      "db": {
+        "type": "String",
+        "default": ""
+      }
+    }
+  },
+  "controls": {
+    "buttons":[ "customaction" ]
+  },
+  "fields": ["title", "population"],
+  "columns": ["title", "population", "date", "crdate"]
+}

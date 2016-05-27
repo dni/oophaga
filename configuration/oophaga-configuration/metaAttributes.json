@@ -1,0 +1,59 @@
+{
+  "published" : {
+    "type": "checkbox",
+    "db": {
+      "type": "Boolean",
+      "default": false
+    }
+  },
+  "date" : {
+    "type": "date",
+    "disabled": "true",
+    "db": {
+      "type": "Date"
+    }
+  },
+  "crdate" : {
+    "type": "date",
+    "disabled": "true",
+    "db": {
+      "type": "Date"
+    }
+  },
+  "user" : {
+    "type": "select",
+    "label": "username",
+    "disabled": "true",
+    "collection": "Users",
+    "db": {
+      "type": "String",
+      "default": ""
+    }
+  },
+  "cruser" : {
+    "type": "select",
+    "label": "username",
+    "disabled": "true",
+    "collection": "Users",
+    "db": {
+      "type": "String",
+      "default": ""
+    }
+  },
+  "lat" : {
+    "type": "text",
+    "disabled": "true",
+    "db": {
+      "type": "String",
+      "default": ""
+    }
+  },
+  "lng" : {
+    "type": "text",
+    "disabled": "true",
+    "db": {
+      "type": "String",
+      "default": ""
+    }
+  }
+}

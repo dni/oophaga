@@ -1,0 +1,49 @@
+{
+  "moduleName": "UserModule",
+  "name": "UserModule",
+  "nameOfModel": "User",
+  "namespace": "user",
+  "collectionName": "Users",
+  "path": "cs!sysmodules/user/UserModule",
+  "url": "/api/user/",
+  "urlRoot": "users",
+  "dbTable": "users",
+  "notpublishable": true,
+  "navigation": {
+    "sub": true,
+    "icon": "user"
+  },
+  "columns": ["title", "username", "email"],
+  "fields": ["title", "username", "email"],
+  "modelconfig": {
+    "title" : {
+      "type": "text",
+      "db": {
+        "type": "String",
+        "default": ""
+      }
+    },
+    "username": {
+      "type": "text",
+      "db": {
+        "type": "String",
+        "unique": true,
+        "required": true
+      }
+    },
+    "password": {
+      "type": "password",
+      "db": {
+        "type": "String",
+        "required": true
+      }
+    },
+    "email": {
+      "type": "text",
+      "db": {
+        "type": "String",
+        "default": ""
+      }
+    }
+  }
+}

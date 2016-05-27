@@ -1,0 +1,39 @@
+{
+  "moduleName": "MessageModule",
+  "nameOfModel": "Message",
+  "namespace": "message",
+  "collectionName": "Messages",
+  "path": "cs!sysmodules/message/MessageModule",
+  "url": "/api/messages/",
+  "urlRoot": "messages",
+  "dbTable": "messages",
+  "navigation": {
+    "icon": "comment",
+    "sub": true
+  },
+  "columns": ["message", "date", "type"],
+  "fields": ["message", "type"],
+  "modelconfig": {
+    "type": {
+      "type": "text",
+      "db": {
+        "type": "String",
+        "default": "log"
+      }
+    },
+    "message": {
+      "type": "textarea",
+      "db": {
+        "type": "String",
+        "default": "default message"
+      }
+    },
+    "additionalinfo" : {
+      "type": "hidden",
+      "db": {
+        "type": "Object",
+        "default": []
+      }
+    }
+  }
+}
