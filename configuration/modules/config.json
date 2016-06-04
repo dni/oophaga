@@ -2,6 +2,7 @@
   "moduleName": "ConfigModule",
   "nameOfModel": "Config",
   "namespace": "config",
+  "dbTable": "configs",
   "collectionName": "Configs",
   "path": "cs!sysmodules/config/ConfigModule",
   "url": "/api/config/",

@@ -23,12 +23,6 @@ require.config({
     'jquery.tinymce':['jquery', 'tinymce'],
     'minicolors':['jquery'],
     'fullcalendar':['jquery', 'moment'],
-    'backgrid': {
-      deps: ['jquery', 'underscore', 'backbone'],
-      exports: 'Backgrid'
-    },
-    'backgrid-select-all': { deps: ['backbone', 'backgrid']},
-    'backgrid-filter': { deps: ['backbone', 'backgrid']},
   }
 });
 require(['cs!App', 'backbone', 'jquery', 'bootstrap'], function(App, Backbone, $){
