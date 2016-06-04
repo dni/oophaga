@@ -1,8 +1,8 @@
 fs = require "fs-extra"
 mongoose = require "mongoose"
 
-config = require "./configuration.json"
-backend_modules = require("./components/cms/configuration.json").backend_modules
+config = require "./configuration/index.json"
+# backend_modules = require("./components/cms/configuration.json").backend_modules
 # frontend_modules = require("./components/cms/configuration.json").modules
 
 db = mongoose.connect 'mongodb://localhost/'+config.dbname
@@ -125,7 +125,7 @@ module.exports = (grunt)->
           "cs.js": 'require-cs/cs.js'
           "i18n.js": 'requirejs-i18n/i18n.js'
           "coffee-script.js": 'coffee-script/extras/coffee-script.js'
-          "notify.js": "notifyjs/dist/notify-combined.min.js"
+          "notify.js": "notifyjs/dist/notify.js"
           "bootstrap.js": "bootstrap/dist/js/bootstrap.js"
           "jquery.minicolors.js": "jquery-minicolors/jquery.minicolors.js"
           "jquery.jcrop.js": "jcrop/js/Jcrop.js"
@@ -182,11 +182,11 @@ module.exports = (grunt)->
           optimizeAllPluginResources: true,
           findNestedDependencies: true,
           stubModules: ['less', 'css', 'cs', 'coffee-script'],
-          modules: [{
-            name: 'config'
-            include: backend_modules
-            exclude: ['coffee-script', 'css', 'less']
-          }]
+          # modules: [{
+          #   name: 'config'
+          #   include: backend_modules
+          #   exclude: ['coffee-script', 'css', 'less']
+          # }]
           optimize : 'uglify2',
           shim:
             'jquery.tinymce':['jquery', 'tinymce']

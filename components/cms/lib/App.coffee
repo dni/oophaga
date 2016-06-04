@@ -2,11 +2,11 @@ define [
   'googlemaps!'
   'marionette'
   'cs!lib/view/AppLayoutView'
-  'socket.io/socket.io'
+  'io'
   'cs!lib/utilities/cookie'
   'jquery'
   'jquery.form'
-], (google, Marionette, AppLayout, configuration, io, cookie, $) ->
+], (google, Marionette, AppLayout, io, cookie, $) ->
 
   new Marionette.Application
 

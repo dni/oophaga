@@ -10,6 +10,7 @@ require.config({
     Router: '../lib/utilities/Router',
     Utils: '../lib/utilities/Utilities',
     tinymce: 'tinymce/tinymce',
+    io: '/socket.io/socket.io',
     'jquery.tinymce': 'tinymce/jquery.tinymce.min',
   },
   shim: {

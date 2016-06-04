@@ -13,7 +13,7 @@ module.exports = (cb)->
     mongoose.connection.once "open", ->
       cb?(config.port)
 
-    # io = require("socket.io") server
-    # io.on "connection", (socket)->
-    #   app.on "io", (eventname, args)->
-    #     socket.emit eventname, args
+    io = require("socket.io") server
+    io.on "connection", (socket)->
+      app.on "io", (eventname, args)->
+        socket.emit eventname, args
