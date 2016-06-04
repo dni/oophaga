@@ -1,7 +1,0 @@
-{
-  "port": 2011,
-  "dbname": "oophaga",
-  "secret": "oophaga(isla&colon%is_crazy",
-  "production": false,
-  "resetModuleConfig": true
-}

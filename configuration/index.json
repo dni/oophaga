@@ -2,6 +2,7 @@
   "port": 2011,
   "dbname": "oophaga",
   "secret": "oophaga(isla&colon%is_crazy",
+  "adminroute": "/",
   "production": false,
   "resetModuleConfig": true
 }

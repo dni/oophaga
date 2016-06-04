@@ -69,7 +69,6 @@ module.exports = (grunt)->
     clean:
       everything: src: [
         'bower_components'
-        'lib'
         'node_modules'
         'cache'
         'components/cms/vendor'
@@ -77,13 +76,10 @@ module.exports = (grunt)->
       ]
       reinstall: src: [
         'bower_components'
-        'lib'
         'cache'
         'components/cms/vendor'
         'public/files'
       ]
-      lib: src: [ 'lib' ]
-      mobile: src: [ 'components/cms_mobile/www/lib' ]
       build: src: [ 'cache/build' ]
       buildBackend: src: [ 'cache/build/cms' ]
       vendorBackend: src: [ 'components/cms/vendor' ]
@@ -244,7 +240,6 @@ module.exports = (grunt)->
     'bowercopy'
     'copy:tinymce' # translations for tinymce
     'copy:cms_mobile'
-    'clean:lib' #workaround ;()
     'less:development' # precompile less ;D
     'build'
   ]

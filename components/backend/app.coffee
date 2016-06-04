@@ -1,31 +1,11 @@
-express = require 'express.io'
+express = require 'express'
 mongoose = require "mongoose"
 fs = require 'fs'
-auth = require "./components/cms/lib/utilities/auth"
-app = require "./components/cms/lib/utilities/appserver"
+auth = require "./utilities/auth"
+app = require "./utilities/appserver"
+config = require "#{process.cwd()}/configurtion/index"
 
-module.exports = (config, cb)->
-
-  app.config = config
-
-  #admin route
-  app.get app.config.adminroute, auth, (req, res)->
-    app.user = req.user
-    dir = if config.production then '/cache/build/cms/' else '/components/cms/'
-    app.use '/', express.static process.cwd()+dir
-    res.sendfile "#{process.cwd()}#{dir}/index.html"
-
-  #load/setup components
-  componentsDir = __dirname+'/components/'
-  fs.readdir componentsDir, (err, files)->
-    if err then throw err
-    files.forEach (file)->
-      fs.lstat componentsDir+file, (err, stats)->
-        if !err && stats.isDirectory()
-          fs.exists componentsDir+file+'/server.coffee', (exists)->
-            if exists
-              component = require componentsDir+file+'/server.coffee'
-              component.setup app, config
+module.exports = (cb)->
 
   # start the server
   server = app.listen config.port, ->
@@ -33,4 +13,9 @@ module.exports = (config, cb)->
     server.on "close", ->
       mongoose.connection.close()
     mongoose.connection.once "open", ->
-      cb?()
+      cb?(config.port)
+
+    io = require("socket.io") server
+    io.on "connection", (socket)->
+      app.on "io", (eventname, args)->
+        socket.emit eventname, args

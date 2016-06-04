@@ -2,27 +2,38 @@ define [
   'googlemaps!'
   'marionette'
   'cs!lib/view/AppLayoutView'
-  'text!configuration'
-  'io'
+  'socket.io/socket.io'
+  'cs!lib/utilities/cookie'
   'jquery'
   'jquery.form'
-], (google, Marionette, AppLayout, configuration, io, $) ->
-  modules = JSON.parse(configuration).backend_modules
-  count = Object.keys(JSON.parse(configuration).backend_modules)
+], (google, Marionette, AppLayout, configuration, io, cookie, $) ->
 
   new Marionette.Application
 
-    modules: {}
+    count: 0
 
     init: ->
+      if cookie.read "token"
+        @initApp()
+      else
+        loginview = new LoginView
+        $('body').append loginview.render().el
+
+    initApp: ->
       @view = new AppLayout
       $('body').append @view.render().el
-      require modules, ->
-        modules = arguments
-        Object.keys(modules).forEach (key)->
-          module = modules[key]
-          module.init()
-
+      @NavItems = new Backbone.Collection
+      @Configs = new Backbone.Collection
+        url: "/api/config/"
+      @Configs.fetch
+        success:=>
+          @count = @Configs.models.length
+          modules = @Configs.map (config)->
+            config.get "path"
+          require modules, ->
+            loadedmodules = arguments
+            Object.keys(loadedmodules).forEach (key)->
+              loadedmodules[key].init()
 
     ready:(moduleName)->
       count.pop()
@@ -59,37 +70,37 @@ define [
         upload = $("#uploadFile")
         upload.ajaxForm (response) ->
         upload.submit()
+
     initSocket: ->
 
       @socket = io.connect()
 
-      @socket.on "message", (msg, type)->
+      @socket.on "message", (args)->
         msgType = "success"
-        msgType = "info" if type is "message"
-        msgType = "warn" if type is "delete"
-        $.notify msg,
+        msgType = "info" if args.type is "message"
+        msgType = "warn" if args.type is "delete"
+        $.notify args.msg,
           className: msgType
           position:"right bottom"
 
-      @socket.on "updateModel", (id, collectionName)=>
-        model = @[collectionName].get id
-        model.fetch dataType: "jsonp" unless model.hasChanged()
+      @socket.on "updateModel", (args)=>
+        model = @[args.collectionName].get args.id
+        if model
+          model.fetch dataType: "jsonp" unless model.hasChanged()
 
-      @socket.on "createModel", (model, collectionName)=>
-        @[collectionName].add model
+      @socket.on "createModel", (args)=>
+        @[args.collectionName].add args.model
 
-      @socket.on "destroyModel", (id, collectionName)=>
-        model = @[collectionName].remove id
+      @socket.on "destroyModel", (args)=>
+        model = @[args.collectionName].get args.id
+        if model
+          model.remove()
 
       @socket.on "disconnect", ->
-        # reload page for new login after server restarts/crashed
-        reload = -> document.location.reload()
-        setTimeout reload, 3000
+        console.log "socket disconnected"
 
       @socket.on "connect", ->
         console.log "socket connected"
-        # $.get "/user", (user)->
-        #   App.User = new Model user
 
       @socket.on "error", (err)->
-        console.log "SOCKET ERROR: " + err
+        console.log "socket err: #{err}"
