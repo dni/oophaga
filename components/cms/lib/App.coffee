@@ -2,11 +2,13 @@ define [
   'googlemaps!'
   'marionette'
   'cs!lib/view/AppLayoutView'
+  'cs!lib/view/LoginView'
+  'cs!lib/model/Collection'
   'io'
   'cs!lib/utilities/cookie'
   'jquery'
   'jquery.form'
-], (google, Marionette, AppLayout, io, cookie, $) ->
+], (google, Marionette, AppLayout, LoginView, Collection, io, cookie, $) ->
 
   new Marionette.Application
 
@@ -17,14 +19,14 @@ define [
         @initApp()
       else
         loginview = new LoginView
-        $('body').append loginview.render().el
+        $('body').html loginview.render().el
 
     initApp: ->
       @view = new AppLayout
-      $('body').append @view.render().el
+      $('body').html @view.render().el
       @NavItems = new Backbone.Collection
-      @Configs = new Backbone.Collection
-        url: "/api/config/"
+      @Configs = new Collection
+      @Configs.url = "/api/config/"
       @Configs.fetch
         success:=>
           @count = @Configs.models.length

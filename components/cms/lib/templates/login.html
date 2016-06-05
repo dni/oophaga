@@ -1,100 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>Oophaga Login</title>
-		<meta name="description" content="" />
-		<meta name="author" content="dni" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<style>
-			body {
-				background:#ddd;
-				color:#666;
-				font-family:Arial;
-			}
-			.container {
-				margin: 48px auto;
-				max-width: 340px;
-			}
-			input {
-				box-sizing: border-box;
-				width: 100%;
-				height: 34px;
-				padding: 6px 12px;
-				font-size: 14px;
-				line-height: 1.42857143;
-				color: #555555;
-				background-color: #ffffff;
-				background-image: none;
-				border: 1px solid #cccccc;
-				border-radius: 4px;
-			}
-			.userlogin{
-				box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
-				padding: 15px;
-				position: relative;
-				background:rgba(200,200,200, 0.9);
-				background: rgb(255,255,255); /* Old browsers */
-				background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(243,243,243,1) 50%, rgba(237,237,237,1) 51%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-				background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(243,243,243,1)), color-stop(51%,rgba(237,237,237,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-				background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-				background: -o-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-				background: -ms-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* IE10+ */
-				background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* W3C */
-			}
-			h1{
-				font-weight:normal;
-				margin-bottom:6px;
-				margin-top:0;
-				font-size:21px;
-			}
-
-			#app #login form>div {
-				width: 49%;
-				display: inline-block;
-			}
-			.thanks{
-				font-size: 12px;
-				text-align:center;
-				line-height:1.1;
-			}
-			a {
-				color:#666;
-				font-size:12px;
-				text-decoration:none;
-			}
-		</style>
-	</head>
-
-	<body>
-		<div id="app">
-			<div class="container">
-				<div class="userlogin">
-					<h1>Oophaga CMS Login</h1>
-					<div id="login">
-						<form id="loginform" role="form" action="/login" method="post">
-              <input type="hidden" class name="realurl" class="form-control" id="realurl" placeholder="url" value="url">
-
-              <div class="form-group"><span class="glyphicon glyphicon-user"></span>
-                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
-              </div>
-
-
-						  <div class="form-group"><span class="glyphicon glyphicon-lock"></span>
-						    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-						  </div>
-						  <input type="submit" style="position: absolute;top: -1337px;" />
-						</form>
-					</div>
-				</div>
-				<div class="thanks">
-					<p>Oophaga the simple Javascript CMS. See <a href="https://github.com/dni/oophaga">github</a> for documentation and bug reporting. IRC #dnilabs at freenode</p>
-				</div>
+<div class="userlogin">
+  <h1>Oophaga CMS Login</h1>
+  <div id="login">
+    <form id="loginform" role="form" action="/login" method="post">
+      <input type="hidden" class name="realurl" class="form-control" id="realurl" placeholder="url" value="url">
+      <div class="form-group"><span class="glyphicon glyphicon-user"></span>
+        <input type="text" name="username" class="form-control" id="username" placeholder="Username">
       </div>
-		</div>
-	</body>
-  <script>
-  window.onload = function(){ document.getElementById("loginform").action = location.href; }
-  </script>
-</html>
+      <div class="form-group"><span class="glyphicon glyphicon-lock"></span>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+      </div>
+      <input type="submit" style="position: absolute;top: -1337px;" />
+    </form>
+  </div>
+</div>
+<div class="thanks">
+  <p>Oophaga the simple Javascript CMS. See <a href="https://github.com/dni/oophaga">github</a> for documentation and bug reporting. IRC #dnilabs at freenode</p>
+</div>

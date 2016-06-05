@@ -9,17 +9,14 @@ define [
       @[key] = arg for key, arg of args
 
 
-    init:=>
-      return throw new Error "no module config" unless @Config?
-      return throw new Error "no module i18n" unless @i18n?
-      unless @Controller? then @Controller = Controller
+    init: =>
+      config = App.Configs.findWhere moduleName: @moduleName
 
-      if typeof @Config is "string"
-        @Config = JSON.parse @Config
+      # set default module controller class
+      @Controller = Controller unless @Controller?
 
-      config = @Config
-
-      App.modules[config.moduleName] = config
+      @Config = config
+      @i18n = require "i18n!nls/#{config.namespace}"
 
       @Controller = new @Controller
         i18n: @i18n
@@ -33,24 +30,24 @@ define [
       routes = @Controller.routes || {}
 
       # Standard Routes
-      routes[@Config.moduleName] = "defaultView"
+      routes[@Config.namespace] = "defaultView"
 
       if @Controller.controls.get "create"
-        routes[@Config.moduleName+'/new/'] = "add"
-        routes[@Config.moduleName+'/new/:relation'] = "add"
+        routes[@Config.namespace+'/new/'] = "add"
+        routes[@Config.namespace+'/new/:relation'] = "add"
 
-      routes[@Config.moduleName+'/filter/:filterId'] = "filter" if @Controller.controls.get "filter"
-      routes[@Config.moduleName+'/edit/:id'] = "edit"
-      routes[@Config.moduleName+'/show/:id'] = "show"
-      routes[@Config.moduleName+'/action/:action'] = "action"
+      routes[@Config.namespace+'/filter/:filterId'] = "filter" if @Controller.controls.get "filter"
+      routes[@Config.namespace+'/edit/:id'] = "edit"
+      routes[@Config.namespace+'/show/:id'] = "show"
+      routes[@Config.namespace+'/action/:action'] = "action"
 
       views = @Controller.controls.get "views"
       Object.keys(views).forEach (key)=>
-        href = "#{@Config.moduleName}/#{key}/"
+        href = "#{@Config.namespace}/#{key}/"
         routes[href] = key
 
       @Controller.controls.set
-        moduleName: @Config.moduleName
+        namespace: @Config.namespace
 
       Router.processAppRoutes @Controller, routes
 
@@ -58,21 +55,11 @@ define [
       # collection
       if @Config.collectionName
         App[@Config.collectionName] = new @Controller.Collection
-        App[@Config.collectionName].model = @Controller.Model.extend moduleName: @Config.moduleName
+        App[@Config.collectionName].model = @Controller.Model.extend namespace: @Config.namespace
         App[@Config.collectionName].url = @Config.url
         App[@Config.collectionName].fetch
           success:->
-            App.ready config.moduleName
-            App.vent.trigger config.moduleName+":collection:ready"
+            App.ready config.namespace
+            App.vent.trigger config.namespace+":collection:ready"
       else
-        App.ready @Config.moduleName
-
-
-      if config.settings
-        App.vent.trigger 'SettingsModule:translate', @i18n
-
-      if config.navigation
-        App.vent.trigger 'CmsModule:addNavItem',
-          navigation:config.navigation
-          route: config.moduleName
-        , @i18n
+        App.ready @Config.namespace
