@@ -12,7 +12,7 @@ define [
 
   new Marionette.Application
 
-    count: 0
+    count: 1337
 
     init: ->
       if cookie.read "token"
@@ -37,15 +37,16 @@ define [
             Object.keys(loadedmodules).forEach (key)->
               loadedmodules[key].init()
 
-    ready:(moduleName)->
-      count.pop()
-      if !count.length
+    ready:->
+      @count--
+      if @count is 0
         @startGeoTracking()
         @initUpload()
         @initSocket()
         @vent.trigger "ready"
 
     google: google
+
     position:
       coords:
         accuracy: 13976
@@ -58,7 +59,7 @@ define [
       timestamp: Date.now()
 
     startGeoTracking: ->
-      that = this
+      that = @
       if navigator.geolocation
         setInterval ->
           navigator.geolocation.getCurrentPosition (position)->
@@ -68,7 +69,6 @@ define [
 
     initUpload: ->
       $('#upload').change ->
-        console.log "change"
         upload = $("#uploadFile")
         upload.ajaxForm (response) ->
         upload.submit()
@@ -85,15 +85,15 @@ define [
           className: msgType
           position:"right bottom"
 
-      @socket.on "updateModel", (args)=>
+      @socket.on "update", (args)=>
         model = @[args.collectionName].get args.id
         if model
           model.fetch dataType: "jsonp" unless model.hasChanged()
 
-      @socket.on "createModel", (args)=>
+      @socket.on "create", (args)=>
         @[args.collectionName].add args.model
 
-      @socket.on "destroyModel", (args)=>
+      @socket.on "destroy", (args)=>
         model = @[args.collectionName].get args.id
         if model
           model.remove()

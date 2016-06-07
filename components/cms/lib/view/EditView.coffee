@@ -1,16 +1,14 @@
 define [
   'cs!App'
-  'i18n!lib/nls/language'
   'cs!lib/model/Collection'
-  'cs!Utils'
   'cs!Router'
   'marionette'
   'tpl!lib/templates/edit.html'
-  'cs!sysmodules/files/view/RelatedFileView'
+  'cs!sysmodules/file/view/RelatedFileView'
   'bootstrap-datetimepicker'
   'jquery.tinymce'
   'jquery.minicolors'
-], (App, i18n, Collection, Utils, Router, Marionette, Template, RelatedFileView, datetimepicker, tinymce, minicolors) ->
+], (App, Collection, Router, Marionette, Template, RelatedFileView, datetimepicker, tinymce, minicolors) ->
 
 
   #important for build
@@ -18,8 +16,6 @@ define [
 
   class EditView extends Marionette.LayoutView
     template: Template
-    templateHelpers: ->
-      vhs: _.extend Utils.Viewhelpers, config: @options.Config, Config: @options.Config, t: attributes: _.extend @options.i18n.attributes, i18n.attributes
     regions:
       relatedRegion: "#relations"
 

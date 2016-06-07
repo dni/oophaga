@@ -2,7 +2,9 @@ require.config({
   baseUrl: 'vendor',
   paths: {
     lib: '../lib',
+    nls: '../nls',
     utilities: '../lib/utilities',
+    Utils: '../lib/utilities/Utilities',
     modules: '../modules',
     sysmodules: '../sysmodules',
     App: "../lib/App",

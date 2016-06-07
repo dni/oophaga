@@ -4,15 +4,15 @@ define [
   'marionette'
   'tpl!../templates/list-item.html'
   'tpl!../templates/list.html'
-  'cs!Utils'
+  'cs!lib/utilities/Viewhelpers'
   'cs!Router'
-], (App, $, Marionette, Template, TemplateList, Utils, Router) ->
+], (App, $, Marionette, Template, TemplateList, vhs, Router) ->
   columns=[]
   class ListItemView extends Marionette.ItemView
     tagName: "tr"
     template: Template
     templateHelpers:->
-      vhs: _.extend Utils.Viewhelpers, config: @options.config
+      vhs: _.extend vhs, config: @options.config
       columns: columns
     events:
       "click .ok": "selectItem"

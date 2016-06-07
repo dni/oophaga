@@ -1,7 +1,7 @@
 define [
   'cs!lib/view/ListView'
   'cs!lib/controller/LayoutController'
-  'cs!sysmodules/files/view/RelatedFileView'
+  'cs!sysmodules/file/view/RelatedFileView'
 ],
 ( ListView, LayoutController, RelatedFileView) ->
 

@@ -21,6 +21,12 @@ app.use bodyParser.urlencoded extended: false
 app.use bodyParser.json()
 app.use passport.initialize()
 
+# initialize configs
+Object.keys(moduleconfig).forEach (key)->
+  models.config.findOne namespace: moduleconfig[key].namespace, (err, module)->
+    return if err or module # only if it doesnt exist
+    module = new models.config moduleconfig[key]
+    module.save()
 
 
 app.use "/api/", api

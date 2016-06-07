@@ -3,13 +3,12 @@ define [
   'cs!utilities/Utilities'
   'cs!lib/model/Collection'
   'cs!Router'
-  'i18n!../nls/language'
   'marionette'
   'tpl!../templates/related.html'
   'tpl!../templates/related-item.html'
   'cs!./BrowseView'
   'cs!./ShowFileView'
-], (App, Utilities, Collection, Router, i18n, Marionette, Template, ItemTemplate, BrowseView, ShowFileView) ->
+], (App, Utilities, Collection, Router, Marionette, Template, ItemTemplate, BrowseView, ShowFileView) ->
 
   class ItemView extends Marionette.ItemView
     template: ItemTemplate
@@ -26,8 +25,6 @@ define [
     ui:
       addFile: '.addFile'
 
-    templateHelpers:
-      t:i18n
     events:
       "click @ui.addFile": "add"
 

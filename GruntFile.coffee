@@ -149,6 +149,7 @@ module.exports = (grunt)->
           # style
           "style": "bootstrap/less"
           "style/boostrap.css": "bootstrap/dist/css/bootstrap.css"
+          "fonts": "bootstrap/dist/fonts"
           "style/.": "jcrop/css/*"
           "style/fullcalendar.css": 'fullcalendar/dist/fullcalendar.css'
           "style/jquery.minicolors.css": "jquery-minicolors/jquery.minicolors.css"

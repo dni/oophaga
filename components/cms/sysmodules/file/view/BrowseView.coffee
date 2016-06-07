@@ -1,7 +1,6 @@
 define [
   'cs!App'
   'cs!Router'
-  'text!../configuration.json'
   'cs!utilities/Utilities'
   'cs!lib/model/Model'
   'jquery'
@@ -9,7 +8,7 @@ define [
   'marionette'
   'tpl!../templates/browse.html'
   'tpl!../templates/browse-item.html'
-], (App, Router, Config, Utilities, Model, $, _, Marionette, Template, ItemTemplate) ->
+], (App, Router, Utilities, Model, $, _, Marionette, Template, ItemTemplate) ->
 
   class BrowseItemView extends Marionette.ItemView
     template: ItemTemplate
@@ -31,7 +30,6 @@ define [
     initialize: (args)->
       @model = args.model
       @multiple = args.multiple
-      @Config = JSON.parse Config
       @fieldrelation = args.fieldrelation
       @collection = Utilities.FilteredCollection App.Files
       @collection.filter (file) -> !file.get("parent")?

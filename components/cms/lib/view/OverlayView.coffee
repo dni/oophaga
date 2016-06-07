@@ -2,14 +2,12 @@ define [
   'jquery'
   'cs!App'
   'marionette'
-  'i18n!sysmodules/cms/nls/language'
   'tpl!lib/templates/overlay.html'
-], ($, App, Marionette, i18n, Template) ->
+], ($, App, Marionette, Template) ->
   class OverlayView extends Marionette.LayoutView
     className:"modal"
     template: Template
     templateHelpers: ->
-      t: i18n
 
     regions:
       childRegion: '.modal-content'

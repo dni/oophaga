@@ -4,9 +4,8 @@ define [
   'jquery'
   'fullcalendar'
   'marionette'
-  'cs!Utils'
   'cs!Router'
-], (App, Template, $, fullCalendar, Marionette, Utils, Router) ->
+], (App, Template, $, fullCalendar, Marionette, Router) ->
 
   class CalendarView extends Marionette.CompositeView
     className: "container"

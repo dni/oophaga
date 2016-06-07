@@ -5,8 +5,7 @@ define [
   'text!lib/templates/buttons.html'
   'text!lib/templates/value.html'
   'text!lib/templates/field.html'
-  'text!./meta-attributes.json'
-], (App, _, i18n, buttonTemplate, valueTemplate, fieldTemplate, metaAttributes) ->
+], (App, _, i18n, buttonTemplate, valueTemplate, fieldTemplate) ->
 
   Viewhelpers =
     getModel: (field)->
