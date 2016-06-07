@@ -1,5 +1,5 @@
 define [
-  'i18n!lib/nls/language'
+  'i18n!nls/lib'
 ],
 (i18n) ->
 

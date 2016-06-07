@@ -20,4 +20,4 @@ define [], ->
       return null
 
     delete: (name)->
-      @createCookie name,"",-1
+      @write name,"",-1

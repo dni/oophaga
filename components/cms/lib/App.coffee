@@ -7,8 +7,9 @@ define [
   'io'
   'cs!lib/utilities/cookie'
   'jquery'
+  'notify'
   'jquery.form'
-], (google, Marionette, AppLayout, LoginView, Collection, io, cookie, $) ->
+], (google, Marionette, AppLayout, LoginView, Collection, io, cookie, $, notify) ->
 
   new Marionette.Application
 
@@ -30,6 +31,7 @@ define [
       @Configs.fetch
         success:=>
           @count = @Configs.models.length
+          @SysConfig = @Configs.findWhere namespace: "config"
           modules = @Configs.map (config)->
             config.get "path"
           require modules, ->

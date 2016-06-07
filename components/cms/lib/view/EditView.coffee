@@ -1,14 +1,16 @@
 define [
   'cs!App'
   'cs!lib/model/Collection'
+  'cs!lib/utilities/Viewhelpers'
   'cs!Router'
   'marionette'
   'tpl!lib/templates/edit.html'
+  'i18n!nls/lib'
   'cs!sysmodules/file/view/RelatedFileView'
   'bootstrap-datetimepicker'
   'jquery.tinymce'
   'jquery.minicolors'
-], (App, Collection, Router, Marionette, Template, RelatedFileView, datetimepicker, tinymce, minicolors) ->
+], (App, Collection, vhs, Router, Marionette, Template, i18n, RelatedFileView, datetimepicker, tinymce, minicolors) ->
 
 
   #important for build
@@ -16,6 +18,9 @@ define [
 
   class EditView extends Marionette.LayoutView
     template: Template
+    templateHelpers: ->
+      vhs: _.extend vhs, Config: @options.Config, i18n: @options.i18n
+
     regions:
       relatedRegion: "#relations"
 
@@ -31,7 +36,7 @@ define [
 
 
     getFields:->
-      @options.Config.model
+      @options.Config.get "modelconfig"
 
     initUi: ->
       @ui = published: "[name=published]"
@@ -86,7 +91,7 @@ define [
       @model.setLocation [App.position.coords.latitude, App.position.coords.longitude]
       @model.set "published", @ui.published.prop("checked")
       if @model.isNew()
-        App[@options.Config.collectionName].create @model,
+        App[@options.Config.get "collectionName"].create @model,
           wait: true # related views
           success: (res) =>
             Router.navigate @model.getHref(), trigger:true

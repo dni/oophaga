@@ -12,7 +12,8 @@ define [
     tagName: "tr"
     template: Template
     templateHelpers:->
-      vhs: _.extend vhs, config: @options.config
+      i18n: @options.i18n or @i18n
+      vhs: _.extend vhs, Config: @options.config
       columns: columns
     events:
       "click .ok": "selectItem"
@@ -33,6 +34,7 @@ define [
     template: TemplateList
     events:
       "click th": "clickSort"
+    templateHelpers:->
     childViewContainer: 'tbody'
     childViewOptions: ->
       config: @options.config
@@ -66,5 +68,6 @@ define [
     templateHelpers:->
       i18n: @options.i18n or @i18n
       columns: columns
+      vhs: _.extend vhs, config: @options.config
 
   return ListView

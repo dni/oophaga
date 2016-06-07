@@ -6,25 +6,25 @@
 <div class="table-responsive">
   <h4>Data</h4>
   <table class="table table-striped">
-      <% vhs.foreachAttribute(obj, function(key, attribute){ %>
+      <% vhs.foreachAttribute(function(key){ %>
         <tr>
-          <td><b><%= key %>:</b></td>
-          <td> <%= vhs.renderValue(key, obj) %> </td>
+          <td><b><%= vhs.i18n.attributes[key] %>:</b></td>
+          <td> <%= vhs.renderValue(key, obj[key]) %> </td>
         </tr>
       <% }); %>
   </table>
   <h4>Metadata</h4>
   <table class="table table-striped">
-      <% vhs.foreachMetaAttribute(obj, function(key, attribute){ %>
+      <% vhs.foreachMetaAttribute(function(key){ %>
         <tr>
-          <td><b><%= key %>:</b></td>
-          <td> <%= vhs.renderValue(key, obj) %> </td>
+          <td><b><%= vhs.metai18n.attributes[key] %>:</b></td>
+          <td> <%= vhs.renderValue(key, obj[key]) %> </td>
         </tr>
       <% }); %>
   </table>
 </div>
 </div>
 <div class="modal-footer">
-  <a class="btn btn-primary" href="#<%= vhs.Config.moduleName %>/edit/<%= _id %>">Edit</a>
+  <a class="btn btn-primary" href="#<%= vhs.Config.namespace %>/edit/<%= _id %>">Edit</a>
 </div>
 

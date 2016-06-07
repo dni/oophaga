@@ -4,30 +4,30 @@
     <% if (attribute.type === "button") {  %>
       <a class="btn btn-primary" href="#<%= key %>" ><%= t.attributes[key] %></a>
     <% } else { %>
-      <label><%= t.attributes[key] %></label>
+      <label><%= attribute.label %></label>
     <% } %>
     <% if (attribute.type === "text") { %>
-    <input<%= elAttr(attribute) %> type="text" name="<%= key %>" class="form-control" value="<%= attribute.value %>" />
+    <input<%= elAttr(attribute) %> type="text" name="<%= key %>" class="form-control" value="<%= value %>" />
     <% } %>
 
     <% if (attribute.type === "password") { %>
-    <input<%= elAttr(attribute) %> type="password" name="<%= key %>" class="form-control" value="<%= attribute.value %>" />
+    <input<%= elAttr(attribute) %> type="password" name="<%= key %>" class="form-control" value="<%= value %>" />
     <% } %>
 
     <% if (attribute.type === "wysiwyg") { %>
-    <textarea <%= elAttr(attribute) %> name="<%= key %>" class="form-control wysiwyg"><%= attribute.value %></textarea>
+    <textarea <%= elAttr(attribute) %> name="<%= key %>" class="form-control wysiwyg"><%= value %></textarea>
     <% } %>
 
     <% if (attribute.type === "textarea") { %>
-    <textarea <%= elAttr(attribute) %> class="form-control" rows="4" name="<%= key %>" ><%= attribute.value %></textarea>
+    <textarea <%= elAttr(attribute) %> class="form-control" rows="4" name="<%= key %>" ><%= value %></textarea>
     <% } %>
 
     <% if (attribute.type === "checkbox") { %>
-    <input<%= elAttr(attribute) %> type="checkbox" class="form-control" value="1" <% if (attribute.value) {%> checked="checked" <% } %> name="<%= key %>" >
+    <input<%= elAttr(attribute) %> type="checkbox" class="form-control" value="1" <% if (value) {%> checked="checked" <% } %> name="<%= key %>" >
     <% } %>
 
     <% if (attribute.type === "range") { %>
-    <input<%= elAttr(attribute) %>  type="range" class="form-control range" step="<%= attribute.step %>" min="<%= attribute.min %>" max="<%= attribute.max %>" name="<%= key %>" value="<%= attribute.value %>">
+    <input<%= elAttr(attribute) %>  type="range" class="form-control range" step="<%= attribute.step %>" min="<%= attribute.min %>" max="<%= attribute.max %>" name="<%= key %>" value="<%= value %>">
     <% } %>
 
     <% if (attribute.type === "file") { %>
@@ -35,12 +35,12 @@
     <% } %>
 
     <% if (attribute.type === "color") { %>
-    <input<%= elAttr(attribute) %> type="text" class="form-control colorpicker" value="<%= attribute.value %>"  name="<%= key %>" >
+    <input<%= elAttr(attribute) %> type="text" class="form-control colorpicker" value="<%= value %>"  name="<%= key %>" >
     <% } %>
 
     <% if (attribute.type === "date") { %>
     <div class='input-group date datepicker'>
-      <input<%= elAttr(attribute) %>  type='text' class="form-control" value="<%= attribute.value %>"  name="<%= key %>"/>
+      <input<%= elAttr(attribute) %>  type='text' class="form-control" value="<%= value %>"  name="<%= key %>"/>
       <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
       </span>
     </div>
@@ -50,7 +50,7 @@
     <select<%= elAttr(attribute) %> class="form-control" name="<%= key %>" >
       <% var options = getOptions(attribute); %>
       <% for (option in options) { %>
-        <% if (attribute.value == option) { %>
+        <% if (value == option) { %>
           <option selected value="<%= option %>"><%= options[option] %></option>
         <% } else { %>
           <option value="<%= option %>"><%= options[option] %></option>

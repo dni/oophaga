@@ -1,10 +1,13 @@
 define [
   'cs!lib/controller/Controller'
-], (Controller) ->
+  'cs!lib/utilities/cookie'
+], (Controller, cookie) ->
   class UserController extends Controller
 
     routes:
-      "General": "logout"
+      "logout": "logout"
 
     logout: ->
-      if confirm @i18n.confirmLogout then window.location = window.location.origin + '/logout'
+      if confirm @i18n.confirmLogout
+        cookie.delete "token"
+        window.location = window.location.origin

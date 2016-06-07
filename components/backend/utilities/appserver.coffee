@@ -4,6 +4,8 @@ cms = require '../routes/cms'
 # upload = require '../routes/upload'
 
 config = require "#{process.cwd()}/configuration/index.json"
+metaconfig = require "#{process.cwd()}/configuration/metaAttributes.json"
+
 
 moduleconfig = require './config'
 models = require './models'
@@ -25,9 +27,11 @@ app.use passport.initialize()
 Object.keys(moduleconfig).forEach (key)->
   models.config.findOne namespace: moduleconfig[key].namespace, (err, module)->
     return if err or module # only if it doesnt exist
+    console.log "initialize #{key} config"
     module = new models.config moduleconfig[key]
+    if key is "config"
+      module.metaconfig = metaconfig
     module.save()
-
 
 app.use "/api/", api
 # app.use "/upload/", upload

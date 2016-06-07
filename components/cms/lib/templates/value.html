@@ -1,13 +1,7 @@
-<%
-  var model = config.model[column];
-  if (!model) { var model = metaAttributes[column]; }
-  var value = attributes[column];
-%>
-
 <% if (model.type == "color") { %>
   <span style="display:inline-block;width:16px;height:16px;border-radius:25px; background:<%= value %>;"></span>
 <% } else if (model.type == "date") { %>
-  <%= new Date(value).format(i18n.dateformat) %>
+  <%= new Date(value).format(dateformat) %>
 <% } else if (model.type == "checkbox") { %>
   <input disabled type="checkbox" value="1" <% if (value) { %> checked="checked" <% } %>>
 <% } else if (model.type == "select" && model.collection) { %>

@@ -4,4 +4,4 @@ define [
 ], (Module, Controller) ->
   new Module
     moduleName: "ExampleModule"
-    Controller: Controller
+    # Controller: Controller

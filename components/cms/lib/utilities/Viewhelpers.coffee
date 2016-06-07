@@ -1,13 +1,21 @@
 define [
   'cs!App'
   'underscore'
-  'i18n!lib/nls/language'
   'text!lib/templates/buttons.html'
   'text!lib/templates/value.html'
   'text!lib/templates/field.html'
-], (App, _, i18n, buttonTemplate, valueTemplate, fieldTemplate) ->
+  'i18n!nls/lib'
+], (App, _, buttonTemplate, valueTemplate, fieldTemplate, i18n) ->
+
+  metaconfig = {}
+  App.vent.on "ready", ->
+    metaconfig = App.SysConfig.get "metaconfig"
+
+  dateformat = i18n.dateformat
 
   Viewhelpers =
+    metai18n: i18n
+
     getModel: (field)->
       App[field.collection].findWhere _id: field.value
 
@@ -19,18 +27,18 @@ define [
       compiled = _.template buttonTemplate
       compiled _.extend i18n, "notpublishable": notpublishable
 
-    renderEdit: (id)->
-      compiled = _.template """
-      """
-      compiled _.extend i18n, moduleName: @Config.moduleName, id: id
-
-    renderValue: (column, attributes)->
+    renderValue: (key, value)->
+      model = @Config.get("modelconfig")[key]
+      model = App.SysConfig.attributes.metaconfig[key] if !model
       compiled = _.template valueTemplate
-      compiled _.extend @, i18n: i18n, column:column, attributes: attributes, config: @config, App: App, metaAttributes: JSON.parse metaAttributes
+      compiled _.extend @, dateformat: dateformat, model: model, value: value, config: @config, App: App
 
-    renderField: (key, attribute)->
+    renderField: (key, value)->
       compiled = _.template fieldTemplate
-      compiled _.extend @, key:key, attribute: attribute
+      attribute = @Config.get("modelconfig")[key]
+      attribute = App.SysConfig.attributes.metaconfig[key] if !attribute
+      attribute.label = @i18n.attributes[key] or @metai18n.attributes[key]
+      compiled _.extend @, attribute: attribute, key: key, value: value
 
     checkCondition: (condition)->
       @[condition]()
@@ -47,29 +55,11 @@ define [
         App[attribute.collection].forEach (model)->
           options[model.get("_id")] = model.get attribute.label
         return options
-      if attribute.setting
-        setting = App.Settings.findWhere title: @Config.moduleName
-        values = setting.get("fields")[attribute.setting].value.split(',')
-        for option in values
-          options[option.trim()] = option.trim()
-        return options
       return attribute.options
 
-    foreachAttribute: (model, cb)->
-      unless @Config.fields? # setting
-        for key of model.fields
-          cb key, model.fields[key]
-      else
-        for key in @Config.fields
-          field = @Config.model[key] or fields[key]
-          field.value = model[key]
-          cb key, field
+    foreachAttribute: (cb)->
+      fields = @Config.get "modelconfig"
+      Object.keys(fields).forEach cb
 
-    foreachMetaAttribute: (model, cb)->
-      fields = JSON.parse metaAttributes
-      Object.keys(fields).forEach (key)->
-        field = fields[key]
-        field.label = i18n[key]
-        field.value = model[key]
-        cb key, field
-
+    foreachMetaAttribute: (cb)->
+      Object.keys(metaconfig).forEach cb

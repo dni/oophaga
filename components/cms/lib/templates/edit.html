@@ -15,15 +15,15 @@
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="fields">
         <div class="form-fields">
-          <% vhs.foreachAttribute(obj, function(key, attribute){ %>
-            <%= vhs.renderField(key, attribute) %>
+          <% vhs.foreachAttribute(function(key){ %>
+            <%= vhs.renderField(key, obj[key]) %>
           <% }); %>
         </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="meta">
         <div class="form-fields">
-          <% vhs.foreachMetaAttribute(obj, function(key, attribute){ %>
-            <%= vhs.renderField(key, attribute) %>
+          <% vhs.foreachMetaAttribute(function(key){ %>
+            <%= vhs.renderField(key, obj[key]) %>
           <% }); %>
         </div>
       </div>

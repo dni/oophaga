@@ -80,18 +80,11 @@ define [
       fields= {}
       date = new Date
       model = new @Model
-      model.urlRoot = @Config.dbTable
-      model.collectionName = @Config.collectionName
-      model.moduleName = @Config.moduleName
-      Object.keys(@Config.model).forEach (key)=>
-        fields[key] = @Config.model[key].default or ""
+      model.urlRoot = @Config.get "dbTable"
+      model.collectionName = @Config.get "collectionName"
+      model.moduleName = @Config.get "moduleName"
       model.set
         relation: relation
-        published: false
-        date: date
-        crdate: date
-        fieldorder: @Config.fields
-      model.set fields
       return model
 
     action: (action) ->
@@ -104,7 +97,7 @@ define [
 
     edit: (id) ->
       @renderTopView() unless App.view.listTopRegion.currentView?
-      model = App[@Config.collectionName].findWhere _id: id
+      model = App[@Config.get "collectionName"].findWhere _id: id
       if model
         view = @getContentView model
       else
@@ -114,7 +107,7 @@ define [
 
     show: (id) ->
       @renderTopView() unless App.view.listTopRegion.currentView?
-      model = App[@Config.collectionName].findWhere _id: id
+      model = App[@Config.get "collectionName"].findWhere _id: id
       if model
         view = new @ShowView
           model: model
@@ -162,6 +155,6 @@ define [
       collection = @getCollection()
       App.view.contentRegion.show new @ListView
         collection: collection
-        columns: @Config.columns
+        columns: @Config.get "columns"
         i18n: @i18n
         config: @Config
