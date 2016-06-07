@@ -83,6 +83,7 @@ define [
       model.urlRoot = @Config.get "dbTable"
       model.collectionName = @Config.get "collectionName"
       model.moduleName = @Config.get "moduleName"
+      model.namespace = @Config.get "namespace"
       model.set
         relation: relation
       return model
