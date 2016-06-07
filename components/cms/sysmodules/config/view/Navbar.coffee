@@ -1,14 +1,23 @@
 define [
+  'cs!App'
   'marionette'
+  'tpl!../templates/nav-item.html'
   'tpl!../templates/navbar.html'
-  'cs!./NavigationView'
-], (Marionette, Template, NavigationView) ->
-  class LayoutView extends Marionette.LayoutView
-    template: Template
-    className: "container"
-    initialize: (args)->
-      @on "render", ->
-        @$el.find("#subnav").append (new NavigationView collection: args.subnavitems, className: "dropdown-menu").render().el
-        @$el.find("#navigation").prepend (new NavigationView collection: args.navitems, className: "nav navbar-nav").render().el
+], (App, Marionette, ItemTemplate, Template) ->
 
+  class NavItemView extends Marionette.ItemView
+    template: ItemTemplate
+    render:->
+      data = @serializeData()
+      html = Marionette.Renderer.render @template, data, @
+      if @model.get "sub"
+        $("#sysnav").append html
+      else
+        $("#mainnav").append html
+
+  class Navbar extends Marionette.CompositeView
+    template: Template
+    childView: NavItemView
+    collection: App.NavItems
+    className: "container"
 

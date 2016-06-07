@@ -10,7 +10,6 @@ define [
 
   # show navigation
   App.view.navigationRegion.show new Navbar
-    navitems: App.NavItems
 
   # overlay view
   App.view.overlayRegion.show new OverlayView

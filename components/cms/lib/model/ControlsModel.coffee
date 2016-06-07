@@ -20,6 +20,8 @@ define [
       group:false
       deleteAble:true
       importExport: true
+      label: ""
+      namespace: ""
 
 
     filterFunction: (model)=>

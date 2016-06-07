@@ -1,8 +1,8 @@
-<span><%= moduleName %></span>
+<span><%= label %></span>
 <div id="views" class="btn-group" role="group" aria-label="...">
   <% Object.keys(views).forEach(function(key){ var view = views[key]; %>
     <% if (activeView == key) { var active = "active";} else { var active = "" } %>
-    <a data-uid="<%= key %>" href="#<%= moduleName %>/<%= key %>/" class="view <%= active %> btn btn-default"><span class="glyphicon glyphicon-<%= view %>"></span></a>
+    <a data-uid="<%= key %>" href="#<%= namespace %>/<%= key %>/" class="view <%= active %> btn btn-default"><span class="glyphicon glyphicon-<%= view %>"></span></a>
   <%  }); %>
 </div>
 <% if (filter) { %>
@@ -16,12 +16,12 @@
       <% filters.forEach(function(filter){  %>
         <% if (activeFilters.indexOf(filter.get("_id")) == -1) { var active = "";} else { var active = "active" } %>
         <li class="<%= active %>">
-          <a class="filter" href="#<%= moduleName %>/filter/<%= filter.get("_id") %>"> <%= filter.getValue("title") %> </a>
+          <a class="filter" href="#<%= namespace %>/filter/<%= filter.get("_id") %>"> <%= filter.getValue("title") %> </a>
           <a href="#Filter/<%= filter.get('_id') %>" class="edit-filter"> <span class="glyphicon glyphicon-edit"></span> </a>
         </li>
         <%  }); %>
       <li class="divider"></li>
-      <li><a href="#FilterModule/new/<%= moduleName %>"><span class="glyphicon glyphicon-plus"></span> create new</a></li>
+      <li><a href="#FilterModule/new/<%= namespace %>"><span class="glyphicon glyphicon-plus"></span> create new</a></li>
     </ul>
   </div>
 </div>
@@ -44,11 +44,11 @@
 <!-- <button class="remove btn btn-default"><span class="glyphicon glyphicon-trash"></span></button> -->
 <% } %>
 <% if (create) { %>
-    <a class="create btn btn-default" href="#<%= moduleName %>/new/"><span class="glyphicon glyphicon-plus"></span></a>
+    <a class="create btn btn-default" href="#<%= namespace %>/new/"><span class="glyphicon glyphicon-plus"></span></a>
 <% } %>
 <% if (buttons.length > 0) { %>
     <% buttons.forEach(function(button){  %>
-      <a class="btn btn-default" href="#<%= moduleName %>/action/<%= button %>"><%= i18n[button] %></span></a>
+      <a class="btn btn-default" href="#<%= namespace %>/action/<%= button %>"><%= i18n[button] %></span></a>
     <% }); %>
 <% } %>
 <% if (importExport) { %>

@@ -39,7 +39,7 @@ define [
 
     getCollection: ->
       unless @FilteredCollection?
-        @FilteredCollection = Utilities.FilteredCollection App[@Config.collectionName]
+        @FilteredCollection = Utilities.FilteredCollection App[@Config.get "collectionName"]
         @FilteredCollection.filter @filterFunction
       @FilteredCollection
 
@@ -55,11 +55,9 @@ define [
       @FilteredCollection.filter @controls.filterFunction
 
     renderTopView:->
-      @controls.set "filters", App.Filters.where relation: @Config.moduleName
       @controls.on "change", @filterCollection
+      @cons
       @topview = new @TopView
-        i18n: @i18n
-        moduleName: @Config.moduleName
         model: @controls
       App.view.listTopRegion.show @topview
       @topview.on "export", @export

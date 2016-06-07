@@ -4,7 +4,7 @@
   "namespace": "message",
   "collectionName": "Messages",
   "path": "cs!sysmodules/message/MessageModule",
-  "url": "/api/messages/",
+  "url": "/api/message/",
   "urlRoot": "messages",
   "dbTable": "messages",
   "navigation": {

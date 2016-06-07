@@ -1,5 +1,6 @@
 define({
   "root": {
+    "navigation": "Config",
     "attributes": {
       "title": "Title",
       "backupDatabase": "Backup Database",

@@ -1,7 +1,7 @@
 <li>
-<% if (navigation.button) { %>
-<a href="#<%= route %>"><span class="glyphicon glyphicon-<%= navigation.button %>"></span> <%= label %></a>
+<% if (icon) { %>
+<a href="#<%= namespace %>"><span class="glyphicon glyphicon-<%= icon %>"></span> <%= label %></a>
 <% } else { %>
-<a class="<%= classNames %>" href="#<%= route %>"> <%= label %> </a>
+<a href="#<%= namespace %>"> <%= label %> </a>
 <% } %>
 </li>

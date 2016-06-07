@@ -5,9 +5,9 @@
   "namespace": "file",
   "collectionName": "Files",
   "path": "cs!sysmodules/file/FileModule",
-  "url": "/files/",
-  "urlRoot": "files",
+  "url": "/api/file/",
   "dbTable": "files",
+  "urlRoot": "files",
   "notpublishable":true,
   "controls": {
     "create": false

@@ -13,6 +13,7 @@ define [
       i18n: @options.i18n
 
     className: "container"
+
     events:
       "click .view": "setActive"
       "click .filter": "filter"
